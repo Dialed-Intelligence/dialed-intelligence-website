@@ -20,7 +20,7 @@ retired.
 | Repo | `Dialed-Intelligence/dialed-intelligence-website`, default branch `main`, no branch protection |
 | Stack | Next.js 16 App Router, React 19, Tailwind 4, TypeScript, static generation |
 | Hosting | Vercel project `dialed-intelligence-website` (team "Tyler's projects"), Git-connected |
-| Deploys | **Broken since the repo moved to the `Dialed-Intelligence` org.** The last deploy (2026-06-24) came from `tylerdial1818/dialed-intelligence-website`. The org repo has no Vercel webhook, and pushes produce no builds. Once reconnected, push to `main` deploys production and other branches get SSO-protected previews |
+| Deploys | Reconnected to the org repo on 2026-09-30. Push to `main` deploys production, and other branches get SSO-protected previews. A duplicate project, `dialed-intelligence-website-1lv2`, also builds each push and should be deleted |
 | Domains | `dialedintelligence.com` and `www.dialedintelligence.com`, both verified |
 | CI | `.github/workflows/agent-pr-check.yml` on PRs to main. Lint, typecheck, TruffleHog, build |
 | Health | `npm ci`, lint, typecheck, and build all pass locally (33 static routes) as of 2026-09-29 |

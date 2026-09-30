@@ -198,3 +198,17 @@ NEXT      | Tyler reviews the draft tab and the open items (service-page
           | Vercel to the org repo for previews. Lead photo, scheduler URL,
           | discovery fee amount. Then Phase 5 QA and launch PR.
 BLOCKERS  | Vercel Git connection (human)
+
+--- 2026-09-30 (launch QA) ---
+SESSION   | 2026-09-30 | orchestrator (Claude) | branch rebuild/fractional-ai
+COMPLETED | Vercel reconnected by Tyler, previews build from the org repo.
+          | Lighthouse pass and fixes (contrast via blue-2 for small text,
+          | contact LCP, font preload). Draft launch PR opened, #5.
+TESTS     | Quality Gates CI green. Vercel preview green. Redirects verified on
+          | the preview. Lighthouse mobile perf 96-99, a11y 100 (How it works
+          | 96, decorative numeral), SEO 100.
+NEXT      | Tyler: review draft copy tab, confirm Results and bio, decide on
+          | service-page metrics, test the form on the preview, delete the
+          | duplicate Vercel project dialed-intelligence-website-1lv2. Then
+          | mark PR #5 ready and merge (deploys production).
+BLOCKERS  | Tyler's copy sign-off
