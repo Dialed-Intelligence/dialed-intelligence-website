@@ -1,5 +1,12 @@
 # Dialed Intelligence Website
 
+> **Rebuild in progress (branch `rebuild/fractional-ai`).** The site is being
+> repositioned as a fractional AI strategy and AI engineering practice. The
+> design system stays. Read `docs/rebuild/technical-spec.md` first. Once
+> `docs/rebuild/copy-deck.md` exists it replaces the outline below as the
+> source of truth for copy, sitemap, and copy rules. Until then the rules
+> below still apply to the live site.
+
 ## Project Overview
 Marketing website for Dialed Intelligence, a firm that builds custom internal
 software (data systems, AI agents, automation) that clients own outright.

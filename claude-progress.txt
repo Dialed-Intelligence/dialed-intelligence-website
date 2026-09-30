@@ -1,5 +1,5 @@
 # Claude Agent Progress Log
-# Project: [PROJECT_NAME]
+# Project: dialed-intelligence-website
 #
 # Each agent appends an entry after every session. Format varies by agent role.
 # Examples below show what each agent type writes.
@@ -140,4 +140,19 @@ TESTS     | lint clean, typecheck clean, build green (OG prerenders with regular
           | Roboto / Extended requests, OG card regular Helvetica, no errors.
 NEXT      | Tyler review. Commit + PR when approved. Extended cut still available
           | in fonts-src if he ever wants to revisit it.
+BLOCKERS  | None
+
+--- 2026-09-29 ---
+SESSION   | 2026-09-29 | orchestrator (Claude) | branch rebuild/fractional-ai
+COMPLETED | Fresh clone into DI-Website-ms. Verified npm ci, lint, typecheck,
+          | build (33 routes). Confirmed Vercel wiring (push to main deploys
+          | prod, branches get SSO-protected previews, apex + www verified).
+          | Started the fractional AI strategy/engineering rebuild. Wrote
+          | docs/rebuild/technical-spec.md and copy-deck-template.md. Filled
+          | in init.sh. Added rebuild pointer to CLAUDE.md.
+FOUND     | Mobile menu containing-block bug from 2026-06-22 is still open.
+          | Outline doc referenced by CLAUDE.md is not on this machine.
+NEXT      | Phase 1 (content layer extraction, no visual change) can start
+          | now. Phases 3 and 4 wait on docs/rebuild/copy-deck.md from the
+          | strategy thread.
 BLOCKERS  | None

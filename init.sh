@@ -4,18 +4,19 @@
 
 set -e
 
-echo "=== Initializing [PROJECT_NAME] ==="
+echo "=== Initializing Dialed Intelligence website ==="
 
 if [ ! -f "CLAUDE.md" ]; then
   echo "ERROR: Not in project root. CLAUDE.md not found."
   exit 1
 fi
 
-# [STACK-SPECIFIC SETUP — populated by /dialedspec]
-
-# [DEV SERVER START — populated by /dialedspec]
+node -v
+[ -d node_modules ] || npm ci
 
 echo "=== Running smoke test ==="
-# [TEST_COMMAND]
+npm run lint
+npm run typecheck
+npm run build
 
-echo "=== Environment ready ==="
+echo "=== Environment ready. Dev server: npm run dev (http://localhost:3000) ==="
