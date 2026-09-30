@@ -8,7 +8,8 @@ the new strategy gets from the strategy thread into the code, and how it ships.
 Positioning, audience, offers, sitemap, and copy come from the **Dialed
 Intelligence Rebrand Spec** doc
 (https://claude.ai/code/artifact/27a44f53-8900-4356-b35e-81255356ba4b). That
-doc replaces the planned `copy-deck.md`.
+doc replaces the planned `copy-deck.md`, and `copy-deck-template.md` is
+retired.
 
 ---
 
@@ -49,26 +50,17 @@ route, `sitemap.xml`, `robots.txt`, `icon.svg`, branded 404.
 - `ServicePage` template fed by typed content in `src/lib/services/*.ts`.
 - OG image generator `src/lib/og.tsx` (Satori, Helvetica OTFs).
 
-### Problems to fix during the rebuild
+### Problems found at setup
 
-1. **Copy is hard-coded in page TSX.** The homepage alone is ~400 lines mixing
-   layout and strings. A messaging overhaul means touching every JSX file.
-2. **Copy source of truth is missing.** `CLAUDE.md` points at
-   `../dialed-intelligence-website-outline.md`, which is not on this machine.
-   The rebuild replaces it with a tracked `docs/rebuild/copy-deck.md`.
-3. **Mobile menu bug (still open).** The menu panel is `position: fixed` inside
-   a header with `backdrop-blur`, which makes the header its containing block,
-   so the panel collapses on mobile. Fix by rendering the panel outside the
-   blurred element (portal or sibling).
-4. **Stale scaffolding.** `init.sh` and the `claude-progress.txt` header still
-   carry template placeholders. `feature_list.json` acceptance criteria name
-   fonts that are no longer used. The `.claude/agents` set includes agents this
-   project does not need (data-engineer, prompt-engineer, infra-agent).
-5. **Binding copy rules encode the old positioning.** "Build it. You own it."
-   on every page, the ownership manifesto, and "no pricing" all need a decision
-   from the strategy thread (section 5).
-6. `public/` still holds the create-next-app SVGs (file, globe, next, vercel,
-   window). Unused, delete.
+| Problem | Status |
+|---|---|
+| Copy hard-coded in page TSX | Fixed in Phase 1 |
+| `CLAUDE.md` pointed at a missing outline doc as the copy source | Fixed. The Rebrand Spec doc is now the source |
+| Mobile menu collapsed to about 3px (backdrop-filter containing block) | Fixed in Phase 1 |
+| `init.sh` and progress log carried template placeholders | Fixed at setup |
+| Unused create-next-app SVGs in `public/` | Removed in Phase 1 |
+| `feature_list.json` acceptance criteria name fonts no longer used | Rewrite in Phase 3 with the new route list |
+| Unused agents in `.claude/agents` (data-engineer, prompt-engineer, infra-agent) | Leave. Harmless |
 
 ---
 
@@ -94,83 +86,88 @@ src/content/
   about.ts
   approach.ts
   contact.ts
-  ...              final list follows the sitemap in the copy deck
+  how-it-works.ts, results.ts   added in Phase 3
 ```
 
-Why: the strategy thread delivers copy as structured sections. With a content
-layer, dropping in new copy is a data edit, copy review can target one
-directory, and the copy-rules hook only needs to scan `src/content/` and
-`content/`.
+With a content layer, dropping in new copy is a data edit, copy review targets
+one directory, and the copy-rules hook scans `src/content/` and `content/`.
 
-This refactor can happen **before** the strategy lands. Phase 1 moves the
-current copy into content modules with zero visual change, verified by
-screenshot diff.
+### 2.3 Section components (built in Phase 1)
 
-### 2.3 Section components as the shared vocabulary
+Pages compose these from `src/components/sections/` and `bands.tsx`. All take
+content props.
 
-Pages are composed from a fixed set of section types. The copy deck is written
-in the same vocabulary, so each deck section maps to one component.
+| Component | Use |
+|---|---|
+| `Hero` | Home hero with proof line |
+| `Marquee` | Capability ticker |
+| `PathCards` | Four numbered options, last one on ink (the "problem" section) |
+| `LinkRows` | Numbered link rows that invert on hover |
+| `CaseCards` | Problem, build, result cards with optional metric |
+| `StatementBand` | Ink band with a two-line display headline |
+| `ProcessStrip` | Numbered steps, three to five per row |
+| `TextSection` | Eyebrow, headline, one paragraph |
+| `FaqSection` | Native details/summary FAQ |
+| `EditorialRow` | Sticky label left, long-form content right |
+| `StageBlock` | One engagement stage in depth, oversized numeral |
+| `ClosingCTA` | Lime closing band |
 
-| Section type | Component | Exists today |
+### 2.4 Information architecture (from the Rebrand Spec)
+
+Nav: How it works, What we deliver, Results, About, Insights, and the
+"Book a 45-minute call" button.
+
+| Route | Status | Built from |
 |---|---|---|
-| Hero | `Hero` (extract from home) | Inline in home |
-| Marquee | `Marquee` | Yes |
-| Section header + body | `SectionHeader` | Yes |
-| Card grid (2 to 5 cards) | `CardGrid` | Inline in home |
-| Numbered list rows | `IndexedRows` | Inline in home and services |
-| Process steps | `ProcessStrip` (make props-driven) | Yes, copy hard-coded |
-| Statement band (dark) | `StatementBand` (generalize `OwnershipBand`) | Partial |
-| Case study cards | `CaseCard` | Inline in home as draft vignettes |
-| Engagement tiers | `TierCards` | **New** |
-| Comparison table | `ComparisonTable` (e.g. fractional vs hire vs agency) | **New** |
-| FAQ | `FAQ` (native details/summary) | Inline in ownership |
-| Closing CTA | `ClosingCTA` | Yes |
+| `/` | Rewrite, ten sections | Existing components plus Quarter Plan exhibit and lead profile |
+| `/how-it-works` | New, replaces `/approach` | `StageBlock` or `ProcessStrip`, Quarter Plan anatomy, service standards, `#ownership` anchor, full FAQ |
+| `/services` (What we deliver) | Rewrite | Three `EditorialRow` sections (Strategy, Engineering, Your team) with deliverable lists, then `LinkRows` to the five systems |
+| `/services/[slug]` | Light edit | Same template. New intro line and a "Where it fits in a Quarter Plan" row |
+| `/results` | New | One page, one anchored `EditorialRow` block per case study. Home case cards link to `/results#<slug>` |
+| `/about` | Rewrite | Firm, lead profile with photo, how we choose clients |
+| `/contact` | Rewrite | New form fields, scheduler after the form, three next steps |
+| `/insights` | Keep | No change (see open decision 8) |
+| `/approach` | Retire | 308 to `/how-it-works` |
+| `/ownership` | Retire | 308 to `/how-it-works#ownership` |
 
-New components follow the existing tokens, type utilities, and `Reveal`
-behavior. No new colors or fonts.
+Redirects live in `next.config.ts` `redirects()`. `sitemap.ts`, nav, footer,
+and OG images follow the new route list.
 
-### 2.4 Information architecture and redirects
+### 2.5 Home, section by section
 
-The final sitemap comes from the copy deck. Default proposal for a fractional
-model, to react to:
+| # | Spec section | Component | Work |
+|---|---|---|---|
+| 1 | Hero | `Hero` | Make the blue emphasis clause optional |
+| 2 | Capability ticker | `Marquee` | Content only |
+| 3 | The problem | `PathCards` | Content only, same four-card shape |
+| 4 | What the role covers | **`NumberedGrid`** (new, generalizes the About principles grid to two or three columns) | New component |
+| 5 | The Quarter Plan | **`QuarterPlanExhibit`** (new) | The signature visual. A paper document on the page: header block (example client, quarter, "Example" stamp), month by month deliverables, scorecard measures, what we need from you. HTML and tokens only, no image |
+| 6 | From first call to handover | `ProcessStrip` | Five steps |
+| 7 | Results | `CaseCards` | Add an optional link per card |
+| 8 | Ownership | `StatementBand` | Make the points list optional |
+| 9 | Who you get | **`LeadProfile`** (new) | Photo via `next/image`, name, background list, link to About. Typographic fallback until the photo exists |
+| 10 | Closing | `FaqSection` plus `ClosingCTA` | Three-question FAQ, new CTA copy, footer tagline |
 
-| New route | Purpose | Replaces |
-|---|---|---|
-| `/` | Positioning, who it is for, offers, proof, CTA | `/` |
-| `/services` or `/engagements` | Fractional AI Strategy, Fractional AI Engineering, combined. Cadence, scope, what a month looks like | `/services` |
-| `/services/[slug]` | One page per offer, reusing the template | the five product pages |
-| `/work` | Case studies (promote the draft engagement vignettes) | new |
-| `/approach` | How a fractional engagement runs month to month | `/approach` |
-| `/about` | Founder and firm | `/about` |
-| `/insights` | Keep as is | `/insights` |
-| `/contact` | Keep, CTA and form | `/contact` |
+### 2.6 Contact form and API
 
-Every retired URL gets a permanent redirect in `next.config.ts` `redirects()`
-so existing links and search rankings carry over. Example: the five product
-pages redirect to the closest new offer page, `/ownership` to `/approach` or
-`/about` unless it survives.
+- Fields: name, email, company, role, annual revenue (select with $2M to $5M,
+  $5M to $10M, $10M to $25M, over $25M), and "what prompted you to reach out".
+  The spec omits email, but the form keeps it so we can reply.
+- `/api/contact` validates revenue against the fixed option list and adds role
+  and revenue to the notification email.
+- Scheduler embed moves below the form. It needs `NEXT_PUBLIC_SCHEDULER_URL`
+  pointed at a 45-minute event.
+- Rename the analytics event `cta_book_session` to `cta_book_call`.
 
-`sitemap.ts` and per-route OG images regenerate from the content modules.
+### 2.7 SEO and structured data
 
-### 2.5 Insights
-
-Keep the markdown pipeline. Review the three existing posts against the new
-positioning. Retire, rewrite, or keep each. Retired posts redirect to
-`/insights`.
-
-### 2.6 Contact and conversion
-
-Keep the form and API route. Candidates for the strategy thread to decide:
-new CTA label (replacing "Book a Working Session"), a qualifying field such as
-engagement type or company size, and whether the scheduler embed goes live
-(`NEXT_PUBLIC_SCHEDULER_URL`). Confirm that `RESEND_API_KEY`,
-`CONTACT_TO_EMAIL`, and `CONTACT_FROM_EMAIL` are set in Vercel production.
-
-### 2.7 SEO and metadata
-
-Per-page title and description live in the content modules. Add JSON-LD
-`Organization` and `ProfessionalService` on the root layout. Keep canonical
-URLs on the apex domain and confirm `www` redirects to it.
+- Default title "Dialed Intelligence | Fractional AI Leadership and
+  Engineering", plus the spec's meta description and OG text.
+- New `JsonLd` component. `Organization` and `ProfessionalService` on the root
+  layout, `FAQPage` on `/how-it-works` built from the same FAQ content module.
+- "fractional Chief AI Officer" appears only in the What we deliver intro, one
+  FAQ answer, and About, never in the hero.
+- Canonical on every route, including `/contact`, which has none today.
 
 ---
 
@@ -187,42 +184,68 @@ URLs on the apex domain and confirm `www` redirects to it.
 - **Verification per change.** `npm run lint`, `npm run typecheck`,
   `npm run build`, then screenshots of every changed route at 1440 and 390
   (`scripts/screenshot.mjs`) and a check in the preview browser.
-- **Copy guardrail.** Update `.claude/hooks/copy-rules-check.sh` to the new
-  rules once the deck defines them, and point it at `src/content/`.
+- **Copy guardrail.** `.claude/hooks/copy-rules-check.sh` scans `src/content/`.
+  Its rules switch to the Rebrand Spec in Phase 4.
 
 ---
 
 ## 4. Phases
 
-| Phase | Work | Blocked on strategy? |
+| Phase | Work | Blocked? |
 |---|---|---|
 | 0. Setup | Clone, verify build, confirm Vercel wiring, branch, this spec | Done |
-| 1. Content layer | Extract every page's copy into `src/content/`, extract section components, fix mobile menu, delete unused assets, fix `init.sh`. No visual change | Done 2026-09-29 |
-| 2. New components | `TierCards`, `ComparisonTable`, `CaseCard`, props-driven `ProcessStrip` and `StatementBand`, built against placeholder content | Partly (confirm which are needed) |
-| 3. IA and redirects | New routes, retire old ones, redirects, sitemap, nav | Yes, needs sitemap |
-| 4. Copy drop-in | Load the copy deck into content modules, update meta and OG, update copy rules and hook, update `CLAUDE.md` | Yes, needs copy deck |
-| 5. QA and launch | Copy review, a11y and contrast pass, Lighthouse, redirect check, form test on preview, PR to main | No |
+| 1. Content layer | Every page's copy in `src/content/`, section components extracted, mobile menu fixed, unused assets removed. Verified with an HTML and pixel diff | Done 2026-09-29 |
+| 2. New components | `QuarterPlanExhibit`, `NumberedGrid`, `LeadProfile`, `PageHeader`, `JsonLd`, the new form fields and API validation, plus small prop changes (optional hero emphasis, optional band points, linked case cards) | No. Built against the spec's draft copy |
+| 3. Routes and redirects | Add `/how-it-works` and `/results`, retire `/approach` and `/ownership` with 308s, new nav and footer, sitemap, OG images | No |
+| 4. Copy drop-in | Load the spec's copy into content modules. Remove fixed-price, no-subscription, and "Build it. You own it." language. Update the copy-rules hook and `CLAUDE.md` to the new rules | Partly. Needs the copy listed in section 5 |
+| 5. QA and launch | Copy review against the new rules, accessibility and contrast pass, Lighthouse, redirect checks, JSON-LD validation, form test on the preview with Resend, then one PR to `main` | Needs the photo and scheduler URL |
+
+Phases 2 and 3 can run in parallel. Phase 4 starts page by page as copy lands.
+
+### Copy rules hook, Phase 4 change
+
+Swap the banned list to the spec's "Words we avoid" (transform, unlock,
+leverage, harness, empower, seamless, robust, cutting-edge, state-of-the-art,
+revolutionize, game-changer, supercharge, next-level, journey, landscape,
+navigate, ecosystem, AI-powered, intelligent solutions, tailored solutions,
+elevate, delve, synergy, holistic). Add warnings for "employee", "hours",
+"days per week", and "not X, but Y" constructions. Drop the "Build it. You own
+it." on every page rule.
 
 ---
 
-## 5. Decisions needed from the strategy thread
+## 5. Copy still needed
 
-1. Final sitemap and nav labels.
-2. Offer structure: how many offers, names, what is in each, cadence
-   (retainer, sprint, hybrid).
-3. Pricing on the site or not. The current rules ban it. Fractional sites often
-   show a starting monthly rate.
-4. Does "Build it. You own it." and the ownership angle survive? If not, the
-   `/ownership` page, `OwnershipBand`, and copy rule 8 go.
-5. Primary CTA label and destination.
-6. Case studies: which, how named, which metrics are cleared to publish.
-7. Updated binding copy rules (keep the current list, edit, or replace).
-8. Voice: "we" as a firm, or first person as a fractional lead.
+The Rebrand Spec has final or draft copy for the home page, nav, CTA, FAQ, and
+SEO. The build also needs the copy below. I can draft any of it in the spec's
+voice for review.
 
-## 6. Open technical questions for Tyler
+| Page | Missing |
+|---|---|
+| How it works | Body copy per path step (what you get, what we need), Quarter Plan anatomy text, renewal and exit text, page header |
+| What we deliver | Five to six deliverables each for Strategy, Engineering, and Your team |
+| Service detail (five) | "Where it fits in a Quarter Plan" block for each. Retire the "Fixed price, fixed scope" label |
+| Results | Full write-ups of the three case studies, role held on each |
+| About | Two firm paragraphs, lead bio, how-we-choose-clients text |
+| Contact | Header subhead, "What happens next" three steps, form labels and messages |
+| All inner pages | Meta title, description, and OG text (the spec covers only the home page) |
 
-1. Where is `dialed-intelligence-website-outline.md`? Useful as reference for
-   the old copy, not required.
-2. Is the scheduler (Calendly or similar) ready to embed?
-3. Are the Resend env vars set in Vercel production today?
-4. OK to delete the merged `design/r5-brand-assets` branch on GitHub?
+## 6. Open decisions
+
+| # | Decision | Affects | My default |
+|---|---|---|---|
+| 1 | Renewal term, a second term of up to 3 months or a 6-month renewal. Your doc has an unanswered comment on this | Path step 4, FAQ | Up to 3 months, per the spec's recommendation |
+| 2 | Hero headline, recommended or alternative A or B | Home, OG | Recommended |
+| 3 | Discovery project fee, the exact number if shown | Path step 2 | Show it once you pick the number |
+| 4 | Lead photo | Home, About | Typographic fallback until it exists |
+| 5 | Results as one page with anchors, or a page per case | `/results` | One page |
+| 6 | Capacity statement | About | Include while true |
+| 7 | Email field on the form (the spec leaves it out) | Contact | Keep it |
+| 8 | Insights. The spec says no change, but "The ownership question" argues against subscriptions four times, which conflicts with a monthly fee | `/insights` | Light edit of that post |
+
+## 7. Open technical questions for Tyler
+
+1. Is a 45-minute scheduler event (Calendly or similar) ready to embed?
+2. Are the Resend env vars set in Vercel production today?
+3. OK to delete the merged `design/r5-brand-assets` branch on GitHub?
+4. Turn on branch protection for `main` (require the Quality Gates check)?
