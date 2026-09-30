@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { site } from "@/lib/site";
+import { defaultMeta, site, skipLinkLabel } from "@/content/site";
 import "./globals.css";
 
 // The R5 type system is self-hosted Helvetica in globals.css: Helvetica Neue LT
@@ -11,14 +11,12 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default:
-      "Dialed Intelligence | We find what is costing you most, then build the system that fixes it",
-    template: "%s | Dialed Intelligence",
+    default: defaultMeta.title,
+    template: defaultMeta.titleTemplate,
   },
-  description:
-    "Strategy and engineering in one firm. We diagnose the problem, build the AI that solves it, and hand it over. You own it outright.",
+  description: defaultMeta.description,
   openGraph: {
-    siteName: "Dialed Intelligence",
+    siteName: site.name,
     type: "website",
     locale: "en_US",
   },
@@ -46,7 +44,7 @@ export default function RootLayout({
           href="#main"
           className="label-mono-sm sr-only z-[100] rounded-[2px] bg-blue text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:px-4 focus:py-3"
         >
-          Skip to content
+          {skipLinkLabel}
         </a>
         <Header />
         <main id="main" className="flex-1">

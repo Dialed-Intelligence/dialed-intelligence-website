@@ -1,13 +1,10 @@
-import type { Metadata } from "next";
 import { LogoMark } from "@/components/logo";
 import { Container, Index } from "@/components/primitives";
 import { CTA, TextLink } from "@/components/cta";
+import { pageMetadata } from "@/lib/meta";
+import { meta, notFound } from "@/content/not-found";
 
-export const metadata: Metadata = {
-  title: "Page not found",
-  description:
-    "This page does not exist. The address may have changed, or it never shipped.",
-};
+export const metadata = pageMetadata(meta);
 
 export default function NotFound() {
   return (
@@ -19,14 +16,16 @@ export default function NotFound() {
       <Container className="relative py-32">
         <Index n="404" />
         <h1 id="not-found-title" className="display-hero mt-6 max-w-3xl">
-          This page does not exist.
+          {notFound.title}
         </h1>
         <p className="body-lg mt-8 max-w-xl text-ink/75">
-          The address may have changed, or it never shipped.
+          {notFound.body}
         </p>
         <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
-          <CTA href="/">Back to the home page</CTA>
-          <TextLink href="/contact">Start a conversation</TextLink>
+          <CTA href={notFound.primary.href}>{notFound.primary.label}</CTA>
+          <TextLink href={notFound.secondary.href}>
+            {notFound.secondary.label}
+          </TextLink>
         </div>
       </Container>
     </section>

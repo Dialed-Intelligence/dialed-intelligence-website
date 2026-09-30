@@ -1,12 +1,10 @@
 import { brandOgImage, ogSize } from "@/lib/og";
+import { og } from "@/content/ownership";
 
 export const size = ogSize;
 export const contentType = "image/png";
-export const alt = "The Dialed Intelligence ownership model. Build it. You own it.";
+export const alt = og.alt;
 
 export default async function Image() {
-  return brandOgImage({
-    eyebrow: "The Ownership Model",
-    title: "Build it. You own it.",
-  });
+  return brandOgImage({ eyebrow: og.eyebrow, title: og.title });
 }

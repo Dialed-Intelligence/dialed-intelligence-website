@@ -10,6 +10,7 @@ import {
 import { Container, Eyebrow } from "@/components/primitives";
 import { TextLink } from "@/components/cta";
 import { ClosingCTA } from "@/components/bands";
+import { post as labels } from "@/content/insights";
 
 export const dynamicParams = false;
 
@@ -53,7 +54,7 @@ export default async function InsightPostPage({
         <Container className="pb-24 pt-16 lg:pb-32 lg:pt-24">
           <article className="mx-auto max-w-2xl">
             <header>
-              <Eyebrow>Insights</Eyebrow>
+              <Eyebrow>{labels.eyebrow}</Eyebrow>
               <h1 id="post-title" className="display-1 mt-7">
                 {post.title}
               </h1>
@@ -66,7 +67,7 @@ export default async function InsightPostPage({
                 <span aria-hidden="true" className="text-[0.6rem] text-blue">
                   &#9670;
                 </span>
-                <span>By Dialed Intelligence</span>
+                <span>{labels.byline}</span>
               </div>
             </header>
             <div
@@ -74,7 +75,7 @@ export default async function InsightPostPage({
               dangerouslySetInnerHTML={{ __html: post.html }}
             />
             <footer className="mt-16 border-t border-ink/15 pt-8">
-              <TextLink href="/insights">All insights</TextLink>
+              <TextLink href="/insights">{labels.backLink}</TextLink>
             </footer>
           </article>
         </Container>

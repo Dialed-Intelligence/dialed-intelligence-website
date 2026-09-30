@@ -5,8 +5,10 @@ Branch: `rebuild/fractional-ai`.
 
 This covers the technical side of the rebuild: what stays, what changes, how
 the new strategy gets from the strategy thread into the code, and how it ships.
-Positioning, audience, offers, and copy come from the strategy thread and land
-in `docs/rebuild/copy-deck.md` (template in `copy-deck-template.md`).
+Positioning, audience, offers, sitemap, and copy come from the **Dialed
+Intelligence Rebrand Spec** doc
+(https://claude.ai/code/artifact/27a44f53-8900-4356-b35e-81255356ba4b). That
+doc replaces the planned `copy-deck.md`.
 
 ---
 
@@ -195,7 +197,7 @@ URLs on the apex domain and confirm `www` redirects to it.
 | Phase | Work | Blocked on strategy? |
 |---|---|---|
 | 0. Setup | Clone, verify build, confirm Vercel wiring, branch, this spec | Done |
-| 1. Content layer | Extract every page's copy into `src/content/`, extract section components, fix mobile menu, delete unused assets, fix `init.sh`. No visual change | No |
+| 1. Content layer | Extract every page's copy into `src/content/`, extract section components, fix mobile menu, delete unused assets, fix `init.sh`. No visual change | Done 2026-09-29 |
 | 2. New components | `TierCards`, `ComparisonTable`, `CaseCard`, props-driven `ProcessStrip` and `StatementBand`, built against placeholder content | Partly (confirm which are needed) |
 | 3. IA and redirects | New routes, retire old ones, redirects, sitemap, nav | Yes, needs sitemap |
 | 4. Copy drop-in | Load the copy deck into content modules, update meta and OG, update copy rules and hook, update `CLAUDE.md` | Yes, needs copy deck |

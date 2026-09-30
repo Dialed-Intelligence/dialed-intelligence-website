@@ -156,3 +156,24 @@ NEXT      | Phase 1 (content layer extraction, no visual change) can start
           | now. Phases 3 and 4 wait on docs/rebuild/copy-deck.md from the
           | strategy thread.
 BLOCKERS  | None
+
+--- 2026-09-29 (Phase 1) ---
+SESSION   | 2026-09-29 | orchestrator (Claude) | branch rebuild/fractional-ai
+COMPLETED | Phase 1, content layer. All rendered copy moved to typed modules in
+          | src/content/ (site, home, approach, ownership, about, services-hub,
+          | contact incl. form + scheduler, insights, not-found, services/).
+          | Section components extracted to src/components/sections/ (Hero,
+          | PathCards, LinkRows, CaseCards, TextSection, FaqSection,
+          | EditorialRow, StageBlock). StatementBand and ProcessStrip are now
+          | props-driven (ProcessStrip takes 3 to 5 steps). OG images and page
+          | metadata read from content via lib/meta.ts pageMetadata(). Mobile
+          | menu fixed (blur moved to its own layer). Unused create-next-app
+          | SVGs removed. Copy-rules hook now scans src/content.
+TESTS     | lint, typecheck, build green (33 routes). Rendered-HTML diff vs
+          | baseline on 14 routes: every text node identical, only the header
+          | blur layer and one about-page class changed. Pixel diff at 1440 and
+          | 390: glyph anti-aliasing only. Mobile menu opens 775px tall, closes
+          | on Escape.
+NEXT      | Phase 2 components (Quarter Plan exhibit, PageHeader, FiveStep path,
+          | revenue dropdown on the form) per docs/rebuild/technical-spec.md.
+BLOCKERS  | None

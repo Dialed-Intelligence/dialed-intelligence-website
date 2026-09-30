@@ -2,30 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { track } from "@vercel/analytics";
-import { site } from "@/lib/site";
+import { site } from "@/content/site";
+import { form as copy } from "@/content/contact";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-const copy = {
-  panelLabel: "Tell us in writing",
-  nameLabel: "Name",
-  companyLabel: "Company",
-  emailLabel: "Email",
-  messageLabel: "What is eating your team's time?",
-  submitIdle: "Send the problem over",
-  submitPending: "Sending",
-  successLabel: "Received",
-  success:
-    "Got it. We read every one of these and reply within two business days.",
-  failLead: "Something failed on our side. Email us at",
-  failTail: "and we will pick it up there.",
-  errors: {
-    name: "Tell us your name.",
-    emailMissing: "Add an email so we can reply.",
-    emailInvalid: "That email does not look right.",
-    message: "Give us a sentence about the problem.",
-  },
-};
 
 const inputClass =
   "w-full rounded-[2px] border border-ink/25 bg-white px-4 py-3.5 font-sans text-ink placeholder:text-ink/35";

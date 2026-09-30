@@ -1,15 +1,16 @@
 import { LogoMark } from "./logo";
 import { Container, Eyebrow } from "./primitives";
 import { CTA, TextLink } from "./cta";
-import { ctaHref, ctaLabel } from "@/lib/site";
+import { closingCta, ctaHref, ctaLabel } from "@/content/site";
+import type { StatementBandCopy, Step } from "@/content/types";
 
 /**
  * Closing CTA band. Lime, high contrast, used at the bottom of every page.
  */
 export function ClosingCTA({
-  eyebrow = "The first step",
-  title = "Bring us the question you can't answer.",
-  body = "The first hour is free, it is a working session rather than a sales call, and you will leave with something useful either way.",
+  eyebrow = closingCta.eyebrow,
+  title = closingCta.title,
+  body = closingCta.body,
   event = "cta_book_session",
 }: {
   eyebrow?: string;
@@ -46,20 +47,15 @@ export function ClosingCTA({
   );
 }
 
-// Handover durability, stated as features rather than buried. Answers the
-// "what happens when it breaks and you are gone" objection.
-const handoverPoints = [
-  "We hand it over documented and tested, not as a black box.",
-  "Your team gets the walkthrough and the docs to run it without us.",
-  "Support stays optional and never becomes a subscription you cannot leave.",
-];
-
 /**
- * The ownership brand moment. Full-width ink band.
+ * Statement band. Full-width ink, a two-line display headline with the second
+ * line in lime, supporting copy and points on the right.
  */
-export function OwnershipBand({
+export function StatementBand({
+  copy,
   showLink = true,
 }: {
+  copy: StatementBandCopy;
   showLink?: boolean;
 }) {
   return (
@@ -68,25 +64,21 @@ export function OwnershipBand({
         <div className="grid grid-cols-1 items-end gap-12 lg:grid-cols-[1.5fr_1fr]">
           <div>
             <Eyebrow dark lime>
-              The deal, in four words
+              {copy.eyebrow}
             </Eyebrow>
             <h2
               id="ownership-band-title"
               className="mt-7 font-display text-[clamp(3rem,8vw,7rem)] font-medium leading-[0.95] tracking-[-0.035em]"
             >
-              Build it.
+              {copy.titleLines[0]}
               <br />
-              <span className="text-lime">You own it.</span>
+              <span className="text-lime">{copy.titleLines[1]}</span>
             </h2>
           </div>
           <div className="max-w-md lg:justify-self-end">
-            <p className="body-lg text-paper/65">
-              No seats. No recurring license. No platform to learn. We build
-              the system, we hand you the keys, and we step back as far as you
-              want.
-            </p>
+            <p className="body-lg text-paper/65">{copy.body}</p>
             <ul className="mt-7 flex flex-col gap-3 border-t border-paper/20 pt-6">
-              {handoverPoints.map((point) => (
+              {copy.points.map((point) => (
                 <li key={point} className="flex items-baseline gap-3">
                   <span
                     aria-hidden="true"
@@ -96,10 +88,10 @@ export function OwnershipBand({
                 </li>
               ))}
             </ul>
-            {showLink && (
+            {showLink && copy.link && (
               <div className="mt-8">
-                <TextLink href="/ownership" dark>
-                  Why we work this way
+                <TextLink href={copy.link.href} dark>
+                  {copy.link.label}
                 </TextLink>
               </div>
             )}
@@ -110,36 +102,28 @@ export function OwnershipBand({
   );
 }
 
-const processSteps = [
-  {
-    title: "Working session",
-    duration: "One hour, free",
-    body: "A free hour where we name the single question worth the most to answer in your business. You leave with at least one useful observation whether or not we ever talk again.",
-  },
-  {
-    title: "Diagnostic",
-    duration: "One to two weeks",
-    body: "A short fixed-fee engagement built around one output, the expected return. We quantify the problem, set a fixed price and a timeline, and put the return you can expect on paper before you commit to a build.",
-  },
-  {
-    title: "Build",
-    duration: "Three to eight weeks",
-    body: "Fixed price, fixed scope. You see working software early and often, not a reveal at the end.",
-  },
-  {
-    title: "Handover and support",
-    duration: "Yours from day one",
-    body: "You own the delivered system. Optional support keeps it healthy without ever becoming a subscription you resent.",
-  },
-];
+// Full literal class names so Tailwind generates them.
+const processCols: Record<number, string> = {
+  3: "xl:grid-cols-3",
+  4: "xl:grid-cols-4",
+  5: "xl:grid-cols-5",
+};
 
 /**
- * The four-step engagement strip, used on Home and referenced site-wide.
+ * Numbered engagement strip. Three to five steps, one row on wide screens.
  */
-export function ProcessStrip({ dark = false }: { dark?: boolean }) {
+export function ProcessStrip({
+  steps,
+  dark = false,
+}: {
+  steps: Step[];
+  dark?: boolean;
+}) {
   return (
-    <ol className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
-      {processSteps.map((step, i) => (
+    <ol
+      className={`grid grid-cols-1 sm:grid-cols-2 ${processCols[steps.length] ?? "xl:grid-cols-4"}`}
+    >
+      {steps.map((step, i) => (
         <li
           key={step.title}
           className={`flex flex-col border-t px-0 py-8 sm:pr-8 xl:min-h-[300px] ${

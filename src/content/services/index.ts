@@ -6,6 +6,7 @@ import { inventory } from "./inventory";
 import { pricing } from "./pricing";
 
 export type { Service, ServiceBeat } from "./types";
+export { serviceLabels, serviceOg } from "./labels";
 
 /** Canonical ordering. Lead with the two vertical-agnostic spine offers. */
 export const services: Service[] = [

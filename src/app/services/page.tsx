@@ -1,28 +1,14 @@
-import type { Metadata } from "next";
-import { services } from "@/lib/services";
+import { services } from "@/content/services";
 import { Container, Eyebrow, Index } from "@/components/primitives";
 import { TextLink } from "@/components/cta";
 import { ClosingCTA } from "@/components/bands";
 import { Reveal } from "@/components/reveal";
+import { pageMetadata } from "@/lib/meta";
+import { architecture, header, list, meta } from "@/content/services-hub";
 
-export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "Five areas cover most of what we are asked to build. Every engagement starts from a named problem and ends with an AI system you own.",
-  alternates: { canonical: "/services" },
-};
+export const metadata = pageMetadata(meta);
 
-const intro =
-  "Every engagement starts from a named problem and ends with an AI system you own. These five areas cover most of what we are asked to build. If your problem does not fit neatly into one of them, that is usually a sign it is interesting. Bring it to a working session.";
-
-const architectureQuote =
-  "Most clients start with one painful workflow or one unanswerable question. The systems compound from there. Agents work better on unified data. Pricing works better with live inventory. Everything works better when you own the whole stack and nothing is fighting a vendor's API limits.";
-
-const diagramModules = [
-  "Operations automation",
-  "Inventory intelligence",
-  "Dynamic pricing",
-];
+const diagram = architecture.diagram;
 
 /**
  * Architecture sketch built from bordered blocks and hairlines only.
@@ -38,10 +24,10 @@ function ArchitectureDiagram() {
           <span className="flex items-center gap-3">
             <span aria-hidden="true" className="size-[7px] shrink-0 bg-blue" />
             <span className="label-mono-sm text-ink">
-              Your own automation platform
+              {diagram.chassis}
             </span>
           </span>
-          <span className="label-mono-sm text-ink/70">Driven by your team</span>
+          <span className="label-mono-sm text-ink/70">{diagram.chassisNote}</span>
         </div>
 
         {/* Connectors, chassis to modules */}
@@ -53,7 +39,7 @@ function ArchitectureDiagram() {
 
         {/* Modules */}
         <ul className="grid grid-cols-3 gap-2 sm:gap-3">
-          {diagramModules.map((label) => (
+          {diagram.modules.map((label) => (
             <li
               key={label}
               className="flex min-h-[104px] flex-col justify-between gap-4 rounded-[2px] border border-ink/20 bg-paper-2 p-3 sm:min-h-[120px] sm:p-4"
@@ -75,13 +61,13 @@ function ArchitectureDiagram() {
         <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 rounded-[2px] bg-ink px-4 py-5 text-paper sm:px-5">
           <span className="flex items-center gap-3">
             <span aria-hidden="true" className="size-[7px] shrink-0 bg-lime" />
-            <span className="label-mono-sm">Unified data systems</span>
+            <span className="label-mono-sm">{diagram.foundation}</span>
           </span>
-          <span className="label-mono-sm text-paper/60">The foundation</span>
+          <span className="label-mono-sm text-paper/60">{diagram.foundationNote}</span>
         </div>
       </div>
       <figcaption className="label-mono-sm mt-4 text-ink/70">
-        Every module reads from the same foundation, and you own every layer.
+        {diagram.caption}
       </figcaption>
     </figure>
   );
@@ -93,14 +79,14 @@ export default function ServicesPage() {
       {/* Header */}
       <section aria-labelledby="services-title">
         <Container className="pb-16 pt-16 lg:pb-20 lg:pt-24">
-          <Eyebrow>Services</Eyebrow>
+          <Eyebrow>{header.eyebrow}</Eyebrow>
           <h1
             id="services-title"
             className="mt-8 max-w-4xl font-display text-[clamp(2.4rem,5.4vw,4.75rem)] font-medium leading-[0.97] tracking-[-0.035em] text-balance"
           >
-            Every system here starts as a question worth answering.
+            {header.title}
           </h1>
-          <p className="body-lg mt-8 max-w-2xl text-ink/75">{intro}</p>
+          <p className="body-lg mt-8 max-w-2xl text-ink/75">{header.intro}</p>
         </Container>
       </section>
 
@@ -109,13 +95,12 @@ export default function ServicesPage() {
         <Container className="py-24 lg:py-32">
           <div className="grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-20">
             <Reveal>
-              <Eyebrow>How the systems fit</Eyebrow>
+              <Eyebrow>{architecture.eyebrow}</Eyebrow>
               <h2 id="architecture-title" className="display-2 mt-6 max-w-xl">
-                The data system is the foundation. Everything else compounds on
-                top of it.
+                {architecture.title}
               </h2>
               <p className="body-lg mt-6 max-w-xl text-ink/70">
-                {architectureQuote}
+                {architecture.body}
               </p>
             </Reveal>
             <Reveal delay={100}>
@@ -129,9 +114,9 @@ export default function ServicesPage() {
       <section aria-labelledby="service-list-title" className="border-t border-ink/15">
         <Container className="py-24 lg:py-32">
           <Reveal>
-            <Eyebrow>Five service areas</Eyebrow>
+            <Eyebrow>{list.eyebrow}</Eyebrow>
             <h2 id="service-list-title" className="display-1 mt-5 max-w-3xl">
-              Each one answers a question that costs you money
+              {list.title}
             </h2>
           </Reveal>
           <div className="mt-14 border-t border-ink/20">
@@ -147,7 +132,8 @@ export default function ServicesPage() {
                       {service.title}
                     </h3>
                     <p className="label-mono-sm mt-4 text-ink/70">
-                      Typical engagement {service.engagement.duration.toLowerCase()}
+                      {list.durationPrefix}{" "}
+                      {service.engagement.duration.toLowerCase()}
                     </p>
                   </div>
                   <div>
@@ -159,7 +145,7 @@ export default function ServicesPage() {
                     </p>
                     <div className="mt-6">
                       <TextLink href={`/services/${service.slug}`}>
-                        Read the full picture
+                        {list.linkLabel}
                       </TextLink>
                     </div>
                   </div>

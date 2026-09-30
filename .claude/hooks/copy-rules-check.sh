@@ -16,7 +16,7 @@ FILE_PATH=$(echo "$INPUT" | jq -r '.tool_response.filePath // .tool_input.file_p
 
 # Only police files that contain rendered site copy
 case "$FILE_PATH" in
-  */src/app/*.tsx|*/src/components/*.tsx|*/content/*.md|*/content/*.mdx) ;;
+  */src/app/*.tsx|*/src/components/*.tsx|*/src/content/*.ts|*/content/*.md|*/content/*.mdx) ;;
   *) exit 0 ;;
 esac
 

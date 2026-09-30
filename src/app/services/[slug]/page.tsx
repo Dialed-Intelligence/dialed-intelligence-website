@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { services, getService } from "@/lib/services";
+import { services, getService } from "@/content/services";
 import { ServicePage } from "@/components/service-page";
 
 export const dynamicParams = false;

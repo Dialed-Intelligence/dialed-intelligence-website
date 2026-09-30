@@ -1,12 +1,10 @@
 import { brandOgImage, ogSize } from "@/lib/og";
+import { og } from "@/content/contact";
 
 export const size = ogSize;
 export const contentType = "image/png";
-export const alt = "Start a conversation with Dialed Intelligence. Bring us the problem.";
+export const alt = og.alt;
 
 export default async function Image() {
-  return brandOgImage({
-    eyebrow: "Start a conversation",
-    title: "Bring us the problem.",
-  });
+  return brandOgImage({ eyebrow: og.eyebrow, title: og.title });
 }

@@ -1,11 +1,13 @@
 # Dialed Intelligence Website
 
 > **Rebuild in progress (branch `rebuild/fractional-ai`).** The site is being
-> repositioned as a fractional AI strategy and AI engineering practice. The
-> design system stays. Read `docs/rebuild/technical-spec.md` first. Once
-> `docs/rebuild/copy-deck.md` exists it replaces the outline below as the
-> source of truth for copy, sitemap, and copy rules. Until then the rules
-> below still apply to the live site.
+> repositioned as a fractional AI leadership and engineering practice. The
+> design system stays. The source of truth for positioning, sitemap, copy, and
+> the new copy rules is the **Dialed Intelligence Rebrand Spec** doc
+> (https://claude.ai/code/artifact/27a44f53-8900-4356-b35e-81255356ba4b, read
+> it with the Claude Docs connector). The build plan is
+> `docs/rebuild/technical-spec.md`. Until the Phase 4 copy drop-in lands, the
+> old rules below still describe the live site.
 
 ## Project Overview
 Marketing website for Dialed Intelligence, a firm that builds custom internal
@@ -29,9 +31,11 @@ copy that contradicts it.
 - Hosting: Vercel (dialedintelligence.com)
 
 ## Directory Structure
-- src/app/          routes (App Router) — one folder per page in the sitemap
-- src/components/   shared components (CTA block, ownership band, process strip, service page template)
-- src/lib/          utilities, markdown loading for insights
+- src/app/          routes (App Router) — one folder per page. Pages compose sections, they hold no copy
+- src/content/      ALL rendered copy, one typed module per page (+ site.ts for nav, CTA, footer, bands, services/ for the service pages). Edit copy here
+- src/components/   shared chrome and bands (ClosingCTA, StatementBand, ProcessStrip, Marquee), service page template
+- src/components/sections/  reusable page sections (Hero, PathCards, LinkRows, CaseCards, TextSection, FaqSection, EditorialRow, StageBlock)
+- src/lib/          utilities (pageMetadata, OG image, markdown loading for insights)
 - content/insights/ markdown posts for /insights
 - public/           static assets, OG images
 - .claude/          agent configuration (DO NOT modify during development sessions)

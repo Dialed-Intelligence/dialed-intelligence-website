@@ -5,7 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { track } from "@vercel/analytics";
 import { Wordmark } from "./logo";
-import { nav, ctaHref, ctaLabel } from "@/lib/site";
+import {
+  nav,
+  ctaHref,
+  ctaLabel,
+  footer,
+  header as copy,
+  site,
+} from "@/content/site";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -28,17 +35,24 @@ export function Header() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink/12 bg-paper/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-ink/12">
+      {/* The blur lives on its own layer. A backdrop-filter on the header
+          itself would make it the containing block for the fixed mobile
+          menu below, collapsing the menu to the header's height. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-paper/85 backdrop-blur-md"
+      />
       <div className="mx-auto flex w-full max-w-[1320px] items-center justify-between gap-8 px-5 py-4 sm:px-8 lg:px-10">
         <Link
           href="/"
           className="text-ink transition-colors hover:text-blue"
-          aria-label="Dialed Intelligence home"
+          aria-label={footer.homeLabel}
         >
           <Wordmark markWidth={32} />
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
+        <nav aria-label={copy.primaryNav} className="hidden items-center gap-8 lg:flex">
           {nav.map((item) => (
             <Link
               key={item.href}
@@ -70,7 +84,7 @@ export function Header() {
           aria-controls="mobile-menu"
           className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] lg:hidden"
         >
-          <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+          <span className="sr-only">{open ? copy.closeMenu : copy.openMenu}</span>
           <span
             aria-hidden="true"
             className={`block h-[2px] w-6 bg-ink transition-transform duration-200 ${
@@ -92,7 +106,7 @@ export function Header() {
           className="fixed inset-x-0 bottom-0 top-[69px] z-40 overflow-y-auto bg-ink text-paper lg:hidden"
         >
           <nav
-            aria-label="Mobile"
+            aria-label={copy.mobileNav}
             className="flex min-h-full flex-col px-5 pb-10 pt-8 sm:px-8"
           >
             <div className="flex flex-col">
@@ -132,7 +146,7 @@ export function Header() {
                 </span>
               </Link>
               <p className="label-mono-sm mt-8 text-paper/65">
-                Build it. You own it.
+                {site.brandLine}
               </p>
             </div>
           </nav>

@@ -1,14 +1,10 @@
 import { brandOgImage, ogSize } from "@/lib/og";
+import { og } from "@/content/approach";
 
 export const size = ogSize;
 export const contentType = "image/png";
-export const alt =
-  "How Dialed Intelligence works. A process designed so you can stop at any point and still be glad you started.";
+export const alt = og.alt;
 
 export default async function Image() {
-  return brandOgImage({
-    eyebrow: "How we work",
-    title:
-      "A process designed so you can stop at any point and still be glad you started.",
-  });
+  return brandOgImage({ eyebrow: og.eyebrow, title: og.title });
 }

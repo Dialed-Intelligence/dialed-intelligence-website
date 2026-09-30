@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import fs from "node:fs";
 import path from "node:path";
-import { services } from "@/lib/services";
+import { services } from "@/content/services";
 
 const BASE_URL = "https://dialedintelligence.com";
 
