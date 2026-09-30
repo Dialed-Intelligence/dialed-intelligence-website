@@ -26,7 +26,7 @@ export function CTA({
   href: string;
   variant?: Variant;
   children: React.ReactNode;
-  /** Analytics event name, e.g. "cta_book_session" */
+  /** Analytics event name, e.g. "cta_book_call" */
   event?: string;
   arrow?: boolean;
   className?: string;

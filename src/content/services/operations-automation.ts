@@ -2,7 +2,6 @@ import type { Service } from "./types";
 
 export const operationsAutomation: Service = {
   slug: "operations-automation",
-  index: 1,
   title: "Operations Automation",
   eyebrow: "Operations Automation",
   headline:
@@ -23,7 +22,7 @@ export const operationsAutomation: Service = {
   ],
   get: [
     "A named process that used to consume a person's day now runs itself, with a human approving exceptions. You see the before and after in hours per week.",
-    "And the system that does it belongs to you. The agents, the integrations, the audit trail. Build it, you own it, and nothing about it ever shows up as a per-seat line item.",
+    "The system that does it belongs to you. The agents, the integrations, and the audit trail sit in your accounts, documented for the people who run them.",
   ],
   practice: {
     intro:
@@ -45,6 +44,6 @@ export const operationsAutomation: Service = {
   },
   engagement: {
     duration: "Three to five weeks",
-    body: "A single workflow is the natural starting point and typically ships in three to five weeks. Most clients add a second and third workflow once the first one proves itself.",
+    body: "Often the first system in a first quarter. One workflow goes live in the first month, and a second or third follows once the first proves itself. The scorecard tracks time and error rates on each named process.",
   },
 };

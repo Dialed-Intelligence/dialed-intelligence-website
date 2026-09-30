@@ -2,7 +2,6 @@ import type { Service } from "./types";
 
 export const dataSystems: Service = {
   slug: "data-systems",
-  index: 2,
   title: "Unified Data Systems",
   eyebrow: "Unified Data Systems",
   headline:
@@ -15,7 +14,7 @@ export const dataSystems: Service = {
     "We unify your point of sale, accounting, and spreadsheets into one system you own. Ask your business plain-English questions and trust the answers.",
   problem: [
     "Your data is real and it already exists. It just lives in five places that do not talk to each other. The point of sale, the accounting system, a folder of spreadsheets, the e-commerce platform, a supplier's emailed price lists. Answering a basic question about your own business means someone spends a day in Excel, and by the time the answer arrives, the question has changed.",
-    "This is not a data problem in the abstract. It is an \"I cannot see my own business\" problem.",
+    "The real problem is simpler. You cannot see your own business.",
   ],
   build: [
     "We unify everything you already have into a single system you own. Underneath, the work is unglamorous and we are proud of that. Extraction from every source, reconciliation so that a customer is the same customer everywhere, and tie-out against your accounting so the numbers are trustworthy before anyone queries them. On top sits a semantic layer that lets you ask plain-English questions and get honest answers instantly.",
@@ -23,7 +22,7 @@ export const dataSystems: Service = {
   ],
   get: [
     "One place where your business is visible, queryable, and correct. A foundation that makes every future automation, forecast, and pricing decision better.",
-    "And an asset on your side of the ledger rather than a subscription on ours. The pipelines, the warehouse, the semantic layer. Build it, you own it, and nobody ever meters your access to your own numbers.",
+    "And an asset on your side of the ledger. The pipelines, the warehouse, and the semantic layer run in your accounts, and nobody meters your access to your own numbers.",
   ],
   practice: {
     intro:
@@ -45,6 +44,6 @@ export const dataSystems: Service = {
   },
   engagement: {
     duration: "Five to eight weeks",
-    body: "Five to eight weeks for most companies in our range, driven mostly by how many source systems we are unifying and how messy they are. This is the foundation our other systems build on, so many clients start here or arrive here after a first automation proves the model.",
+    body: "Usually a first-quarter foundation. Sources come together over the first two months, with a leadership report running by the end of the quarter. Forecasting, pricing, and agents build on it in later quarters.",
   },
 };

@@ -7,8 +7,8 @@ export interface HeroCopy {
   eyebrow: string;
   /** Headline lead, rendered in ink. */
   title: string;
-  /** Closing clause, rendered in blue italic after the lead. */
-  titleEmphasis: string;
+  /** Optional closing clause, rendered in blue italic after the lead. */
+  titleEmphasis?: string;
   subhead: string;
   primaryCta: LinkCopy & { event: string };
   secondaryLink: LinkCopy;
@@ -28,8 +28,13 @@ export function Hero({ copy }: { copy: HeroCopy }) {
               id="hero-title"
               className="font-display text-[clamp(2.6rem,6.4vw,5.5rem)] font-medium leading-[0.97] tracking-[-0.035em] text-balance"
             >
-              {copy.title}{" "}
-              <em className="text-blue">{copy.titleEmphasis}</em>
+              {copy.title}
+              {copy.titleEmphasis && (
+                <>
+                  {" "}
+                  <em className="text-blue">{copy.titleEmphasis}</em>
+                </>
+              )}
             </h1>
             <p className="body-lg mt-8 max-w-xl text-ink/75">{copy.subhead}</p>
             <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">

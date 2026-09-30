@@ -2,14 +2,13 @@ import type { Service } from "./types";
 
 export const inventory: Service = {
   slug: "inventory",
-  index: 4,
   title: "Inventory Intelligence",
   eyebrow: "Inventory Intelligence",
   headline:
     "Your bestsellers should never run out and your cash should never sleep on a shelf.",
   problemStatement:
     "Your bestsellers run out while cash sits trapped in inventory that has not moved in a year.",
-  card: "Reorder logic built around how your business actually works, not a template.",
+  card: "Reorder logic built around how your business actually works.",
   metaTitle: "Inventory Intelligence",
   metaDescription:
     "Reorder signals you can trust, with deterministic math and a human approving every purchase. Fewer stockouts, cash recovered from dead stock, owned by you.",
@@ -18,12 +17,12 @@ export const inventory: Service = {
     "The cost shows up in two places you watch closely, lost sales and trapped cash, which is why this is often the easiest system to justify on numbers alone.",
   ],
   build: [
-    "Honest framing matters here. If your inventory needs are standard, capable off-the-shelf tools exist and we will tell you so in the diagnostic. We build custom inventory systems when the situation is genuinely non-standard. Multi-channel setups that confuse template software, unusual supplier constraints and lead times, perishability, kitting and assembly, reorder logic that reflects how your business actually buys.",
+    "Honest framing matters here. If your inventory needs are standard, capable off-the-shelf tools exist and we will tell you so in the discovery project. We build custom inventory systems when the situation is genuinely non-standard. Multi-channel setups that confuse template software, unusual supplier constraints and lead times, perishability, kitting and assembly, reorder logic that reflects how your business actually buys.",
     "The math underneath is classical and proven, forecasting plus reorder points plus safety stock, kept fully deterministic with a human approving every purchase decision. AI surfaces the anomalies and sharpens the forecasts. It never spends your money.",
   ],
   get: [
     "Reorder signals you trust, fewer stockouts on the products that matter, and capital recovered from dead stock. A clear before-and-after on numbers you already track.",
-    "And the system behind those signals belongs to you. The forecasts, the reorder logic, the data pipeline. Build it, you own it, and it never turns into another subscription on your books.",
+    "The system behind those signals belongs to you. The forecasts, the reorder logic, and the data pipeline run in your accounts, documented for your team.",
   ],
   practice: {
     intro:
@@ -45,6 +44,6 @@ export const inventory: Service = {
   },
   engagement: {
     duration: "Three to six weeks",
-    body: "Three to six weeks standalone. Faster and stronger as a module on a unified data system, since clean sell-through and lead-time data is most of the battle.",
+    body: "Often a late first-quarter or second-term system, since it works best on unified sales and lead-time data. The scorecard tracks stockouts on top products and cash tied up in slow stock.",
   },
 };

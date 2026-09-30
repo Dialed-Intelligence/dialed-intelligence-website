@@ -1,4 +1,5 @@
 import { Container, Index, SectionHeader } from "@/components/primitives";
+import { TextLink } from "@/components/cta";
 import { Reveal } from "@/components/reveal";
 import type { Faq, SectionIntro } from "@/content/types";
 
@@ -8,19 +9,27 @@ export function FaqSection({
   intro,
   items,
   className = "",
+  anchor,
 }: {
   id: string;
+  /** Section id for in-page links, e.g. "faq". */
+  anchor?: string;
   intro: SectionIntro;
   items: Faq[];
   className?: string;
 }) {
   return (
-    <section aria-labelledby={id} className={className}>
+    <section id={anchor} aria-labelledby={id} className={`scroll-mt-20 ${className}`}>
       <Container className="py-24 lg:py-32">
         <Reveal>
           <SectionHeader
             eyebrow={intro.eyebrow}
             title={<span id={id}>{intro.title}</span>}
+            right={
+              intro.link && (
+                <TextLink href={intro.link.href}>{intro.link.label}</TextLink>
+              )
+            }
           />
         </Reveal>
         <div className="mt-14 border-b border-ink/20">

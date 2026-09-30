@@ -1,5 +1,5 @@
 import { brandOgImage, ogSize } from "@/lib/og";
-import { og } from "@/content/approach";
+import { og } from "@/content/results";
 
 export const size = ogSize;
 export const contentType = "image/png";

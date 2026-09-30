@@ -5,8 +5,6 @@ export interface ServiceBeat {
 
 export interface Service {
   slug: string;
-  /** 1-based position in the canonical ordering */
-  index: number;
   title: string;
   eyebrow: string;
   /** Problem-first display headline. Sentence case. No colons or semicolons. */
@@ -30,8 +28,9 @@ export interface Service {
     beats: ServiceBeat[];
   };
   engagement: {
-    /** Short duration line for the stat, e.g. "Three to five weeks" */
+    /** Typical build time, e.g. "Three to five weeks" */
     duration: string;
+    /** Where the system fits in a Quarter Plan. */
     body: string;
   };
 }

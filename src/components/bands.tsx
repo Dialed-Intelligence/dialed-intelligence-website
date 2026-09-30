@@ -11,7 +11,7 @@ export function ClosingCTA({
   eyebrow = closingCta.eyebrow,
   title = closingCta.title,
   body = closingCta.body,
-  event = "cta_book_session",
+  event = "cta_book_call",
 }: {
   eyebrow?: string;
   title?: string;
@@ -53,13 +53,20 @@ export function ClosingCTA({
  */
 export function StatementBand({
   copy,
+  id,
   showLink = true,
 }: {
   copy: StatementBandCopy;
+  /** Section id, for in-page anchors such as #ownership. */
+  id?: string;
   showLink?: boolean;
 }) {
   return (
-    <section aria-labelledby="ownership-band-title" className="bg-ink text-paper">
+    <section
+      id={id}
+      aria-labelledby="ownership-band-title"
+      className="scroll-mt-20 bg-ink text-paper"
+    >
       <Container className="py-24 lg:py-36">
         <div className="grid grid-cols-1 items-end gap-12 lg:grid-cols-[1.5fr_1fr]">
           <div>
@@ -77,6 +84,7 @@ export function StatementBand({
           </div>
           <div className="max-w-md lg:justify-self-end">
             <p className="body-lg text-paper/65">{copy.body}</p>
+            {copy.points && copy.points.length > 0 && (
             <ul className="mt-7 flex flex-col gap-3 border-t border-paper/20 pt-6">
               {copy.points.map((point) => (
                 <li key={point} className="flex items-baseline gap-3">
@@ -88,6 +96,7 @@ export function StatementBand({
                 </li>
               ))}
             </ul>
+            )}
             {showLink && copy.link && (
               <div className="mt-8">
                 <TextLink href={copy.link.href} dark>

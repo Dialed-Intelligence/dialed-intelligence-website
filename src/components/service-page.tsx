@@ -22,8 +22,7 @@ export function ServicePage({ service }: { service: Service }) {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <Eyebrow>{service.eyebrow}</Eyebrow>
             <span className="label-mono-sm text-ink/70">
-              {L.counter} {String(service.index).padStart(2, "0")} {L.of}{" "}
-              {String(serviceNav.length).padStart(2, "0")}
+              {L.aside}
             </span>
           </div>
           <h1
@@ -33,7 +32,7 @@ export function ServicePage({ service }: { service: Service }) {
             {service.headline}
           </h1>
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
-            <CTA href={ctaHref} event="cta_book_session">
+            <CTA href={ctaHref} event="cta_book_call">
               {ctaLabel}
             </CTA>
             <span className="label-mono-sm text-ink/70">

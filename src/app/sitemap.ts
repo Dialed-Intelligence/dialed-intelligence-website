@@ -2,8 +2,9 @@ import type { MetadataRoute } from "next";
 import fs from "node:fs";
 import path from "node:path";
 import { services } from "@/content/services";
+import { site } from "@/content/site";
 
-const BASE_URL = "https://dialedintelligence.com";
+const BASE_URL = site.url;
 
 /**
  * Insights posts are discovered from markdown filenames directly so this
@@ -42,16 +43,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     })),
     {
-      url: `${BASE_URL}/ownership`,
+      url: `${BASE_URL}/how-it-works`,
+      lastModified,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/results`,
       lastModified,
       changeFrequency: "monthly",
       priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/approach`,
-      lastModified,
-      changeFrequency: "monthly",
-      priority: 0.7,
     },
     {
       url: `${BASE_URL}/about`,

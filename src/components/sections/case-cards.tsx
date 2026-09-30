@@ -1,6 +1,10 @@
+import Link from "next/link";
 import { Container, SectionHeader } from "@/components/primitives";
+import { TextLink } from "@/components/cta";
 import { Reveal } from "@/components/reveal";
 import type { CaseLabels, CaseStudy, SectionIntro } from "@/content/types";
+
+const resultsHref = "/results";
 
 /**
  * Three-up case study cards in problem, build, result format. The optional
@@ -25,6 +29,11 @@ export function CaseCards({
           <SectionHeader
             eyebrow={intro.eyebrow}
             title={<span id={id}>{intro.title}</span>}
+            right={
+              intro.link && (
+                <TextLink href={intro.link.href}>{intro.link.label}</TextLink>
+              )
+            }
           />
         </Reveal>
         <div className="mt-14 grid grid-cols-1 gap-5 lg:grid-cols-3">
@@ -54,6 +63,18 @@ export function CaseCards({
                   <span className="text-ink">{labels.outcome} </span>
                   {v.outcome}
                 </p>
+                {labels.more && (
+                  <Link
+                    href={`${resultsHref}#${v.slug}`}
+                    className="label-mono-sm mt-auto inline-flex items-center gap-2 pt-8 text-ink transition-colors hover:text-blue"
+                  >
+                    {labels.more}
+                    <span aria-hidden="true" className="font-sans">
+                      &#8599;
+                    </span>
+                    <span className="sr-only">, {v.client}</span>
+                  </Link>
+                )}
               </article>
             </Reveal>
           ))}

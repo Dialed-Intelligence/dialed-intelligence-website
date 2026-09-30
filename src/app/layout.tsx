@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { defaultMeta, site, skipLinkLabel } from "@/content/site";
+import { defaultMeta, orgJsonLd, site, skipLinkLabel } from "@/content/site";
+import { JsonLd } from "@/components/json-ld";
 import "./globals.css";
 
 // The R5 type system is self-hosted Helvetica in globals.css: Helvetica Neue LT
@@ -46,6 +47,7 @@ export default function RootLayout({
         >
           {skipLinkLabel}
         </a>
+        <JsonLd data={orgJsonLd} />
         <Header />
         <main id="main" className="flex-1">
           {children}

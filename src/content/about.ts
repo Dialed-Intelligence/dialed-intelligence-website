@@ -1,60 +1,98 @@
+import type { LeadCopy } from "@/components/sections/lead-profile";
 import type { OgCopy, PageMeta, SectionIntro, TitledText } from "./types";
+
+// DRAFT copy for review. Structure follows the Rebrand Spec, "Inner pages,
+// About". The lead bio needs Tyler's confirmation.
 
 export const meta: PageMeta = {
   title: "About",
   description:
-    "The firm behind Dialed Intelligence. We quantify the problem like an economist, scope it like a banker, and ship it like an engineer.",
+    "Dialed Intelligence is a fractional AI leadership and engineering firm led by Tyler Dial. Who leads the work, how we work, and how we choose clients.",
   canonical: "/about",
 };
 
 export const og: OgCopy = {
   eyebrow: "About",
-  title: "Built by people who measure before they build.",
-  alt: "About Dialed Intelligence. Built by people who measure before they build.",
+  title: "A small firm with a senior lead in every seat.",
+  alt: "About Dialed Intelligence. A small firm with a senior lead in every seat.",
 };
 
 export const header = {
-  eyebrow: "About the firm",
-  title: "Built by people who measure before they build.",
+  eyebrow: "About",
+  title: "A small firm with a senior lead in every seat.",
 };
 
-export const story = {
-  label: "Where we come from",
-  // Outline section 3.6, the firm's story, verbatim.
+export const firm = {
+  label: "The firm",
   paragraphs: [
-    "Dialed Intelligence was founded on a specific frustration. The people best at diagnosing business problems rarely build anything, and the people building software rarely sit with the business problem long enough to understand it. The interesting work, and the real value, lives in the gap.",
-    "Our background spans econometrics and causal inference, investment banking, management consulting for research organizations and private equity portfolio companies, and production AI engineering. That combination is the firm's method in miniature. Quantify the problem like an economist, scope it like a banker, and ship it like an engineer.",
-    "We build with modern AI where it genuinely helps and with boring, proven methods where those are honestly better. Clients hire us for the judgment to know which is which.",
+    "Dialed Intelligence is a fractional AI leadership and engineering firm based in Chicago. We work with owner-led and PE-backed businesses between $2M and $25M in revenue. They know AI matters, and nobody in house owns it.",
+    "We join your team for a defined term, set the AI strategy, build the systems, and hand them to your people. The firm stays small on purpose. The person who writes your plan builds it.",
   ],
 };
 
-export const principlesIntro: SectionIntro = {
-  eyebrow: "Principles",
-  title: "Four principles, applied to every build",
+export const lead: LeadCopy = {
+  eyebrow: "The lead",
+  title: "The person in the seat.",
+  name: "Tyler Dial",
+  roleTitle: "Founder and AI lead",
+  body: "Tyler founded Dialed Intelligence and leads every engagement, from the first call to handover.",
+  backgroundLabel: "Background",
+  background: [
+    "Econometrics and NBER research",
+    "Investment banking",
+    "Management consulting",
+    "Production AI engineering",
+  ],
+  photoAlt: "Tyler Dial, founder of Dialed Intelligence",
 };
 
-// Outline section 3.6, principles, verbatim.
+export const leadExtra = [
+  "Tyler's work spans econometrics and NBER research, investment banking, management consulting for research organizations and private equity portfolio companies, and production AI engineering. That mix is the method. Measure the problem like an economist, scope it like a banker, and build it like an engineer.",
+  "Recent work includes multi-agent systems, unified data platforms, and automation for organizations from research consultancies to PE-backed operators.",
+];
+
+export const principlesIntro: SectionIntro = {
+  eyebrow: "How we work",
+  title: "Four principles behind every Quarter Plan",
+};
+
 export const principles: TitledText[] = [
   {
     title: "Measurement before machinery.",
-    body: "If we cannot quantify the problem, we are not ready to build the system.",
+    body: "If we cannot measure the problem, we are not ready to build the system.",
   },
   {
     title: "Deterministic where it counts.",
-    body: "AI reads, drafts, and forecasts. Humans and explicit rules decide and spend.",
+    body: "AI reads, drafts, and forecasts. People and explicit rules decide and spend.",
   },
   {
     title: "Honest scoping.",
-    body: "If off-the-shelf software solves your problem, the diagnostic will tell you to buy it.",
+    body: "If off-the-shelf software solves your problem, the discovery project will tell you to buy it.",
   },
   {
     title: "Ownership without asterisks.",
-    body: "What we ship is yours, and the contract says so in plain language.",
+    body: "What we build is yours, and the contract says so in plain language.",
   },
 ];
 
-export const firm = {
-  eyebrow: "The firm",
-  title: "Small by design, deep by necessity.",
-  body: "Dialed Intelligence stays deliberately small so the people who diagnose your problem are the people who build the solution. Nothing gets lost in a handoff between a strategy team and a delivery team, because there is no handoff. You work with the firm from the first question to the running system.",
+// The capacity line stays only while it holds true (Rebrand Spec, open
+// decisions).
+export const clientsIntro: SectionIntro = {
+  eyebrow: "How we choose clients",
+  title: "We work with a limited number of clients at a time.",
 };
+
+export const clientCriteria: TitledText[] = [
+  {
+    title: "$2M to $25M in revenue.",
+    body: "Large enough for AI to pay off. Small enough that one senior lead changes the trajectory.",
+  },
+  {
+    title: "An executive sponsor.",
+    body: "An owner or executive who will sponsor the work and sign the Quarter Plan.",
+  },
+  {
+    title: "A short client list.",
+    body: "We keep it short so every client works with the lead directly.",
+  },
+];

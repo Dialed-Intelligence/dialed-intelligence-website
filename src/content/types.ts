@@ -54,7 +54,11 @@ export interface LinkCard {
 }
 
 export interface CaseStudy {
+  /** Anchor on /results. */
+  slug: string;
   client: string;
+  /** The role we held, e.g. "Strategy and engineering". */
+  role: string;
   problem: string;
   system: string;
   outcome: string;
@@ -67,6 +71,16 @@ export interface CaseLabels {
   problem: string;
   system: string;
   outcome: string;
+  /** Link text to the full write-up. Omit to render cards without links. */
+  more?: string;
+}
+
+/** A case study with its full write-up for /results. */
+export interface CaseStudyFull extends CaseStudy {
+  context: string[];
+  build: string[];
+  result: string[];
+  owns: string;
 }
 
 export interface ClosingCtaCopy {
@@ -80,6 +94,14 @@ export interface StatementBandCopy {
   /** Rendered as two lines, the second in the accent color. */
   titleLines: [string, string];
   body: string;
-  points: string[];
+  points?: string[];
   link?: LinkCopy;
+}
+
+/** A group of concrete deliverables, e.g. the Strategy part of the role. */
+export interface DeliverableGroup {
+  id: string;
+  title: string;
+  summary: string;
+  items: string[];
 }

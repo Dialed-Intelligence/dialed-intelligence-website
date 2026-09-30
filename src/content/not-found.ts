@@ -15,5 +15,5 @@ export const notFound: {
   title: "This page does not exist.",
   body: "The address may have changed, or it never shipped.",
   primary: { label: "Back to the home page", href: "/" },
-  secondary: { label: "Start a conversation", href: "/contact" },
+  secondary: { label: "Book a 45-minute call", href: "/contact" },
 };

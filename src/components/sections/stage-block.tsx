@@ -8,15 +8,18 @@ export interface Stage {
   body: string;
   walkAway: string;
   duration: string;
+  /** What we need from the client at this step. */
+  needs?: string;
 }
 
 export interface StageLabels {
-  /** e.g. "Stage", rendered as "Stage 01 of 04" */
+  /** e.g. "Step", rendered as "Step 01 of 05" */
   stage: string;
   of: string;
   whatHappens: string;
   walkAway: string;
   duration: string;
+  needs?: string;
   /** Mono label shown under the name on the dark variant. */
   darkTag: string;
 }
@@ -88,7 +91,9 @@ export function StageBlock({
                 {stage.body}
               </p>
               <dl
-                className={`mt-10 grid grid-cols-1 gap-x-12 gap-y-8 border-t pt-7 sm:grid-cols-2 ${hairline}`}
+                className={`mt-10 grid grid-cols-1 gap-x-12 gap-y-8 border-t pt-7 sm:grid-cols-2 ${
+                  stage.needs ? "xl:grid-cols-3 xl:gap-x-10" : ""
+                } ${hairline}`}
               >
                 <div>
                   <dt className={`label-mono-sm ${muted}`}>{labels.walkAway}</dt>
@@ -102,6 +107,14 @@ export function StageBlock({
                     {stage.duration}
                   </dd>
                 </div>
+                {stage.needs && labels.needs && (
+                  <div>
+                    <dt className={`label-mono-sm ${muted}`}>{labels.needs}</dt>
+                    <dd className="mt-3 font-display text-lg font-medium leading-snug tracking-tight">
+                      {stage.needs}
+                    </dd>
+                  </div>
+                )}
               </dl>
             </div>
           </div>

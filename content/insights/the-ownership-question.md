@@ -22,7 +22,7 @@ There is a ceiling on what rented tools can do for your business, and somebody e
 
 ## What the other ending looks like
 
-Custom internal software used to be something only enterprises could justify. That has changed. A focused system, a reorder engine, a unified reporting layer, an automation that clears twenty hours a week of manual rekeying, can now be diagnosed, built, and handed over in weeks rather than quarters. The economics now work at $5M in revenue as well as at $500M.
+Custom internal software used to be something only enterprises could justify. That has changed. A focused system, a reorder engine, a unified reporting layer, an automation that clears twenty hours a week of manual rekeying, can now be scoped, built, and handed over within a quarter or two. The economics now work at $5M in revenue as well as at $500M.
 
 And the ending is different in kind. When the build is done you hold the code, the data, the documentation, and the infrastructure. Run it for a decade without ever calling the firm that built it. Hire any developer you like to extend it. Audit every line of it. Have your accountant treat it the way she treats the forklift and the warehouse racking, as an asset you own rather than a service you rent. Software that survives the relationship with its maker is a different financial object from software that dies with the subscription.
 
@@ -30,7 +30,7 @@ Build it, you own it. The whole model fits in four words because nothing is hidi
 
 ## Why a builder would choose this
 
-A fair question is why anyone selling software would walk away from recurring revenue. The answer is incentives. A vendor who locks you in has to be good once, at the moment of sale. A firm whose clients can leave at any time has to be good every time. We think that pressure produces better systems, and we know it produces better relationships, because the only reason a client comes back is that the last thing we shipped is still earning its keep.
+A fair question is why a firm would hand over everything it builds, including the right to never call it again. The answer is incentives. A vendor who locks you in has to be good once, at the moment of sale. A firm whose clients can leave at any time has to be good every time. We think that pressure produces better systems, and we know it produces better relationships, because the only reason a client comes back is that the last thing we shipped is still earning its keep.
 
 The ownership line belongs in the contract, not in the marketing. Ours says, in plain language, that the client keeps everything we ship for them and we keep only our internal tooling and methods. Written down, the question that opened this essay gets a different answer. Stop paying in March and in April you still have the system, the data, the documentation, and every right to run all of it forever.
 

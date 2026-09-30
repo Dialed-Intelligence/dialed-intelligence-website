@@ -1,35 +1,39 @@
 import type { OgCopy, PageMeta } from "./types";
 
-// No canonical here, matching the live site. Consider adding "/contact".
+// DRAFT copy for review. Structure follows the Rebrand Spec, "Inner pages,
+// Contact". Form labels and messages live in contact-form.ts.
+
 export const meta: PageMeta = {
-  title: "Start a Conversation",
+  title: "Book a 45-minute call",
   description:
-    "The first conversation is a free working session. One hour, no deck, no pitch. We map your most expensive operational time-sinks.",
+    "Book a free 45-minute call with Dialed Intelligence. We learn how the business runs and tell you where AI could pay off and whether we are the right fit.",
+  canonical: "/contact",
 };
 
 export const og: OgCopy = {
-  eyebrow: "Start a conversation",
-  title: "Bring us the problem.",
-  alt: "Start a conversation with Dialed Intelligence. Bring us the problem.",
+  eyebrow: "Contact",
+  title: "Book a 45-minute call.",
+  alt: "Book a 45-minute call with Dialed Intelligence.",
 };
 
 export const header = {
-  eyebrow: "Start a conversation",
-  title: "Bring us the problem.",
+  eyebrow: "Contact",
+  title: "Book a 45-minute call.",
   subhead:
-    "The first conversation is a free working session. One hour, no deck, no pitch. We map your most expensive operational time-sinks and you leave with something useful whether or not we ever talk again.",
+    "Tell us about the business and what prompted you to reach out. We reply within one business day with times for the call. The call is free, and you leave with at least one useful observation.",
 };
 
 export const fit = {
   label: "Who we work with",
-  body: "We work with companies doing roughly $2.5M to $25M in revenue, typically owner-led or PE-backed. If that is not you, reach out anyway. We will tell you quickly and honestly whether we are the right fit, and point you somewhere better if we are not.",
+  body: "Owner-led and PE-backed businesses between $2M and $25M in revenue. If you are outside that range, reach out anyway. We will tell you quickly whether we are the right fit, and point you somewhere better if we are not.",
 };
 
 export const nextSteps = {
   label: "What happens next",
   steps: [
-    "A one hour working session, free",
-    "A costed plan if we both see something worth building",
+    "We reply within one business day with times for the call",
+    "A free 45-minute call with the lead who would do the work",
+    "If we both see a fit, a proposal for the discovery project",
   ],
 };
 
@@ -37,28 +41,6 @@ export const emailBand = { label: "Prefer email" };
 
 /** Scheduler panel label and the iframe's accessible title. */
 export const scheduler = {
-  label: "Book the working session directly",
-  title: "Schedule a working session",
-};
-
-/** Contact form labels, states, and validation messages. */
-export const form = {
-  panelLabel: "Tell us in writing",
-  nameLabel: "Name",
-  companyLabel: "Company",
-  emailLabel: "Email",
-  messageLabel: "What is eating your team's time?",
-  submitIdle: "Send the problem over",
-  submitPending: "Sending",
-  successLabel: "Received",
-  success:
-    "Got it. We read every one of these and reply within two business days.",
-  failLead: "Something failed on our side. Email us at",
-  failTail: "and we will pick it up there.",
-  errors: {
-    name: "Tell us your name.",
-    emailMissing: "Add an email so we can reply.",
-    emailInvalid: "That email does not look right.",
-    message: "Give us a sentence about the problem.",
-  },
+  label: "Or pick a time directly",
+  title: "Schedule a 45-minute call",
 };

@@ -52,13 +52,13 @@ export function Header() {
           <Wordmark markWidth={32} />
         </Link>
 
-        <nav aria-label={copy.primaryNav} className="hidden items-center gap-8 lg:flex">
+        <nav aria-label={copy.primaryNav} className="hidden items-center gap-7 xl:flex 2xl:gap-8">
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
-              className={`label-mono-sm transition-colors hover:text-blue ${
+              className={`label-mono-sm whitespace-nowrap transition-colors hover:text-blue ${
                 isActive(item.href) ? "text-blue" : "text-ink"
               }`}
             >
@@ -67,8 +67,8 @@ export function Header() {
           ))}
           <Link
             href={ctaHref}
-            onClick={() => track("cta_book_session", { placement: "header" })}
-            className="label-mono-sm inline-flex items-center gap-2 rounded-[2px] bg-ink px-4 py-2.5 text-paper transition-colors hover:bg-blue hover:text-white"
+            onClick={() => track("cta_book_call", { placement: "header" })}
+            className="label-mono-sm inline-flex items-center gap-2 whitespace-nowrap rounded-[2px] bg-ink px-4 py-2.5 text-paper transition-colors hover:bg-blue hover:text-white"
           >
             {ctaLabel}
             <span className="font-sans" aria-hidden="true">
@@ -82,7 +82,7 @@ export function Header() {
           onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-controls="mobile-menu"
-          className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] lg:hidden"
+          className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] xl:hidden"
         >
           <span className="sr-only">{open ? copy.closeMenu : copy.openMenu}</span>
           <span
@@ -103,7 +103,7 @@ export function Header() {
       {open && (
         <div
           id="mobile-menu"
-          className="fixed inset-x-0 bottom-0 top-[69px] z-40 overflow-y-auto bg-ink text-paper lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-[69px] z-40 overflow-y-auto bg-ink text-paper xl:hidden"
         >
           <nav
             aria-label={copy.mobileNav}
@@ -136,7 +136,7 @@ export function Header() {
                 href={ctaHref}
                 onClick={() => {
                   setOpen(false);
-                  track("cta_book_session", { placement: "mobile_menu" });
+                  track("cta_book_call", { placement: "mobile_menu" });
                 }}
                 className="label-mono inline-flex w-full items-center justify-center gap-2 rounded-[2px] bg-blue px-6 py-5 text-white"
               >

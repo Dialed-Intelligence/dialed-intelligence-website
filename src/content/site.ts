@@ -16,28 +16,67 @@ export const site = {
   schedulerUrl: process.env.NEXT_PUBLIC_SCHEDULER_URL ?? "",
   location: "Chicago based, working nationally.",
   positioning:
-    "We diagnose like a consultancy. We deliver like a product team. You own the result.",
-  brandLine: "Build it. You own it.",
+    "A senior AI lead on your team. A written plan every quarter. Systems you own.",
+  brandLine: "You own what we build.",
 };
 
 export const nav = [
-  { label: "Services", href: "/services" },
-  { label: "Ownership", href: "/ownership" },
-  { label: "Approach", href: "/approach" },
-  { label: "Insights", href: "/insights" },
+  { label: "How it works", href: "/how-it-works" },
+  { label: "What we deliver", href: "/services" },
+  { label: "Results", href: "/results" },
   { label: "About", href: "/about" },
+  { label: "Insights", href: "/insights" },
 ] as const;
 
-export const ctaLabel = "Book a Working Session";
+export const ctaLabel = "Book a 45-minute call";
 export const ctaHref = "/contact";
+/** Analytics event for every primary CTA click. */
+export const ctaEvent = "cta_book_call";
 
 /** Site-wide default title and description, set on the root layout. */
 export const defaultMeta: PageMeta & { titleTemplate: string } = {
-  title:
-    "Dialed Intelligence | We find what is costing you most, then build the system that fixes it",
+  title: "Dialed Intelligence | Fractional AI Leadership and Engineering",
   titleTemplate: "%s | Dialed Intelligence",
   description:
-    "Strategy and engineering in one firm. We diagnose the problem, build the AI that solves it, and hand it over. You own it outright.",
+    "A fractional AI lead for businesses doing $2M to $25M. We set the strategy, build the systems, and train your team to run them. You own what we build.",
+};
+
+/** Organization and ProfessionalService structured data, on every page. */
+export const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${site.url}/#org`,
+      name: site.name,
+      url: site.url,
+      email: site.email,
+      logo: `${site.url}/icon.svg`,
+      sameAs: [site.linkedin],
+      founder: { "@type": "Person", name: "Tyler Dial" },
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${site.url}/#service`,
+      name: site.name,
+      url: site.url,
+      description: defaultMeta.description,
+      provider: { "@id": `${site.url}/#org` },
+      areaServed: "US",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Chicago",
+        addressRegion: "IL",
+        addressCountry: "US",
+      },
+      knowsAbout: [
+        "Fractional Chief AI Officer",
+        "Fractional AI engineering",
+        "AI strategy",
+        "AI implementation for small business",
+      ],
+    },
+  ],
 };
 
 export const skipLinkLabel = "Skip to content";
@@ -52,55 +91,58 @@ export const header = {
 export const footer = {
   homeLabel: "Dialed Intelligence home",
   firmHeading: "Firm",
-  servicesHeading: "What we build",
+  servicesHeading: "Systems we build",
   contactHeading: "Contact",
   contactLabel: "Contact",
   linkedinLabel: "LinkedIn",
-  tagline: "Strategy that ends in a running system. Owned by you.",
+  tagline: "Fractional AI leadership and engineering. You own what we build.",
 };
 
 /** Default copy for the lime closing band at the bottom of most pages. */
 export const closingCta: ClosingCtaCopy = {
   eyebrow: "The first step",
-  title: "Bring us the question you can't answer.",
-  body: "The first hour is free, it is a working session rather than a sales call, and you will leave with something useful either way.",
+  title: "Tell us where AI should be paying off in your business.",
+  body: "In 45 minutes we will tell you where we see the opportunity and whether we are the right fit.",
 };
 
-/** The ink statement band on Home. */
+/** The ink ownership band. Home and How it works. */
 export const ownershipBand: StatementBandCopy = {
-  eyebrow: "The deal, in four words",
-  titleLines: ["Build it.", "You own it."],
-  body: "No seats. No recurring license. No platform to learn. We build the system, we hand you the keys, and we step back as far as you want.",
-  // Handover durability, stated as features rather than buried. Answers the
-  // "what happens when it breaks and you are gone" objection.
+  eyebrow: "Ownership",
+  titleLines: ["You own everything", "we build."],
+  body: "Code, data, documentation, and accounts sit in your name from the first day. No licenses to renew and no platform to leave. When the engagement ends, the systems stay and keep running.",
   points: [
-    "We hand it over documented and tested, not as a black box.",
-    "Your team gets the walkthrough and the docs to run it without us.",
-    "Support stays optional and never becomes a subscription you cannot leave.",
+    "Source code in your repository, under your accounts",
+    "Documentation written for the people who will run it",
+    "Training for your team before we step back",
   ],
-  link: { label: "Why we work this way", href: "/ownership" },
+  link: { label: "How handover works", href: "/how-it-works#ownership" },
 };
 
-/** The engagement strip, used on Home. */
+/** From first call to handover. Home, and the spine of How it works. */
 export const processSteps: Step[] = [
   {
-    title: "Working session",
-    duration: "One hour, free",
-    body: "A free hour where we name the single question worth the most to answer in your business. You leave with at least one useful observation whether or not we ever talk again.",
+    title: "Discovery call",
+    duration: "45 minutes, free",
+    body: "We learn how the business runs and where AI could pay off. You leave with at least one useful observation.",
   },
   {
-    title: "Diagnostic",
-    duration: "One to two weeks",
-    body: "A short fixed-fee engagement built around one output, the expected return. We quantify the problem, set a fixed price and a timeline, and put the return you can expect on paper before you commit to a build.",
+    title: "Discovery project",
+    duration: "One to two weeks, fixed fee",
+    body: "We review your operations, data, and systems, size the opportunities, and draft your first Quarter Plan.",
   },
   {
-    title: "Build",
-    duration: "Three to eight weeks",
-    body: "Fixed price, fixed scope. You see working software early and often, not a reveal at the end.",
+    title: "First quarter",
+    duration: "Three months, billed monthly",
+    body: "We work to the plan and review the scorecard with you each month.",
   },
   {
-    title: "Handover and support",
-    duration: "Yours from day one",
-    body: "You own the delivered system. Optional support keeps it healthy without ever becoming a subscription you resent.",
+    title: "Second term",
+    duration: "Up to three months, optional",
+    body: "We scale what worked and prepare your team to run it without us.",
+  },
+  {
+    title: "Handover",
+    duration: "Yours to run",
+    body: "Your team runs the systems with full documentation and training. Light support stays available if you want it.",
   },
 ];

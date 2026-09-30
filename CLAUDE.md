@@ -1,25 +1,19 @@
 # Dialed Intelligence Website
 
-> **Rebuild in progress (branch `rebuild/fractional-ai`).** The site is being
-> repositioned as a fractional AI leadership and engineering practice. The
-> design system stays. The source of truth for positioning, sitemap, copy, and
-> the new copy rules is the **Dialed Intelligence Rebrand Spec** doc
-> (https://claude.ai/code/artifact/27a44f53-8900-4356-b35e-81255356ba4b, read
-> it with the Claude Docs connector). The build plan is
-> `docs/rebuild/technical-spec.md`. Until the Phase 4 copy drop-in lands, the
-> old rules below still describe the live site.
+> **Rebuild in progress (branch `rebuild/fractional-ai`).** Build plan and
+> status in `docs/rebuild/technical-spec.md`. `main` still serves the old site.
 
 ## Project Overview
-Marketing website for Dialed Intelligence, a firm that builds custom internal
-software (data systems, AI agents, automation) that clients own outright.
-Static-first Next.js site, eleven pages, copy-driven. The brand voice and
-page-by-page copy are the product here as much as the code.
+Marketing website for Dialed Intelligence, a fractional AI leadership and
+engineering firm for owner-led and PE-backed businesses doing $2M to $25M.
+A senior AI lead joins the client's team on a written quarterly plan, sets the
+strategy, builds the systems, and hands them over. Static-first Next.js site,
+copy-driven.
 
-**Source of truth for all content:** `../dialed-intelligence-website-outline.md`
-(one directory above the repo root, intentionally not tracked in git).
-Read it before building or editing any page. It contains the sitemap, draft
-copy written to final-copy standard, and binding copy rules. Never invent
-copy that contradicts it.
+**Source of truth for positioning, sitemap, and copy:** the Dialed
+Intelligence Rebrand Spec doc
+(https://claude.ai/code/artifact/27a44f53-8900-4356-b35e-81255356ba4b, read it
+with the Claude Docs connector). Never invent copy that contradicts it.
 
 ## Tech Stack
 - Language: TypeScript 5 / Node 20+
@@ -40,11 +34,12 @@ copy that contradicts it.
 - public/           static assets, OG images
 - .claude/          agent configuration (DO NOT modify during development sessions)
 
-## Sitemap (all v1 routes)
-`/`, `/services`, `/services/data-systems`, `/services/operations-automation`,
-`/services/automation-platform`, `/services/inventory`, `/services/pricing`,
-`/ownership`, `/approach`, `/about`, `/insights`, `/contact`
-Plus `sitemap.xml` and `robots.txt`.
+## Sitemap
+`/`, `/how-it-works`, `/services` (What we deliver), `/services/[slug]` (five
+systems: operations-automation, data-systems, automation-platform, inventory,
+pricing), `/results`, `/about`, `/insights`, `/insights/[slug]`, `/contact`.
+Plus `sitemap.xml` and `robots.txt`. `/approach` and `/ownership` are retired
+and 308 to `/how-it-works` (see `next.config.ts`).
 
 ## Commands
 - Install deps:     npm install
@@ -54,27 +49,36 @@ Plus `sitemap.xml` and `robots.txt`.
 - Production build: npm run build      (the smoke test — must pass before any commit)
 - Environment check: bash init.sh
 
-## Binding Copy Rules (from the outline, enforced by hook)
-These apply to ALL rendered copy: headlines, body, buttons, alt text, meta
-descriptions, OG text. Violations are flagged by `.claude/hooks/copy-rules-check.sh`.
+## Copy rules (from the Rebrand Spec, partly enforced by hook)
+`.claude/hooks/copy-rules-check.sh` flags the deterministic subset. The
+copy-editor agent owns the judgment calls.
 
-1. **No em-dashes, semicolons, or colons in rendered copy.** Restructure the
-   sentence. Periods and commas only.
-2. **Banned vocabulary:** solutions, consulting (as a noun for what we sell),
-   leverage, unlock, seamless, cutting-edge, empower, transform, revolutionize,
-   synergy, end-to-end, best-in-class, "in today's fast-paced world",
-   "AI-powered" as a standalone selling point.
-3. **Never name Activepieces** or any white-labeled component, anywhere.
-4. No AI-tells: "it's not just X, it's Y", "in a world where", rule-of-three
-   adjective stacks, LinkedIn-thinkpiece openers.
-5. Numbers concrete and specific: "twenty hours a week", "three to eight weeks",
-   "$2.5M to $25M".
-6. Buttons say what happens: "Book a Working Session", never "Get Started".
-7. Sentence case headlines. Exception: "Build it. You own it."
-8. "Build it, you own it" (or "Build it. You own it.") appears at least once
-   on every page.
-9. No pricing anywhere in v1. Durations are fine.
-10. The site speaks as a firm: always "we", never "I".
+1. Firm voice ("we"), active voice, present tense. The lead is named in third
+   person (Tyler Dial) where the page is about the lead.
+2. No em dashes, semicolons, or colons in rendered copy. Headlines never end in
+   a colon setup.
+3. One idea per sentence. Most sentences under 20 words.
+4. Specifics over adjectives. Numbers wherever a number exists.
+5. No "not X, but Y" contrast constructions, no stacked groups of three
+   adjectives, no rhetorical questions in headlines.
+6. Words to avoid: transform (metadata and one FAQ answer only), unlock,
+   leverage, harness, empower, seamless, robust, cutting-edge,
+   state-of-the-art, revolutionize, game-changer, supercharge, next-level,
+   journey, landscape, navigate, ecosystem, AI-powered, intelligent solutions,
+   tailored solutions, elevate, delve, synergy, holistic.
+7. Never publish hours, days per week, or response-time percentages about our
+   availability. Describe availability as service standards and value as
+   Quarter Plan deliverables.
+8. Never use "employee". Say "on your team", "embedded", "part of your
+   leadership team".
+9. No fixed-price or no-subscription claims. Ownership stays central. The
+   client owns code, data, documentation, and accounts.
+10. Primary CTA is "Book a 45-minute call". Buttons say what happens.
+11. "fractional Chief AI Officer" appears only in the What we deliver intro,
+    one FAQ answer, and About. Never in the hero. Page copy says "AI lead".
+12. No pricing except the discovery project fee, once Tyler sets it.
+13. Never name Activepieces or any white-labeled component, anywhere.
+14. Sentence case headlines.
 
 ## Design Constraints
 - Static-first, minimal client JS, fast LCP. Server components by default;
@@ -83,14 +87,15 @@ descriptions, OG text. Violations are flagged by `.claude/hooks/copy-rules-check
   prefers-reduced-motion respected, semantic landmarks.
 - Unique title + meta description per page (no colons in them either).
 - Service detail pages are ONE shared template fed by content props.
-  Reusable components: CTA block, ownership statement band, four-step
-  process strip.
+- Pages compose sections from `src/components/sections/`. New visuals follow
+  the existing tokens and type. Never use AI imagery (brains, circuits, robots,
+  sparkles, gradients, glowing orbs), stock photos, or template icon sets.
 
 ## Workflow Sequence
 Each feature follows this pipeline. Do not skip steps.
 
 1. **frontend-dev** (or **backend-dev** for the contact form API) implements on a feature branch and commits
-2. **copy-editor** reviews all rendered copy against the Binding Copy Rules and the outline (read-only)
+2. **copy-editor** reviews all rendered copy against the copy rules and the Rebrand Spec (read-only)
 3. **qa-agent** verifies acceptance criteria from feature_list.json and updates it
 4. **code-reviewer** reviews the diff (read-only)
    - Must Fix items → loop back to the implementing agent
@@ -101,7 +106,7 @@ Each feature follows this pipeline. Do not skip steps.
 ## Agent Domain Routing
 - frontend-dev: pages, components, styling, markdown rendering — most of the work here
 - backend-dev: the contact form route handler (validation, spam protection, email delivery), sitemap/robots generation
-- copy-editor: reviews rendered copy against the outline and the Binding Copy Rules (read-only)
+- copy-editor: reviews rendered copy against the Rebrand Spec and the copy rules (read-only)
 - qa-agent: verifies features against feature_list.json acceptance steps
 - code-reviewer: post-implementation quality review (read-only)
 - security-reviewer: security audit before PRs (read-only)
@@ -122,7 +127,7 @@ A feature is complete ONLY when ALL of the following are true:
 1. `npm run lint` passes with zero warnings
 2. `npm run typecheck` passes
 3. `npm run build` succeeds (static generation completes for every route)
-4. Copy matches the outline and violates none of the Binding Copy Rules
+4. Copy matches the Rebrand Spec and violates none of the copy rules
 5. No secrets or credentials appear in any diff
 6. feature_list.json shows "passes": true for the feature
 7. code-reviewer reports no Must Fix items
@@ -136,6 +141,7 @@ A feature is complete ONLY when ALL of the following are true:
 - Writing to .env files or any secrets directory
 - Deploying to production (`vercel --prod`) — human-triggered only
 - Naming Activepieces or any white-labeled vendor in any file that ships
+- Pushing directly to `main`. Merging to `main` deploys production
 
 ## Context Management
 - Run /compact when context reaches approximately 50 percent

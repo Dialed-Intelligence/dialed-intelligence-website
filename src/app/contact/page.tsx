@@ -4,6 +4,7 @@ import { Scheduler } from "@/components/scheduler";
 import { ContactForm } from "@/components/contact-form";
 import { site } from "@/content/site";
 import { pageMetadata } from "@/lib/meta";
+import { noBreakHyphens } from "@/lib/typography";
 import {
   emailBand,
   fit,
@@ -26,7 +27,7 @@ export default function ContactPage() {
                 id="contact-title"
                 className="mt-8 font-display text-[clamp(2.6rem,6vw,4.75rem)] font-medium leading-[0.97] tracking-[-0.035em] text-balance"
               >
-                {header.title}
+                {noBreakHyphens(header.title)}
               </h1>
               <p className="body-lg mt-8 max-w-xl text-ink/75">{header.subhead}</p>
 
@@ -53,8 +54,8 @@ export default function ContactPage() {
 
             <Reveal delay={100}>
               <div className="space-y-8">
-                <Scheduler />
                 <ContactForm />
+                <Scheduler />
               </div>
             </Reveal>
           </div>

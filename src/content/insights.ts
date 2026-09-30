@@ -3,7 +3,7 @@ import type { OgCopy, PageMeta } from "./types";
 export const meta: PageMeta = {
   title: "Insights",
   description:
-    "Working positions from Dialed Intelligence on owned software, automation that cannot spend money, and the prices your catalog never gets.",
+    "Working positions from Dialed Intelligence on owning your systems, automation that cannot spend money, and the prices your catalog never gets.",
   canonical: "/insights",
 };
 

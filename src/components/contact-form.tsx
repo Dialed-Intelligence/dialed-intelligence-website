@@ -3,18 +3,28 @@
 import { useEffect, useRef, useState } from "react";
 import { track } from "@vercel/analytics";
 import { site } from "@/content/site";
-import { form as copy } from "@/content/contact";
+import { form as copy, revenueOptions } from "@/content/contact-form";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const REVENUE_VALUES: readonly string[] = revenueOptions.map((o) => o.value);
 
 const inputClass =
   "w-full rounded-[2px] border border-ink/25 bg-white px-4 py-3.5 font-sans text-ink placeholder:text-ink/35";
 
-type FieldErrors = {
-  name?: string;
-  email?: string;
-  message?: string;
-};
+/** Required fields in render order, used to focus the first error. */
+const FIELD_ORDER = [
+  "name",
+  "email",
+  "company",
+  "role",
+  "revenue",
+  "message",
+] as const;
+
+type Field = (typeof FIELD_ORDER)[number];
+
+type FieldErrors = Partial<Record<Field, string>>;
 
 type Status = "idle" | "pending" | "success" | "error";
 
@@ -27,16 +37,27 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
+function errorProps(field: Field, message?: string) {
+  return {
+    "aria-required": true,
+    "aria-invalid": message ? true : undefined,
+    "aria-describedby": message ? `contact-${field}-error` : undefined,
+  } as const;
+}
+
 export function ContactForm() {
   const [values, setValues] = useState({
     name: "",
-    company: "",
     email: "",
+    company: "",
+    role: "",
+    revenue: "",
     message: "",
     website: "",
   });
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
+  const formRef = useRef<HTMLFormElement>(null);
 
   // Form-render timestamp for the server-side timing check. A ref keeps the
   // server and client renders identical, the effect stamps it after mount.
@@ -57,6 +78,11 @@ export function ContactForm() {
     } else if (!EMAIL_RE.test(values.email.trim())) {
       next.email = copy.errors.emailInvalid;
     }
+    if (!values.company.trim()) next.company = copy.errors.company;
+    if (!values.role.trim()) next.role = copy.errors.role;
+    if (!REVENUE_VALUES.includes(values.revenue)) {
+      next.revenue = copy.errors.revenue;
+    }
     if (!values.message.trim()) next.message = copy.errors.message;
     return next;
   }
@@ -65,7 +91,13 @@ export function ContactForm() {
     e.preventDefault();
     const nextErrors = validate();
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length > 0) return;
+    const firstError = FIELD_ORDER.find((f) => nextErrors[f]);
+    if (firstError) {
+      formRef.current
+        ?.querySelector<HTMLElement>(`#contact-${firstError}`)
+        ?.focus();
+      return;
+    }
 
     setStatus("pending");
     try {
@@ -74,8 +106,10 @@ export function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: values.name.trim(),
-          company: values.company.trim(),
           email: values.email.trim(),
+          company: values.company.trim(),
+          role: values.role.trim(),
+          revenue: values.revenue,
           message: values.message.trim(),
           website: values.website,
           renderedAt: renderedAtRef.current,
@@ -93,6 +127,35 @@ export function ContactForm() {
     } catch {
       setStatus("error");
     }
+  }
+
+  function textInput(
+    field: "name" | "email" | "company" | "role",
+    label: string,
+    type: "text" | "email",
+    autoComplete: string,
+  ) {
+    return (
+      <div>
+        <label
+          htmlFor={`contact-${field}`}
+          className="label-mono-sm block text-ink/70"
+        >
+          {label}
+        </label>
+        <input
+          id={`contact-${field}`}
+          name={field}
+          type={type}
+          autoComplete={autoComplete}
+          value={values[field]}
+          onChange={(e) => setValue(field, e.target.value)}
+          {...errorProps(field, errors[field])}
+          className={`${inputClass} mt-2.5`}
+        />
+        <FieldError id={`contact-${field}-error`} message={errors[field]} />
+      </div>
+    );
   }
 
   return (
@@ -114,75 +177,68 @@ export function ContactForm() {
         <>
           <p className="label-mono-sm text-ink/70">{copy.panelLabel}</p>
           <form
+            ref={formRef}
             onSubmit={handleSubmit}
             noValidate
             className="relative mt-7 space-y-6"
           >
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <div>
-                <label
-                  htmlFor="contact-name"
-                  className="label-mono-sm block text-ink/70"
-                >
-                  {copy.nameLabel}
-                </label>
-                <input
-                  id="contact-name"
-                  name="name"
-                  type="text"
-                  autoComplete="name"
-                  value={values.name}
-                  onChange={(e) => setValue("name", e.target.value)}
-                  aria-required="true"
-                  aria-invalid={errors.name ? true : undefined}
-                  aria-describedby={
-                    errors.name ? "contact-name-error" : undefined
-                  }
-                  className={`${inputClass} mt-2.5`}
-                />
-                <FieldError id="contact-name-error" message={errors.name} />
-              </div>
-              <div>
-                <label
-                  htmlFor="contact-company"
-                  className="label-mono-sm block text-ink/70"
-                >
-                  {copy.companyLabel}
-                </label>
-                <input
-                  id="contact-company"
-                  name="company"
-                  type="text"
-                  autoComplete="organization"
-                  value={values.company}
-                  onChange={(e) => setValue("company", e.target.value)}
-                  className={`${inputClass} mt-2.5`}
-                />
-              </div>
+              {textInput("name", copy.nameLabel, "text", "name")}
+              {textInput("email", copy.emailLabel, "email", "email")}
+            </div>
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {textInput("company", copy.companyLabel, "text", "organization")}
+              {textInput("role", copy.roleLabel, "text", "organization-title")}
             </div>
 
             <div>
               <label
-                htmlFor="contact-email"
+                htmlFor="contact-revenue"
                 className="label-mono-sm block text-ink/70"
               >
-                {copy.emailLabel}
+                {copy.revenueLabel}
               </label>
-              <input
-                id="contact-email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                value={values.email}
-                onChange={(e) => setValue("email", e.target.value)}
-                aria-required="true"
-                aria-invalid={errors.email ? true : undefined}
-                aria-describedby={
-                  errors.email ? "contact-email-error" : undefined
-                }
-                className={`${inputClass} mt-2.5`}
-              />
-              <FieldError id="contact-email-error" message={errors.email} />
+              <div className="relative mt-2.5">
+                <select
+                  id="contact-revenue"
+                  name="revenue"
+                  value={values.revenue}
+                  onChange={(e) => setValue("revenue", e.target.value)}
+                  {...errorProps("revenue", errors.revenue)}
+                  className={`${
+                    values.revenue
+                      ? inputClass
+                      : inputClass.replace("text-ink ", "text-ink/50 ")
+                  } cursor-pointer appearance-none pr-11`}
+                >
+                  <option value="" disabled>
+                    {copy.revenuePrompt}
+                  </option>
+                  {revenueOptions.map((option) => (
+                    <option
+                      key={option.value}
+                      value={option.value}
+                      className="text-ink"
+                    >
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 12 8"
+                  className="pointer-events-none absolute right-4 top-1/2 h-2 w-3 -translate-y-1/2 text-ink/60"
+                >
+                  <path
+                    d="M1 1.5 6 6.5l5-5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  />
+                </svg>
+              </div>
+              <FieldError id="contact-revenue-error" message={errors.revenue} />
             </div>
 
             <div>
@@ -198,11 +254,7 @@ export function ContactForm() {
                 rows={6}
                 value={values.message}
                 onChange={(e) => setValue("message", e.target.value)}
-                aria-required="true"
-                aria-invalid={errors.message ? true : undefined}
-                aria-describedby={
-                  errors.message ? "contact-message-error" : undefined
-                }
+                {...errorProps("message", errors.message)}
                 className={`${inputClass} mt-2.5 resize-y`}
               />
               <FieldError id="contact-message-error" message={errors.message} />

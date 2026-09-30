@@ -2,7 +2,6 @@ import type { Service } from "./types";
 
 export const pricing: Service = {
   slug: "pricing",
-  index: 5,
   title: "Dynamic Pricing",
   eyebrow: "Dynamic Pricing",
   headline:
@@ -23,7 +22,7 @@ export const pricing: Service = {
   ],
   get: [
     "Margin recaptured across the long tail, with every price defensible and every rule yours. This is our most quantitatively demanding work and the place our econometrics background earns its keep.",
-    "And the system that does it belongs to you. The demand models, the optimizer, the rule set. Build it, you own it, and no vendor ever takes a cut of the margin it recovers.",
+    "The system that does it belongs to you. The demand models, the optimizer, and the rule set run in your accounts, and no vendor takes a cut of the margin it recovers.",
   ],
   practice: {
     intro:
@@ -45,6 +44,6 @@ export const pricing: Service = {
   },
   engagement: {
     duration: "Four to eight weeks",
-    body: "Four to eight weeks. This system is data-hungry, so it is offered selectively to clients with sufficient sales history and catalog depth for the optimization to move real money. The diagnostic tells us honestly whether you are one of them.",
+    body: "A second-term system for clients with enough sales history and catalog depth for the optimization to move real money. The discovery project tells us honestly whether your data supports it. The scorecard tracks margin by catalog segment.",
   },
 };

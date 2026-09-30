@@ -1,45 +1,78 @@
-import type { OgCopy, PageMeta } from "./types";
+import type {
+  DeliverableGroup,
+  OgCopy,
+  PageMeta,
+  SectionIntro,
+} from "./types";
+
+// DRAFT copy for review. Structure follows the Rebrand Spec, "Inner pages,
+// What we deliver".
 
 export const meta: PageMeta = {
-  title: "Services",
+  title: "What we deliver",
   description:
-    "Five areas cover most of what we are asked to build. Every engagement starts from a named problem and ends with an AI system you own.",
+    "What a fractional AI lead delivers across strategy, engineering, and your team, and the systems we build most often in the first two quarters.",
   canonical: "/services",
 };
 
 export const og: OgCopy = {
-  eyebrow: "Services",
-  title: "Every system here starts as a question worth answering.",
-  alt: "Dialed Intelligence services. Each system starts as a question worth answering.",
+  eyebrow: "What we deliver",
+  title: "Strategy, engineering, and a team that can run what we build.",
+  alt: "What Dialed Intelligence delivers. Strategy, engineering, and a team that can run what we build.",
 };
 
 export const header = {
-  eyebrow: "Services",
-  title: "Every system here starts as a question worth answering.",
+  eyebrow: "What we deliver",
+  title: "One role. Strategy, engineering, and a team that can run what we build.",
   intro:
-    "Every engagement starts from a named problem and ends with an AI system you own. These five areas cover most of what we are asked to build. If your problem does not fit neatly into one of them, that is usually a sign it is interesting. Bring it to a working session.",
+    "Clients often call this role a fractional Chief AI Officer. We cover that seat and the engineering behind it. Here is what the role delivers, and the systems we build most often.",
 };
 
-export const architecture = {
-  eyebrow: "How the systems fit",
-  title:
-    "The data system is the foundation. Everything else compounds on top of it.",
-  body: "Most clients start with one painful workflow or one unanswerable question. The systems compound from there. Agents work better on unified data. Pricing works better with live inventory. Everything works better when you own the whole stack and nothing is fighting a vendor's API limits.",
-  diagram: {
-    chassis: "Your own automation platform",
-    chassisNote: "Driven by your team",
-    modules: ["Operations automation", "Inventory intelligence", "Dynamic pricing"],
-    foundation: "Unified data systems",
-    foundationNote: "The foundation",
-    caption:
-      "Every module reads from the same foundation, and you own every layer.",
+export const groups: DeliverableGroup[] = [
+  {
+    id: "strategy",
+    title: "Strategy",
+    summary:
+      "We decide where AI is worth the money in your business, and where it is not.",
+    items: [
+      "An AI opportunity map, ranked by return and effort",
+      "A written Quarter Plan with deliverables and success measures",
+      "Tool and vendor recommendations, with build or buy calls",
+      "A data readiness review of your core systems",
+      "An AI risk and policy review",
+      "A monthly scorecard report to leadership",
+    ],
   },
-};
+  {
+    id: "engineering",
+    title: "Engineering",
+    summary:
+      "We build the systems the plan calls for and put them into production.",
+    items: [
+      "Automation for repetitive work between your systems",
+      "A unified data layer across your sources",
+      "AI agents for defined tasks, with a person approving exceptions",
+      "Demand forecasting and reorder logic",
+      "Pricing models for the long tail of your catalog",
+      "Tests, monitoring, and documentation for every system",
+    ],
+  },
+  {
+    id: "your-team",
+    title: "Your team",
+    summary:
+      "We make sure the people who stay can run what we build.",
+    items: [
+      "Training for the people who will run each system",
+      "Playbooks for daily operation and common failures",
+      "A company AI use policy, written and approved",
+      "AI working sessions for leadership and staff",
+      "A handover plan with a named owner for each system",
+    ],
+  },
+];
 
-export const list = {
-  eyebrow: "Five service areas",
-  title: "Each one answers a question that costs you money",
-  /** Prefix for the lowercased duration, e.g. "Typical engagement three to five weeks" */
-  durationPrefix: "Typical engagement",
-  linkLabel: "Read the full picture",
+export const systems: SectionIntro = {
+  eyebrow: "Systems we build most often",
+  title: "Usually built in the first two quarters",
 };
