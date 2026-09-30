@@ -21,7 +21,7 @@ export default function ContactPage() {
       <section aria-labelledby="contact-title">
         <Container className="pb-24 pt-16 lg:pb-32 lg:pt-24">
           <div className="grid grid-cols-1 gap-x-16 gap-y-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
-            <Reveal>
+            <div>
               <Eyebrow>{header.eyebrow}</Eyebrow>
               <h1
                 id="contact-title"
@@ -50,7 +50,7 @@ export default function ContactPage() {
                   ))}
                 </ul>
               </div>
-            </Reveal>
+            </div>
 
             <Reveal delay={100}>
               <div className="space-y-8">

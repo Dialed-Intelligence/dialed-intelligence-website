@@ -109,7 +109,7 @@ export function ServicePage({ service }: { service: Service }) {
               <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-[5px] border border-ink/15 bg-ink/15 md:grid-cols-3">
                 {service.practice.beats.map((beat) => (
                   <div key={beat.label} className="bg-paper-2 p-7">
-                    <span className="label-mono-sm text-blue">{beat.label}</span>
+                    <span className="label-mono-sm text-blue-2">{beat.label}</span>
                     <p className="body-md mt-4 text-ink/70">{beat.text}</p>
                   </div>
                 ))}

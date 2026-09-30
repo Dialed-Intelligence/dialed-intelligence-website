@@ -35,6 +35,24 @@ export default function RootLayout({
       // reveals only hide content when JS is actually running.
       suppressHydrationWarning
     >
+      <head>
+        {/* The two faces every headline and body line use. Preloading them
+            keeps the swap from reflowing the first screen on slow networks. */}
+        <link
+          rel="preload"
+          href="/fonts/HelveticaNeueLTStd-Md.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/HelveticaNeueLTStd-Roman.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="flex min-h-svh flex-col">
         <script
           dangerouslySetInnerHTML={{

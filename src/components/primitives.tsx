@@ -55,7 +55,7 @@ export function Index({
   return (
     <span
       className={`font-mono text-[0.875rem] ${
-        lime ? "text-lime" : "text-blue"
+        lime ? "text-lime" : "text-blue-2"
       } ${dark ? "" : ""} ${className}`}
     >
       [{label}]

@@ -41,7 +41,7 @@ export function CaseCards({
             <Reveal key={v.client} delay={i * 80} className="flex">
               <article className="flex w-full flex-col rounded-[5px] border border-ink/15 bg-paper-2 p-8 lg:p-10">
                 <div className="flex items-start justify-between gap-4">
-                  <span className="font-mono text-sm text-blue">
+                  <span className="font-mono text-sm text-blue-2">
                     [{String(i + 1).padStart(2, "0")}]
                   </span>
                   {v.metric && (

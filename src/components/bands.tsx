@@ -27,7 +27,7 @@ export function ClosingCTA({
             className="pointer-events-none absolute -bottom-24 -right-16 text-ink/8"
           />
           <div className="relative max-w-2xl">
-            <span className="label-mono text-ink/70">[ {eyebrow} ]</span>
+            <span className="label-mono text-ink/80">[ {eyebrow} ]</span>
             <h2
               id="closing-cta-title"
               className="mt-5 font-display text-[clamp(2.2rem,5vw,4.25rem)] font-medium leading-[0.98] tracking-[-0.03em] text-balance"
@@ -139,7 +139,7 @@ export function ProcessStrip({
             dark ? "border-paper/20" : "border-ink/20"
           }`}
         >
-          <span className="font-mono text-sm text-blue">
+          <span className="font-mono text-sm text-blue-2">
             [{String(i + 1).padStart(2, "0")}]
           </span>
           <h3 className="display-3 mt-5">{step.title}</h3>

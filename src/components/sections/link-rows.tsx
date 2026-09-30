@@ -35,7 +35,7 @@ export function LinkRows({
                 href={card.href}
                 className="group grid grid-cols-[1fr_auto] items-center gap-x-6 gap-y-2 border-b border-ink/20 py-7 transition-all duration-300 hover:bg-ink hover:px-6 hover:text-paper sm:grid-cols-[64px_minmax(0,1.1fr)_minmax(0,1fr)_40px] sm:gap-8"
               >
-                <span className="font-mono text-sm text-blue sm:col-start-1">
+                <span className="font-mono text-sm text-blue-2 group-hover:text-lime sm:col-start-1">
                   [{String(i + 1).padStart(2, "0")}]
                 </span>
                 <h3 className="display-2 col-span-2 sm:col-span-1">

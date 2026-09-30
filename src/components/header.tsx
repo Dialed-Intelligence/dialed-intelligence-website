@@ -59,7 +59,7 @@ export function Header() {
               href={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
               className={`label-mono-sm whitespace-nowrap transition-colors hover:text-blue ${
-                isActive(item.href) ? "text-blue" : "text-ink"
+                isActive(item.href) ? "text-blue-2" : "text-ink"
               }`}
             >
               {item.label}
@@ -118,7 +118,7 @@ export function Header() {
                   className="group flex items-baseline justify-between border-b border-paper/15 py-5"
                 >
                   <span className="flex items-baseline gap-4">
-                    <span className="font-mono text-sm text-blue">
+                    <span className="font-mono text-sm text-lime">
                       [{String(i + 1).padStart(2, "0")}]
                     </span>
                     <span className="font-display text-3xl font-medium tracking-tight group-hover:text-lime">

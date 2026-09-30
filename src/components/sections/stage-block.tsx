@@ -42,7 +42,7 @@ export function StageBlock({
   dark?: boolean;
 }) {
   const titleId = `stage-${stage.n}-title`;
-  const accent = dark ? "text-lime" : "text-blue";
+  const accent = dark ? "text-lime" : "text-blue-2";
   const muted = dark ? "text-paper/60" : "text-ink/70";
   const bodyTone = dark ? "text-paper/70" : "text-ink/70";
   const hairline = dark ? "border-paper/20" : "border-ink/20";

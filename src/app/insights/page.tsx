@@ -26,7 +26,7 @@ export default function InsightsPage() {
 
           <div className="mt-16 flex items-baseline justify-between lg:mt-20">
             <span className="label-mono-sm text-ink/70">{header.listLabel}</span>
-            <span className="font-mono text-sm text-blue">
+            <span className="font-mono text-sm text-blue-2">
               [{String(posts.length).padStart(2, "0")}]
             </span>
           </div>

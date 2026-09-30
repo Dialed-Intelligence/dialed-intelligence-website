@@ -48,7 +48,7 @@ export function PathCards({
                 </article>
               ) : (
                 <article className="flex flex-col rounded-[5px] border border-ink/15 bg-paper-2 p-8 lg:p-10">
-                  <span className="font-mono text-sm text-blue">
+                  <span className="font-mono text-sm text-blue-2">
                     [{String(i + 1).padStart(2, "0")}]
                   </span>
                   <h3 className="display-3 mt-14 lg:mt-20">{item.title}</h3>

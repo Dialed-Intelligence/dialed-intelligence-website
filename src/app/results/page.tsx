@@ -35,7 +35,7 @@ function CaseStudy({ study, index }: { study: CaseStudyFull; index: number }) {
         <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-[320px_minmax(0,1fr)]">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <div className="flex items-start justify-between gap-4">
-              <span className="font-mono text-sm text-blue">
+              <span className="font-mono text-sm text-blue-2">
                 [{String(index + 1).padStart(2, "0")}]
               </span>
               {study.metric && (

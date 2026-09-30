@@ -98,7 +98,7 @@ export function LeadProfile({
                   key={d}
                   className="flex items-baseline gap-5 border-b border-ink/20 py-4"
                 >
-                  <span className="font-mono text-sm text-blue">
+                  <span className="font-mono text-sm text-blue-2">
                     [{String(i + 1).padStart(2, "0")}]
                   </span>
                   <span className="font-display text-lg font-medium tracking-tight">

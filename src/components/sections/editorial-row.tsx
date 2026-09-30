@@ -22,7 +22,7 @@ export function EditorialRow({
       }`}
     >
       <div className="lg:sticky lg:top-28 lg:self-start">
-        <span className={`font-mono text-sm ${dark ? "text-lime" : "text-blue"}`}>
+        <span className={`font-mono text-sm ${dark ? "text-lime" : "text-blue-2"}`}>
           [{index}]
         </span>
         <h2 id={headingId} className="display-3 mt-3">
