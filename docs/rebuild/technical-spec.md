@@ -20,7 +20,7 @@ retired.
 | Repo | `Dialed-Intelligence/dialed-intelligence-website`, default branch `main`, no branch protection |
 | Stack | Next.js 16 App Router, React 19, Tailwind 4, TypeScript, static generation |
 | Hosting | Vercel project `dialed-intelligence-website` (team "Tyler's projects"), Git-connected |
-| Deploys | Push to `main` deploys production. Every other branch gets an SSO-protected preview URL |
+| Deploys | **Broken since the repo moved to the `Dialed-Intelligence` org.** The last deploy (2026-06-24) came from `tylerdial1818/dialed-intelligence-website`. The org repo has no Vercel webhook, and pushes produce no builds. Once reconnected, push to `main` deploys production and other branches get SSO-protected previews |
 | Domains | `dialedintelligence.com` and `www.dialedintelligence.com`, both verified |
 | CI | `.github/workflows/agent-pr-check.yml` on PRs to main. Lint, typecheck, TruffleHog, build |
 | Health | `npm ci`, lint, typecheck, and build all pass locally (33 static routes) as of 2026-09-29 |
@@ -244,6 +244,12 @@ voice for review.
 | 8 | Insights. The spec says no change, but "The ownership question" argues against subscriptions four times, which conflicts with a monthly fee | `/insights` | Light edit of that post |
 
 ## 7. Open technical questions for Tyler
+
+0. **Reconnect Vercel to the org repo (blocks previews and launch).** Install
+   the Vercel GitHub app on the `Dialed-Intelligence` org with access to this
+   repo, then in Vercel open Project, Settings, Git and connect
+   `Dialed-Intelligence/dialed-intelligence-website`. Production keeps serving
+   the June 24 build until then.
 
 1. Is a 45-minute scheduler event (Calendly or similar) ready to embed?
 2. Are the Resend env vars set in Vercel production today?
