@@ -195,9 +195,9 @@ and OG images follow the new route list.
 |---|---|---|
 | 0. Setup | Clone, verify build, confirm Vercel wiring, branch, this spec | Done |
 | 1. Content layer | Every page's copy in `src/content/`, section components extracted, mobile menu fixed, unused assets removed. Verified with an HTML and pixel diff | Done 2026-09-29 |
-| 2. New components | `QuarterPlanExhibit`, `NumberedGrid`, `LeadProfile`, `PageHeader`, `JsonLd`, the new form fields and API validation, plus small prop changes (optional hero emphasis, optional band points, linked case cards) | No. Built against the spec's draft copy |
-| 3. Routes and redirects | Add `/how-it-works` and `/results`, retire `/approach` and `/ownership` with 308s, new nav and footer, sitemap, OG images | No |
-| 4. Copy drop-in | Load the spec's copy into content modules. Remove fixed-price, no-subscription, and "Build it. You own it." language. Update the copy-rules hook and `CLAUDE.md` to the new rules | Partly. Needs the copy listed in section 5 |
+| 2. New components | `QuarterPlanExhibit`, `NumberedGrid`, `LeadProfile`, `PageHeader`, `JsonLd`, the new form fields and API validation, plus small prop changes (optional hero emphasis, optional band points, linked case cards) | Done 2026-09-29 |
+| 3. Routes and redirects | Add `/how-it-works` and `/results`, retire `/approach` and `/ownership` with 308s, new nav and footer, sitemap, OG images | Done 2026-09-29 |
+| 4. Copy drop-in | Load the spec's copy into content modules. Remove fixed-price, no-subscription, and "Build it. You own it." language. Update the copy-rules hook and `CLAUDE.md` to the new rules | Mostly done. Draft copy is live on the branch and in the doc's "Draft copy for review" tab. Waiting on Tyler's review and the open items there |
 | 5. QA and launch | Copy review against the new rules, accessibility and contrast pass, Lighthouse, redirect checks, JSON-LD validation, form test on the preview with Resend, then one PR to `main` | Needs the photo and scheduler URL |
 
 Phases 2 and 3 can run in parallel. Phase 4 starts page by page as copy lands.

@@ -33,7 +33,7 @@ export const groups: DeliverableGroup[] = [
     id: "strategy",
     title: "Strategy",
     summary:
-      "We decide where AI is worth the money in your business, and where it is not.",
+      "We find the places in your business where AI pays back its cost.",
     items: [
       "An AI opportunity map, ranked by return and effort",
       "A written Quarter Plan with deliverables and success measures",
@@ -66,7 +66,7 @@ export const groups: DeliverableGroup[] = [
       "Training for the people who will run each system",
       "Playbooks for daily operation and common failures",
       "A company AI use policy, written and approved",
-      "AI working sessions for leadership and staff",
+      "AI training for leadership and staff",
       "A handover plan with a named owner for each system",
     ],
   },

@@ -78,7 +78,7 @@ export const cases: CaseStudyFull[] = [
       "Divisions held data that could never be reconciled across the organization.",
     system:
       "A unified data layer that makes every division answerable from one place.",
-    outcome: "Leadership works from one version of the truth instead of five.",
+    outcome: "Leadership works from one set of numbers that every division agrees on.",
     context: [
       "Each division kept its own data in its own systems, with its own definitions. A question that crossed two divisions meant a manual reconciliation, and the answers rarely matched.",
     ],
@@ -87,7 +87,7 @@ export const cases: CaseStudyFull[] = [
       "Questions that used to need a cross-division project now run against one model of the organization.",
     ],
     result: [
-      "Leadership works from one version of the truth instead of five. New questions start from data that already agrees.",
+      "Leadership works from one set of numbers that every division agrees on. New questions start from data that already reconciles.",
     ],
     owns: "The pipelines, the data model, and the documentation, under the organization's accounts.",
   },
@@ -99,7 +99,7 @@ export const cases: CaseStudyFull[] = [
       "Lead intelligence sat scattered across many sources and got sorted by hand.",
     system:
       "A multi-agent system that pulls those sources together and classifies leads automatically.",
-    outcome: "Analysts spend their hours on judgment, not collection.",
+    outcome: "Analysts spend their hours on judgment calls.",
     context: [
       "The firm's pipeline depended on signals spread across many sources. Analysts gathered them by hand, then sorted and scored each lead themselves.",
     ],
@@ -108,7 +108,7 @@ export const cases: CaseStudyFull[] = [
       "Analysts review the classified leads and decide which to pursue.",
     ],
     result: [
-      "Analysts spend their time on judgment instead of collection, and every lead arrives with the evidence behind its score.",
+      "Analysts spend their time on judgment. Every lead arrives with the evidence behind its score.",
     ],
     owns: "The agents, the application, and the documentation, deployed under the firm's accounts.",
   },

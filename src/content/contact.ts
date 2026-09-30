@@ -42,5 +42,5 @@ export const emailBand = { label: "Prefer email" };
 /** Scheduler panel label and the iframe's accessible title. */
 export const scheduler = {
   label: "Or pick a time directly",
-  title: "Schedule a 45-minute call",
+  title: "Book a 45-minute call",
 };

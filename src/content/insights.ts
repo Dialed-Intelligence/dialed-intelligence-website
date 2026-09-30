@@ -17,7 +17,7 @@ export const header = {
   eyebrow: "Insights",
   title: "Thinking that survives contact with production.",
   standfirst:
-    "We think a firm should put its positions in writing before it asks for your trust. These essays are ours, written from systems in production rather than from a content calendar.",
+    "We think a firm should put its positions in writing before it asks for your trust. Each essay comes from a system we run in production.",
   listLabel: "All essays",
 };
 

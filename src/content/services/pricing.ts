@@ -38,7 +38,7 @@ export const pricing: Service = {
       },
       {
         label: "After",
-        text: "Gross margin on the long tail came up a little over a point in the first two quarters, worth roughly $70k a year at current volume, with no measurable drop in unit sales. The category manager still signs off on every change. The difference is that prices across the catalog are now decided instead of inherited.",
+        text: "Gross margin on the long tail came up a little over a point in the first six months after launch, worth roughly $70k a year at current volume, with no measurable drop in unit sales. The category manager still signs off on every change. The difference is that prices across the catalog are now decided instead of inherited.",
       },
     ],
   },

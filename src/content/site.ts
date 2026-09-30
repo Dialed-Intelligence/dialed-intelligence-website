@@ -109,7 +109,7 @@ export const closingCta: ClosingCtaCopy = {
 export const ownershipBand: StatementBandCopy = {
   eyebrow: "Ownership",
   titleLines: ["You own everything", "we build."],
-  body: "Code, data, documentation, and accounts sit in your name from the first day. No licenses to renew and no platform to leave. When the engagement ends, the systems stay and keep running.",
+  body: "Code, data, documentation, and accounts sit in your name from the first day. Nothing we build needs our permission to keep running. When the engagement ends, the systems stay.",
   points: [
     "Source code in your repository, under your accounts",
     "Documentation written for the people who will run it",

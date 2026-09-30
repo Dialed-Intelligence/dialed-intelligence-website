@@ -17,7 +17,7 @@ export const faqs: Faq[] = [
   {
     question: "How is this different from a full-time hire?",
     answer:
-      "You get senior strategy and engineering in one role, from week one, for a defined term and a fraction of the cost of a full-time executive.",
+      "You get senior strategy and engineering in one role. The term is defined, and the cost is a fraction of a full-time executive.",
   },
   {
     question: "Is this the same as a fractional Chief AI Officer?",
@@ -37,12 +37,12 @@ export const faqs: Faq[] = [
   {
     question: "What does it cost?",
     answer:
-      "It depends on the size of the business and the scope of the role. We set the price in writing after the discovery project, before you commit.",
+      "It depends on the size of the business and the scope of the role. The discovery project has a fixed fee. We set the monthly fee in writing before the first quarter starts.",
   },
   {
     question: "What access do you need?",
     answer:
-      "The same access you would give a senior hire. Leadership meetings, the relevant systems and data, and one point person.",
+      "An executive sponsor, one point person, and the access you would give a senior hire. That means leadership meetings and the relevant systems and data.",
   },
   {
     question: "Do we need clean data or a tech team?",

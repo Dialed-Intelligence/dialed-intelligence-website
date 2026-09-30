@@ -13,20 +13,20 @@ export const meta: PageMeta = {
 
 export const og: OgCopy = {
   eyebrow: "About",
-  title: "A small firm with a senior lead in every seat.",
-  alt: "About Dialed Intelligence. A small firm with a senior lead in every seat.",
+  title: "A small firm with a senior lead in the seat.",
+  alt: "About Dialed Intelligence. A small firm with a senior lead in the seat.",
 };
 
 export const header = {
   eyebrow: "About",
-  title: "A small firm with a senior lead in every seat.",
+  title: "A small firm with a senior lead in the seat.",
 };
 
 export const firm = {
   label: "The firm",
   paragraphs: [
     "Dialed Intelligence is a fractional AI leadership and engineering firm based in Chicago. We work with owner-led and PE-backed businesses between $2M and $25M in revenue. They know AI matters, and nobody in house owns it.",
-    "We join your team for a defined term, set the AI strategy, build the systems, and hand them to your people. The firm stays small on purpose. The person who writes your plan builds it.",
+    "We join your team for a defined term, set the AI strategy, build the systems, and hand them to your people. The firm stays small on purpose. The person who writes your plan builds it. Clients often call this role a fractional Chief AI Officer.",
   ],
 };
 

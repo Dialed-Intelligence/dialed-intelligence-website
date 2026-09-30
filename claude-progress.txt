@@ -177,3 +177,24 @@ TESTS     | lint, typecheck, build green (33 routes). Rendered-HTML diff vs
 NEXT      | Phase 2 components (Quarter Plan exhibit, PageHeader, FiveStep path,
           | revenue dropdown on the form) per docs/rebuild/technical-spec.md.
 BLOCKERS  | None
+
+--- 2026-09-29 (Phases 2 and 3, draft copy) ---
+SESSION   | 2026-09-29 | orchestrator (Claude) | branch rebuild/fractional-ai
+COMPLETED | Home rebuilt to the Rebrand Spec (ten sections). New components:
+          | QuarterPlanExhibit, LeadProfile, NumberedGrid, IndexedRows,
+          | Section, PageHeader, Deliverables, JsonLd. New routes
+          | /how-it-works and /results. /approach and /ownership retired with
+          | 308s. What we deliver, About, Contact rewritten. Service pages
+          | reframed. Contact form adds company, role, revenue with server
+          | validation (subagent). Org, ProfessionalService, FAQPage JSON-LD.
+          | Nav moved to xl. Copy hook and CLAUDE.md on the new rules.
+          | Draft copy written for every page the spec left open, and copied
+          | into a "Draft copy for review" tab of the Rebrand Spec doc.
+TESTS     | lint, typecheck, build green. Redirects return 308. Section
+          | screenshots reviewed at 1440 and 390. Code review: no must-fix,
+          | should-fixes applied. Copy audit: fixes applied to new copy.
+NEXT      | Tyler reviews the draft tab and the open items (service-page
+          | metrics, essay tension, platform license wording). Reconnect
+          | Vercel to the org repo for previews. Lead photo, scheduler URL,
+          | discovery fee amount. Then Phase 5 QA and launch PR.
+BLOCKERS  | Vercel Git connection (human)
