@@ -2,7 +2,6 @@ import type { Service } from "./types";
 
 export const automationPlatform: Service = {
   slug: "automation-platform",
-  index: 3,
   title: "Your Own Automation Platform",
   eyebrow: "Your Own Automation Platform",
   headline:
@@ -21,7 +20,7 @@ export const automationPlatform: Service = {
   ],
   get: [
     "The platform itself, running on infrastructure you control. No per-seat license, no usage metering, no data leaving your environment. Your team can build and modify automations themselves, and we remain available for the workflows that need real engineering.",
-    "Ownership here means the platform itself, not just the workflows on it. Build it, you own it, and no invoice arrives when your team doubles or your run volume triples.",
+    "You own the platform itself as well as the workflows on it. No invoice arrives when your team doubles or your run volume triples.",
   ],
   practice: {
     intro:
@@ -43,6 +42,6 @@ export const automationPlatform: Service = {
   },
   engagement: {
     duration: "Two to four weeks",
-    body: "Two to four weeks to deploy, integrate, and ship the first set of workflows, including team training.",
+    body: "Fits early in a first quarter when your team wants to build its own automations. We deploy it, ship the first workflows, and train your people to extend it before handover.",
   },
 };

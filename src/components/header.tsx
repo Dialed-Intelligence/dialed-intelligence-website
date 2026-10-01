@@ -5,7 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { track } from "@vercel/analytics";
 import { Wordmark } from "./logo";
-import { nav, ctaHref, ctaLabel } from "@/lib/site";
+import {
+  nav,
+  ctaHref,
+  ctaLabel,
+  footer,
+  header as copy,
+  site,
+} from "@/content/site";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -28,24 +35,31 @@ export function Header() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink/12 bg-paper/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-ink/12">
+      {/* The blur lives on its own layer. A backdrop-filter on the header
+          itself would make it the containing block for the fixed mobile
+          menu below, collapsing the menu to the header's height. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-paper/85 backdrop-blur-md"
+      />
       <div className="mx-auto flex w-full max-w-[1320px] items-center justify-between gap-8 px-5 py-4 sm:px-8 lg:px-10">
         <Link
           href="/"
           className="text-ink transition-colors hover:text-blue"
-          aria-label="Dialed Intelligence home"
+          aria-label={footer.homeLabel}
         >
           <Wordmark markWidth={32} />
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
+        <nav aria-label={copy.primaryNav} className="hidden items-center gap-7 xl:flex 2xl:gap-8">
           {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
-              className={`label-mono-sm transition-colors hover:text-blue ${
-                isActive(item.href) ? "text-blue" : "text-ink"
+              className={`label-mono-sm whitespace-nowrap transition-colors hover:text-blue ${
+                isActive(item.href) ? "text-blue-2" : "text-ink"
               }`}
             >
               {item.label}
@@ -53,8 +67,8 @@ export function Header() {
           ))}
           <Link
             href={ctaHref}
-            onClick={() => track("cta_book_session", { placement: "header" })}
-            className="label-mono-sm inline-flex items-center gap-2 rounded-[2px] bg-ink px-4 py-2.5 text-paper transition-colors hover:bg-blue hover:text-white"
+            onClick={() => track("cta_book_call", { placement: "header" })}
+            className="label-mono-sm inline-flex items-center gap-2 whitespace-nowrap rounded-[2px] bg-ink px-4 py-2.5 text-paper transition-colors hover:bg-blue hover:text-white"
           >
             {ctaLabel}
             <span className="font-sans" aria-hidden="true">
@@ -68,9 +82,9 @@ export function Header() {
           onClick={() => setOpen(!open)}
           aria-expanded={open}
           aria-controls="mobile-menu"
-          className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] lg:hidden"
+          className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] xl:hidden"
         >
-          <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+          <span className="sr-only">{open ? copy.closeMenu : copy.openMenu}</span>
           <span
             aria-hidden="true"
             className={`block h-[2px] w-6 bg-ink transition-transform duration-200 ${
@@ -89,10 +103,10 @@ export function Header() {
       {open && (
         <div
           id="mobile-menu"
-          className="fixed inset-x-0 bottom-0 top-[69px] z-40 overflow-y-auto bg-ink text-paper lg:hidden"
+          className="fixed inset-x-0 bottom-0 top-[69px] z-40 overflow-y-auto bg-ink text-paper xl:hidden"
         >
           <nav
-            aria-label="Mobile"
+            aria-label={copy.mobileNav}
             className="flex min-h-full flex-col px-5 pb-10 pt-8 sm:px-8"
           >
             <div className="flex flex-col">
@@ -104,7 +118,7 @@ export function Header() {
                   className="group flex items-baseline justify-between border-b border-paper/15 py-5"
                 >
                   <span className="flex items-baseline gap-4">
-                    <span className="font-mono text-sm text-blue">
+                    <span className="font-mono text-sm text-lime">
                       [{String(i + 1).padStart(2, "0")}]
                     </span>
                     <span className="font-display text-3xl font-medium tracking-tight group-hover:text-lime">
@@ -122,7 +136,7 @@ export function Header() {
                 href={ctaHref}
                 onClick={() => {
                   setOpen(false);
-                  track("cta_book_session", { placement: "mobile_menu" });
+                  track("cta_book_call", { placement: "mobile_menu" });
                 }}
                 className="label-mono inline-flex w-full items-center justify-center gap-2 rounded-[2px] bg-blue px-6 py-5 text-white"
               >
@@ -132,7 +146,7 @@ export function Header() {
                 </span>
               </Link>
               <p className="label-mono-sm mt-8 text-paper/65">
-                Build it. You own it.
+                {site.brandLine}
               </p>
             </div>
           </nav>

@@ -1,19 +1,12 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts, formatPostDate } from "@/lib/insights";
 import { Container, Eyebrow } from "@/components/primitives";
 import { ClosingCTA } from "@/components/bands";
 import { Reveal } from "@/components/reveal";
+import { pageMetadata } from "@/lib/meta";
+import { header, meta } from "@/content/insights";
 
-export const metadata: Metadata = {
-  title: "Insights",
-  description:
-    "Working positions from Dialed Intelligence on owned software, automation that cannot spend money, and the prices your catalog never gets.",
-  alternates: { canonical: "/insights" },
-};
-
-const standfirst =
-  "We think a firm should put its positions in writing before it asks for your trust. These essays are ours, written from systems in production rather than from a content calendar.";
+export const metadata = pageMetadata(meta);
 
 export default function InsightsPage() {
   const posts = getAllPosts();
@@ -22,18 +15,18 @@ export default function InsightsPage() {
     <>
       <section aria-labelledby="insights-title">
         <Container className="pb-24 pt-16 lg:pb-32 lg:pt-24">
-          <Eyebrow>Insights</Eyebrow>
+          <Eyebrow>{header.eyebrow}</Eyebrow>
           <h1
             id="insights-title"
             className="mt-8 max-w-4xl font-display text-[clamp(2.2rem,4.8vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.03em] text-balance"
           >
-            Thinking that survives contact with production.
+            {header.title}
           </h1>
-          <p className="body-lg mt-8 max-w-2xl text-ink/75">{standfirst}</p>
+          <p className="body-lg mt-8 max-w-2xl text-ink/75">{header.standfirst}</p>
 
           <div className="mt-16 flex items-baseline justify-between lg:mt-20">
-            <span className="label-mono-sm text-ink/70">All essays</span>
-            <span className="font-mono text-sm text-blue">
+            <span className="label-mono-sm text-ink/70">{header.listLabel}</span>
+            <span className="font-mono text-sm text-blue-2">
               [{String(posts.length).padStart(2, "0")}]
             </span>
           </div>

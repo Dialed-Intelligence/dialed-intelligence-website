@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Wordmark } from "./logo";
 import { Container } from "./primitives";
-import { site, nav } from "@/lib/site";
-import { serviceNav } from "@/lib/services";
+import { site, nav, footer as copy } from "@/content/site";
+import { serviceNav } from "@/content/services";
 
 export function Footer() {
   return (
@@ -13,7 +13,7 @@ export function Footer() {
             <Link
               href="/"
               className="inline-block text-paper transition-colors hover:text-lime"
-              aria-label="Dialed Intelligence home"
+              aria-label={copy.homeLabel}
             >
               <Wordmark markWidth={34} />
             </Link>
@@ -21,12 +21,12 @@ export function Footer() {
               {site.positioning}
             </p>
             <p className="mt-5 font-display text-xl font-medium tracking-tight">
-              Build it. You own it.
+              {site.brandLine}
             </p>
           </div>
 
           <div>
-            <h2 className="label-mono-sm mb-5 text-paper/60">Firm</h2>
+            <h2 className="label-mono-sm mb-5 text-paper/60">{copy.firmHeading}</h2>
             <ul>
               {nav.map((item) => (
                 <li key={item.href}>
@@ -43,14 +43,14 @@ export function Footer() {
                   href="/contact"
                   className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-lime"
                 >
-                  Contact
+                  {copy.contactLabel}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h2 className="label-mono-sm mb-5 text-paper/60">What we build</h2>
+            <h2 className="label-mono-sm mb-5 text-paper/60">{copy.servicesHeading}</h2>
             <ul>
               {serviceNav.map((s) => (
                 <li key={s.href}>
@@ -66,7 +66,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h2 className="label-mono-sm mb-5 text-paper/60">Contact</h2>
+            <h2 className="label-mono-sm mb-5 text-paper/60">{copy.contactHeading}</h2>
             <a
               href={`mailto:${site.email}`}
               className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-lime"
@@ -79,7 +79,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-lime"
             >
-              LinkedIn
+              {copy.linkedinLabel}
             </a>
             <p className="mt-4 text-[0.9375rem] text-paper/65">{site.location}</p>
           </div>
@@ -87,10 +87,10 @@ export function Footer() {
 
         <div className="flex flex-wrap items-center justify-between gap-4 pt-7">
           <p className="font-mono text-xs text-paper/60">
-            {`© ${new Date().getFullYear()} Dialed Intelligence®`}
+            {`© ${new Date().getFullYear()} ${site.name}®`}
           </p>
           <p className="font-mono text-xs text-paper/60">
-            Strategy that ends in a running system. Owned by you.
+            {copy.tagline}
           </p>
         </div>
       </Container>

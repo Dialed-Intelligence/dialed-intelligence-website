@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
+import { site } from "@/content/site";
 
-const BASE_URL = "https://dialedintelligence.com";
+const BASE_URL = site.url;
 
 export default function robots(): MetadataRoute.Robots {
   return {

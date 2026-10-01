@@ -1,140 +1,116 @@
 {
   "project": "dialed-intelligence-website",
-  "version": "1.0.0",
-  "generated": "2026-06-10",
+  "version": "2.0.0",
+  "generated": "2026-09-29",
+  "note": "v2, the fractional AI rebuild. v1 features are in git history (commit 3c2c4c9).",
   "features": [
     {
-      "id": "001",
-      "name": "Design foundation and global chrome",
-      "description": "Brand tokens, type system, header with mobile menu, footer, CTA bands, ownership band, process strip, marquee, scroll reveals",
+      "id": "101",
+      "name": "Content layer",
+      "description": "All rendered copy in typed modules under src/content, pages compose section components",
       "acceptance": [
-        "Tokens match the brand sheet (ink 2D2A2B, paper E6E6E4, blue 346AEA, lime CDDD3C)",
-        "Fonts are Space Grotesk, Hanken Grotesk, Space Mono",
-        "Reveals degrade gracefully without JS and under prefers-reduced-motion",
-        "Mobile menu closes on navigation and Escape"
+        "No rendered copy in src/app or src/components JSX",
+        "Rendered HTML unchanged by the refactor (verified by diff)"
       ],
       "passes": true
     },
     {
-      "id": "002",
+      "id": "102",
+      "name": "Global chrome",
+      "description": "Header, mobile menu, footer with the new nav and CTA",
+      "acceptance": [
+        "Nav is How it works, What we deliver, Results, About, Insights, plus Book a 45-minute call",
+        "Desktop nav never wraps (shows at xl, menu button below)",
+        "Mobile menu opens full height and closes on Escape and navigation"
+      ],
+      "passes": true
+    },
+    {
+      "id": "103",
       "name": "Home page",
-      "description": "Hero, marquee, triangulation block, services list, ownership band, process strip, credibility strip, closing CTA",
+      "description": "Ten sections from the Rebrand Spec homepage spec",
       "acceptance": [
-        "Outline section 3.1 copy used verbatim",
-        "Triangulation panel three is visually emphasized",
-        "All five service rows link to detail pages"
+        "Sections in spec order, hero through closing",
+        "Quarter Plan exhibit renders as a document, labeled as an example",
+        "Case cards link to /results anchors",
+        "Lead profile falls back to a typographic panel until the photo exists"
+      ],
+      "passes": false
+    },
+    {
+      "id": "104",
+      "name": "How it works",
+      "description": "Path, Quarter Plan anatomy, service standards, what we need, ownership, renewal and exit, full FAQ",
+      "acceptance": [
+        "Anchors #quarter-plan, #ownership, #faq resolve",
+        "FAQPage JSON-LD built from src/content/faq.ts",
+        "/approach and /ownership 308 here"
+      ],
+      "passes": false
+    },
+    {
+      "id": "105",
+      "name": "What we deliver and service details",
+      "description": "Three deliverable groups, systems list, five service pages reframed",
+      "acceptance": [
+        "No fixed-price or subscription language",
+        "Each service page has a Where it fits in a Quarter Plan row"
+      ],
+      "passes": false
+    },
+    {
+      "id": "106",
+      "name": "Results",
+      "description": "Full write-ups of three case studies",
+      "acceptance": [
+        "One anchored article per case",
+        "Role held shown on each",
+        "No metric renders until client-approved"
+      ],
+      "passes": false
+    },
+    {
+      "id": "107",
+      "name": "About",
+      "description": "Firm, lead profile, principles, how we choose clients",
+      "acceptance": [
+        "fractional Chief AI Officer term not required here but allowed",
+        "Capacity statement only while true"
+      ],
+      "passes": false
+    },
+    {
+      "id": "108",
+      "name": "Contact form and API",
+      "description": "Name, email, company, role, revenue, what prompted you, with server validation",
+      "acceptance": [
+        "Revenue validated against the shared option list",
+        "Honeypot, time trap, size limits, header-injection hardening kept",
+        "Scheduler renders after the form when NEXT_PUBLIC_SCHEDULER_URL is set"
       ],
       "passes": true
     },
     {
-      "id": "003",
-      "name": "Service detail system",
-      "description": "One template, five content files, prev/next navigation, per-service OG images",
+      "id": "109",
+      "name": "SEO and structured data",
+      "description": "New default meta, per-page meta and OG, Organization and ProfessionalService JSON-LD, sitemap",
       "acceptance": [
-        "All five routes statically generated from one template",
-        "Outline sections 3.3a-e used verbatim for problem, build, get, engagement",
-        "Practice walkthroughs are anonymized, conservative, and labeled representative",
-        "Activepieces is never named anywhere"
+        "Every route has a canonical",
+        "Sitemap lists new routes and not retired ones",
+        "JSON-LD validates"
       ],
-      "passes": true
+      "passes": false
     },
     {
-      "id": "004",
-      "name": "Services hub",
-      "description": "Header, architecture story with HTML diagram, five service summary blocks, closing CTA",
+      "id": "110",
+      "name": "Launch QA",
+      "description": "Copy review, accessibility and contrast, Lighthouse, redirects, form test on preview",
       "acceptance": [
-        "Diagram shows the data foundation, three modules, and the platform chassis",
-        "Rows read title, problem statement, description, duration, link"
+        "Copy review clean against the Rebrand Spec rules",
+        "Lighthouse 95+ on performance and accessibility",
+        "Vercel reconnected to the org repo"
       ],
-      "passes": true
-    },
-    {
-      "id": "005",
-      "name": "Ownership manifesto",
-      "description": "Dark hero, four-passage argument, practical FAQ, closing CTA",
-      "acceptance": [
-        "Build it. You own it. at display scale",
-        "Outline passages verbatim",
-        "FAQ uses native details/summary, keyboard accessible"
-      ],
-      "passes": true
-    },
-    {
-      "id": "006",
-      "name": "Approach page",
-      "description": "Four engagement stages in depth, what-we-are-not section, closing CTA",
-      "acceptance": [
-        "Stage bodies verbatim from outline section 3.5",
-        "Each stage shows what you walk away with and how long it takes"
-      ],
-      "passes": true
-    },
-    {
-      "id": "007",
-      "name": "About page",
-      "description": "Firm story, four principles, typographic founder block, closing CTA",
-      "acceptance": [
-        "Outline section 3.6 copy verbatim",
-        "No stock photos or fake imagery, typographic founder panel until a real photo lands"
-      ],
-      "passes": true
-    },
-    {
-      "id": "008",
-      "name": "Contact page and form API",
-      "description": "Headline, expectation block, optional scheduler embed, validated form, spam-protected route handler",
-      "acceptance": [
-        "POST /api/contact validates, honeypots, and time-traps (verified by request tests)",
-        "Email delivery via Resend env vars, graceful no-op without them",
-        "Control characters stripped, name and company forced single-line",
-        "Form is client-validated with accessible error wiring"
-      ],
-      "passes": true
-    },
-    {
-      "id": "009",
-      "name": "Insights system",
-      "description": "Markdown pipeline, index page, article template, three launch essays",
-      "acceptance": [
-        "Posts render from content/insights with computed reading time",
-        "Three essays at 650-900 words obeying every copy rule",
-        "Adding a markdown file is the only publishing step"
-      ],
-      "passes": true
-    },
-    {
-      "id": "010",
-      "name": "SEO and sharing infrastructure",
-      "description": "sitemap.xml, robots.txt, branded OG images for every route, branded 404, security headers",
-      "acceptance": [
-        "All routes in the sitemap including posts",
-        "OG images render the mark, eyebrow, and title on ink at 1200x630",
-        "Unique colon-free titles and descriptions on every page"
-      ],
-      "passes": true
-    },
-    {
-      "id": "011",
-      "name": "Copy rules compliance",
-      "description": "Binding rules from the outline enforced across all rendered copy",
-      "acceptance": [
-        "No em-dashes, semicolons, or colons in rendered copy",
-        "Banned vocabulary absent (grep-verified)",
-        "Build it, you own it present on every page via footer or section",
-        "No pricing anywhere"
-      ],
-      "passes": true
-    },
-    {
-      "id": "012",
-      "name": "Accessibility floor",
-      "description": "Contrast, focus, motion, semantics",
-      "acceptance": [
-        "Informational text meets WCAG AA contrast (computed and swept)",
-        "Visible focus states, skip link, semantic landmarks, aria-labelledby sections",
-        "prefers-reduced-motion disables marquee and reveals"
-      ],
-      "passes": true
+      "passes": false
     }
   ]
 }

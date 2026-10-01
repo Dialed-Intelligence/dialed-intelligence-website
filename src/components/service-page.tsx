@@ -1,39 +1,13 @@
 import Link from "next/link";
-import type { Service } from "@/lib/services";
-import { serviceNav } from "@/lib/services";
+import type { Service } from "@/content/services";
+import { serviceLabels as L, serviceNav } from "@/content/services";
+import { ctaHref, ctaLabel } from "@/content/site";
 import { LogoMark } from "./logo";
 import { Container, Eyebrow } from "./primitives";
 import { CTA } from "./cta";
 import { ClosingCTA } from "./bands";
 import { Reveal } from "./reveal";
-
-function SectionRow({
-  label,
-  index,
-  dark = false,
-  children,
-}: {
-  label: string;
-  index: string;
-  dark?: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <div
-      className={`grid grid-cols-1 gap-x-16 gap-y-8 border-t py-14 lg:grid-cols-[280px_minmax(0,1fr)] lg:py-20 ${
-        dark ? "border-paper/20" : "border-ink/20"
-      }`}
-    >
-      <div className="lg:sticky lg:top-28 lg:self-start">
-        <span className={`font-mono text-sm ${dark ? "text-lime" : "text-blue"}`}>
-          [{index}]
-        </span>
-        <h2 className="display-3 mt-3">{label}</h2>
-      </div>
-      <div>{children}</div>
-    </div>
-  );
-}
+import { EditorialRow } from "./sections/editorial-row";
 
 export function ServicePage({ service }: { service: Service }) {
   const order = serviceNav.findIndex((s) => s.slug === service.slug);
@@ -48,7 +22,7 @@ export function ServicePage({ service }: { service: Service }) {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <Eyebrow>{service.eyebrow}</Eyebrow>
             <span className="label-mono-sm text-ink/70">
-              Service {String(service.index).padStart(2, "0")} of 05
+              {L.aside}
             </span>
           </div>
           <h1
@@ -58,11 +32,11 @@ export function ServicePage({ service }: { service: Service }) {
             {service.headline}
           </h1>
           <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
-            <CTA href="/contact" event="cta_book_session">
-              Book a Working Session
+            <CTA href={ctaHref} event="cta_book_call">
+              {ctaLabel}
             </CTA>
             <span className="label-mono-sm text-ink/70">
-              Typical build {service.engagement.duration.toLowerCase()}
+              {L.buildPrefix} {service.engagement.duration.toLowerCase()}
             </span>
           </div>
         </Container>
@@ -71,7 +45,7 @@ export function ServicePage({ service }: { service: Service }) {
       {/* The problem */}
       <Container>
         <Reveal>
-          <SectionRow label="The problem" index="01">
+          <EditorialRow label={L.problem} index="01">
             <div className="max-w-2xl space-y-6">
               {service.problem.map((p) => (
                 <p key={p.slice(0, 40)} className="body-lg text-ink/75">
@@ -79,7 +53,7 @@ export function ServicePage({ service }: { service: Service }) {
                 </p>
               ))}
             </div>
-          </SectionRow>
+          </EditorialRow>
         </Reveal>
       </Container>
 
@@ -91,7 +65,7 @@ export function ServicePage({ service }: { service: Service }) {
               width={420}
               className="pointer-events-none absolute -right-20 bottom-0 hidden text-paper/4 lg:block"
             />
-            <SectionRow label="What we build" index="02" dark>
+            <EditorialRow label={L.build} index="02" dark>
               <div className="relative max-w-2xl space-y-6">
                 {service.build.map((p) => (
                   <p key={p.slice(0, 40)} className="body-lg text-paper/75">
@@ -99,7 +73,7 @@ export function ServicePage({ service }: { service: Service }) {
                   </p>
                 ))}
               </div>
-            </SectionRow>
+            </EditorialRow>
           </div>
         </Container>
       </section>
@@ -107,7 +81,7 @@ export function ServicePage({ service }: { service: Service }) {
       {/* What you get */}
       <Container>
         <Reveal>
-          <SectionRow label="What you get" index="03">
+          <EditorialRow label={L.get} index="03">
             <div className="max-w-2xl">
               <div className="space-y-6">
                 {service.get.slice(0, -1).map((p) => (
@@ -120,14 +94,14 @@ export function ServicePage({ service }: { service: Service }) {
                 {service.get[service.get.length - 1]}
               </p>
             </div>
-          </SectionRow>
+          </EditorialRow>
         </Reveal>
       </Container>
 
       {/* In practice */}
       <Container>
         <Reveal>
-          <SectionRow label="What it looks like in practice" index="04">
+          <EditorialRow label={L.practice} index="04">
             <div>
               <p className="body-lg max-w-2xl text-ink/75">
                 {service.practice.intro}
@@ -135,40 +109,40 @@ export function ServicePage({ service }: { service: Service }) {
               <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-[5px] border border-ink/15 bg-ink/15 md:grid-cols-3">
                 {service.practice.beats.map((beat) => (
                   <div key={beat.label} className="bg-paper-2 p-7">
-                    <span className="label-mono-sm text-blue">{beat.label}</span>
+                    <span className="label-mono-sm text-blue-2">{beat.label}</span>
                     <p className="body-md mt-4 text-ink/70">{beat.text}</p>
                   </div>
                 ))}
               </div>
               <p className="label-mono-sm mt-5 text-ink/65">
-                A representative engagement, anonymized
+                {L.practiceNote}
               </p>
             </div>
-          </SectionRow>
+          </EditorialRow>
         </Reveal>
       </Container>
 
       {/* Typical engagement */}
       <Container>
         <Reveal>
-          <SectionRow label="Typical engagement" index="05">
+          <EditorialRow label={L.engagement} index="05">
             <div className="grid max-w-3xl grid-cols-1 gap-10 sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-14">
               <div>
                 <p className="display-1 text-blue">
                   {service.engagement.duration}
                 </p>
                 <p className="label-mono-sm mt-3 text-ink/70">
-                  Fixed price, fixed scope
+                  {L.engagementTerms}
                 </p>
               </div>
               <p className="body-lg text-ink/75">{service.engagement.body}</p>
             </div>
-          </SectionRow>
+          </EditorialRow>
         </Reveal>
       </Container>
 
       {/* Prev / next */}
-      <nav aria-label="More services" className="border-t border-ink/20">
+      <nav aria-label={L.moreServices} className="border-t border-ink/20">
         <Container>
           <div className="grid grid-cols-1 sm:grid-cols-2">
             <Link
@@ -176,7 +150,7 @@ export function ServicePage({ service }: { service: Service }) {
               className="group flex flex-col gap-2 border-b border-ink/20 py-10 pr-8 transition-colors hover:bg-ink hover:px-6 hover:text-paper sm:border-b-0 sm:border-r"
             >
               <span className="label-mono-sm text-ink/70 group-hover:text-paper/65">
-                Previous service
+                {L.previous}
               </span>
               <span className="display-3">
                 <span aria-hidden="true">&#8598; </span>
@@ -188,7 +162,7 @@ export function ServicePage({ service }: { service: Service }) {
               className="group flex flex-col gap-2 py-10 text-right transition-colors hover:bg-ink hover:px-6 hover:text-paper sm:pl-8"
             >
               <span className="label-mono-sm text-ink/70 group-hover:text-paper/65">
-                Next service
+                {L.next}
               </span>
               <span className="display-3">
                 {next.title}

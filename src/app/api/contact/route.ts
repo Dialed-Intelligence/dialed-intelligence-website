@@ -1,6 +1,11 @@
+import { revenueOptions } from "@/content/contact-form";
+
 export const runtime = "nodejs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/** Max length for single-line fields (name, company, role, email). */
+const MAX_LINE = 200;
 
 const INVALID_RESPONSE = {
   ok: false,
@@ -42,6 +47,8 @@ export async function POST(req: Request) {
 
   const name = singleLine(clean(body.name));
   const company = singleLine(clean(body.company));
+  const role = singleLine(clean(body.role));
+  const revenueValue = singleLine(clean(body.revenue));
   const email = clean(body.email);
   const message = clean(body.message);
   const website = clean(body.website);
@@ -59,17 +66,24 @@ export async function POST(req: Request) {
     return Response.json({ ok: true });
   }
 
+  // The allowed revenue values come from the same module the form renders.
+  const revenue = revenueOptions.find((o) => o.value === revenueValue);
+
   const valid =
     name.length > 0 &&
-    name.length < 200 &&
-    company.length < 200 &&
+    name.length < MAX_LINE &&
+    company.length > 0 &&
+    company.length < MAX_LINE &&
+    role.length > 0 &&
+    role.length < MAX_LINE &&
+    revenue !== undefined &&
     email.length > 0 &&
-    email.length < 200 &&
+    email.length < MAX_LINE &&
     EMAIL_RE.test(email) &&
     message.length > 0 &&
     message.length < 5000;
 
-  if (!valid) {
+  if (!valid || !revenue) {
     return Response.json(INVALID_RESPONSE, { status: 400 });
   }
 
@@ -85,8 +99,10 @@ export async function POST(req: Request) {
         event: "contact_form_submission",
         delivery: "skipped_missing_env",
         name,
-        company,
         email,
+        company,
+        role,
+        revenue: revenue.label,
         message,
       }),
     );
@@ -101,13 +117,19 @@ export async function POST(req: Request) {
     "Name",
     name,
     "",
-    "Company",
-    company || "Not provided",
-    "",
     "Email",
     email,
     "",
-    "What is eating your team's time?",
+    "Company",
+    company,
+    "",
+    "Role",
+    role,
+    "",
+    "Annual revenue",
+    revenue.label,
+    "",
+    "What prompted you to reach out?",
     message,
   ].join("\n");
 
@@ -121,7 +143,9 @@ export async function POST(req: Request) {
       body: JSON.stringify({
         from,
         to,
-        subject: `Working session request from ${name}`,
+        subject: singleLine(
+          `Intro call request from ${name}, ${company} (${revenue.label})`,
+        ),
         text,
         reply_to: email,
       }),

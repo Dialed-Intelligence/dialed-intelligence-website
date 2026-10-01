@@ -35,7 +35,7 @@ src/app/                 routes, one folder per page in the sitemap
 src/app/services/[slug]  the five service detail pages (one template, content props)
 src/app/api/contact      contact form handler
 src/components/          shared chrome and section bands
-src/lib/site.ts          site-wide config (email, scheduler URL, LinkedIn)
+src/content/site.ts          site-wide config (email, scheduler URL, LinkedIn)
 src/lib/services/        service page content, one file per service
 src/lib/og-fonts/        TTFs used only for Open Graph image generation
 content/insights/        markdown posts (frontmatter: title, summary, date)
@@ -73,7 +73,7 @@ Set these in Vercel (all optional, the site works without them):
 | `CONTACT_TO_EMAIL` | where form submissions are sent |
 | `CONTACT_FROM_EMAIL` | verified sender for form notifications |
 
-Before launch, update the LinkedIn URL in `src/lib/site.ts` and supply a
+Before launch, update the LinkedIn URL in `src/content/site.ts` and supply a
 founder photo for the About page.
 
 ## Publishing an insight

@@ -11,6 +11,18 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Routes retired in the fractional AI rebuild. Permanent (308) so links and
+  // search rankings carry over.
+  async redirects() {
+    return [
+      { source: "/approach", destination: "/how-it-works", permanent: true },
+      {
+        source: "/ownership",
+        destination: "/how-it-works#ownership",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

@@ -2,11 +2,12 @@
 
 import { useRef } from "react";
 import { track } from "@vercel/analytics";
-import { site } from "@/lib/site";
+import { site } from "@/content/site";
+import { scheduler as copy } from "@/content/contact";
 
 /**
  * Embedded scheduler panel for /contact. Renders nothing when no scheduler
- * URL is configured (see site.schedulerUrl in lib/site.ts), so the page
+ * URL is configured (see site.schedulerUrl in content/site.ts), so the page
  * degrades to the form-only path in every environment.
  */
 export function Scheduler() {
@@ -16,12 +17,10 @@ export function Scheduler() {
 
   return (
     <div className="rounded-[5px] border border-ink/15 bg-paper-2 p-5 sm:p-6">
-      <p className="label-mono-sm text-ink/70">
-        Book the working session directly
-      </p>
+      <p className="label-mono-sm text-ink/70">{copy.label}</p>
       <iframe
         src={site.schedulerUrl}
-        title="Schedule a working session"
+        title={copy.title}
         loading="lazy"
         sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
         referrerPolicy="strict-origin-when-cross-origin"

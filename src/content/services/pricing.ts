@@ -2,7 +2,6 @@ import type { Service } from "./types";
 
 export const pricing: Service = {
   slug: "pricing",
-  index: 5,
   title: "Dynamic Pricing",
   eyebrow: "Dynamic Pricing",
   headline:
@@ -23,7 +22,7 @@ export const pricing: Service = {
   ],
   get: [
     "Margin recaptured across the long tail, with every price defensible and every rule yours. This is our most quantitatively demanding work and the place our econometrics background earns its keep.",
-    "And the system that does it belongs to you. The demand models, the optimizer, the rule set. Build it, you own it, and no vendor ever takes a cut of the margin it recovers.",
+    "The system that does it belongs to you. The demand models, the optimizer, and the rule set run in your accounts, and no vendor takes a cut of the margin it recovers.",
   ],
   practice: {
     intro:
@@ -39,12 +38,12 @@ export const pricing: Service = {
       },
       {
         label: "After",
-        text: "Gross margin on the long tail came up a little over a point in the first two quarters, worth roughly $70k a year at current volume, with no measurable drop in unit sales. The category manager still signs off on every change. The difference is that prices across the catalog are now decided instead of inherited.",
+        text: "Gross margin on the long tail came up a little over a point in the first six months after launch, worth roughly $70k a year at current volume, with no measurable drop in unit sales. The category manager still signs off on every change. The difference is that prices across the catalog are now decided instead of inherited.",
       },
     ],
   },
   engagement: {
     duration: "Four to eight weeks",
-    body: "Four to eight weeks. This system is data-hungry, so it is offered selectively to clients with sufficient sales history and catalog depth for the optimization to move real money. The diagnostic tells us honestly whether you are one of them.",
+    body: "A second-term system for clients with enough sales history and catalog depth for the optimization to move real money. The discovery project tells us honestly whether your data supports it. The scorecard tracks margin by catalog segment.",
   },
 };
