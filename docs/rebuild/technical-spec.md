@@ -101,7 +101,7 @@ content props.
 |---|---|
 | `Hero` | Home hero with proof line |
 | `Marquee` | Capability ticker |
-| `PathCards` | Four numbered options, last one on ink (the "problem" section) |
+| `PathCards` | Retired 2026-10-30, replaced by `Comparison` (see `docs/refresh/`) |
 | `LinkRows` | Numbered link rows that invert on hover |
 | `CaseCards` | Problem, build, result cards with optional metric |
 | `StatementBand` | Ink band with a two-line display headline |
@@ -139,13 +139,13 @@ and OG images follow the new route list.
 |---|---|---|---|
 | 1 | Hero | `Hero` | Make the blue emphasis clause optional |
 | 2 | Capability ticker | `Marquee` | Content only |
-| 3 | The problem | `PathCards` | Content only, same four-card shape |
+| 3 | The problem | `Comparison` | Replaced `PathCards` in the 2026-10-30 refresh |
 | 4 | What the role covers | **`NumberedGrid`** (new, generalizes the About principles grid to two or three columns) | New component |
 | 5 | The Quarter Plan | **`QuarterPlanExhibit`** (new) | The signature visual. A paper document on the page: header block (example client, quarter, "Example" stamp), month by month deliverables, scorecard measures, what we need from you. HTML and tokens only, no image |
 | 6 | From first call to handover | `ProcessStrip` | Five steps |
 | 7 | Results | `CaseCards` | Add an optional link per card |
 | 8 | Ownership | `StatementBand` | Make the points list optional |
-| 9 | Who you get | **`LeadProfile`** (new) | Photo via `next/image`, name, background list, link to About. Typographic fallback until the photo exists |
+| 9 | Who you get | **`LeadProfile`** (retired 2026-10-30, team moved to About as `TeamSection`) | Photo via `next/image`, name, background list, link to About. Typographic fallback until the photo exists |
 | 10 | Closing | `FaqSection` plus `ClosingCTA` | Three-question FAQ, new CTA copy, footer tagline |
 
 ### 2.6 Contact form and API

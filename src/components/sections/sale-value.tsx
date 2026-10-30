@@ -33,7 +33,7 @@ export function SaleValue({ id, copy }: { id: string; copy: SaleValueCopy }) {
             </h2>
             <div className="mt-8 max-w-[40rem] space-y-6">
               {copy.body.map((p) => (
-                <p key={p.slice(0, 40)} className="body-lg text-ink/75">
+                <p key={p} className="body-lg text-ink/75">
                   {p}
                 </p>
               ))}

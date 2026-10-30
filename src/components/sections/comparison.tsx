@@ -31,7 +31,7 @@ export function Comparison({ id, copy }: { id: string; copy: ComparisonCopy }) {
 
         {/* Tablet and up */}
         <Reveal delay={80} className="mt-16 hidden md:block">
-          <table className="w-full table-fixed border-collapse text-left">
+          <table aria-labelledby={id} className="w-full table-fixed border-collapse text-left">
             <thead>
               <tr>
                 <th scope="col" className="label-mono-sm w-[22%] pb-4 pr-6 align-bottom font-normal text-ink/70">

@@ -83,7 +83,7 @@ export const comparison: ComparisonCopy = {
     },
     {
       label: "Who runs it afterward",
-      cells: ["The hire", "Your team, untrained", "The vendor", "Your team, trained"],
+      cells: ["The hire", "Your team, on its own", "The vendor", "Your team, trained"],
     },
   ],
 };
@@ -131,8 +131,8 @@ export const opportunity: {
   eyebrow: "How we choose projects",
   title: "Every project has to pay for itself on paper first.",
   body: [
-    "Before we build anything, we model what it costs to build and run, what it saves or earns, and how long it takes to pay back. Leadership funds the projects that clear the bar. The rest go on a list of things not to buy, with the reasons.",
-    "Most of the return is capacity. Your team handles more orders, more leads, and more customers without a new hire for every step up in revenue.",
+    "Before we build anything, we model the cost to build and run it. Then we model what it saves or earns and when it pays back. Leadership funds the projects that clear the bar. The rest go on a list of things not to buy, with the reasons.",
+    "Most of the return is capacity. Your team handles more orders without adding a hire each time revenue steps up.",
   ],
   exhibit: {
     stamp: "Example",

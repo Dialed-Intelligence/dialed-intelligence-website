@@ -51,7 +51,7 @@ export function TeamSection({
           {members.map((m, i) => (
             <li key={m.name}>
               <Reveal delay={i * 80}>
-                <article aria-label={m.name}>
+                <article aria-labelledby={`${id}-${i}`}>
                   <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[5px] bg-ink">
                     {m.photo ? (
                       <Image
@@ -68,7 +68,9 @@ export function TeamSection({
                           width={260}
                           className="pointer-events-none absolute -bottom-10 -right-12 text-paper/6"
                         />
-                        <span className="font-mono text-sm text-lime">[ {m.role} ]</span>
+                        <span aria-hidden="true" className="font-mono text-sm text-lime">
+                          [ {m.role} ]
+                        </span>
                         <span
                           aria-hidden="true"
                           className="font-display text-[7rem] font-medium leading-none tracking-[-0.05em] text-paper/90"
@@ -78,13 +80,13 @@ export function TeamSection({
                       </div>
                     )}
                   </div>
-                  <h3 className="mt-8 font-display text-2xl font-medium tracking-tight">
+                  <h3 id={`${id}-${i}`} className="mt-8 font-display text-2xl font-medium tracking-tight">
                     {m.name}
                   </h3>
                   <p className="label-mono-sm mt-2 text-ink/70">{m.role}</p>
                   <div className="mt-6 max-w-xl space-y-4">
                     {m.bio.map((p) => (
-                      <p key={p.slice(0, 40)} className="body-md text-ink/75">
+                      <p key={p} className="body-md text-ink/75">
                         {p}
                       </p>
                     ))}

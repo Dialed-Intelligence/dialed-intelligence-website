@@ -242,3 +242,18 @@ NEXT      | Tyler reviews on a Vercel preview. Michael's background, headshots,
           | the 3.8 copy edits on How it works and What we deliver, copy into
           | the Rebrand Spec doc.
 BLOCKERS  | None
+
+SESSION   | 2026-10-30 | qa-agent
+VERIFIED  | Home refresh and About team section (feature_list 111, new)
+RESULT    | PASS
+NOTES     | lint, typecheck, build clean, 33/33 routes static. index.html has new
+          | headings, Opportunity Model, new FAQ. about.html has both names.
+          | Link anchors exist. Visual/responsive not checked. Stale doc refs in
+          | docs/rebuild/technical-spec.md and AGENTS.md.
+NEXT      | copy-editor / code-reviewer
+BLOCKERS  | None
+
+SESSION   | 2026-10-30 | review pass on PR #6
+REVIEWS   | copy-editor: 0 must fix | qa-agent: PASS (feature 111) | code-reviewer: 0 must fix, 4 should fix | security-reviewer: CLEAR, 1 low
+FIXED     | Opportunity Model contrast to ink/70 and dashed strike-through skip badge; aria names on both tables; team role placeholder aria-hidden, articles labelled by h3; paragraph keys use full text; copy rewrites (Tyler bio triad, capacity line, model sentence split, FAQ slogan repeat, Michael bio, "on its own"); proposal doc asks for profile URL not credentials; tech spec notes retired PathCards and LeadProfile
+DEFERRED  | DocumentCard extraction shared by Quarter Plan and Opportunity Model; real figure for reorder forecasting row; Michael bio sign-off; role framing check against Rebrand Spec

@@ -43,7 +43,7 @@ export const team: TeamMember[] = [
     role: "Founder and Senior AI Engineer",
     bio: [
       "Tyler founded Dialed Intelligence and leads the technical work on every engagement. He writes the Quarter Plan and builds the systems in it.",
-      "His work spans econometrics and NBER research, investment banking, management consulting for research organizations and PE-backed companies, and production AI engineering. That mix is the method. Measure the problem like an economist, scope it like a banker, and build it like an engineer.",
+      "He started in econometrics and NBER research. He then worked in investment banking and in consulting for research organizations and PE-backed companies before moving into production AI engineering.",
     ],
     backgroundLabel: "Background",
     background: [
@@ -59,7 +59,7 @@ export const team: TeamMember[] = [
     role: "Head of Client Engagement",
     bio: [
       "Michael is your first point of contact and stays on the account through handover. He runs the discovery interviews with each department and keeps the Quarter Plan on schedule.",
-      "He also runs the monthly scorecard review with your leadership team, so you always know what shipped and what it is worth.",
+      "He also runs the monthly scorecard review with your leadership team. You see what shipped and what it is worth.",
     ],
     photoAlt: "Michael Jarvis, Head of Client Engagement at Dialed Intelligence",
   },

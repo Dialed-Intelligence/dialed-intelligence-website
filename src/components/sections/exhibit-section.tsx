@@ -52,7 +52,7 @@ export function ExhibitSection({
             </h2>
             <div className="mt-8 max-w-[40rem] space-y-6">
               {body.map((p) => (
-                <p key={p.slice(0, 40)} className="body-lg text-ink/75">
+                <p key={p} className="body-lg text-ink/75">
                   {p}
                 </p>
               ))}

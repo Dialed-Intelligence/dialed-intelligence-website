@@ -32,7 +32,7 @@ export const faqs: Faq[] = [
   {
     question: "Can we hire you for the strategy only?",
     answer:
-      "Yes. Some clients take the discovery project and the roadmap to their own team or another vendor. Most keep us on to build, because the person who sized each project already knows how to ship it.",
+      "Yes. Some clients take the discovery project and the roadmap to their own team or another vendor. Most keep us on to build the projects we sized.",
   },
   {
     question: "How long do engagements last?",

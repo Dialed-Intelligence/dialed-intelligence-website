@@ -111,6 +111,20 @@
         "Vercel reconnected to the org repo"
       ],
       "passes": false
+    },
+    {
+      "id": "111",
+      "name": "Home refresh and About team section",
+      "description": "Home gains Comparison, TwoJobs, Opportunity Model exhibit, mirrored Quarter Plan exhibit, SaleValue, two FAQs and an ink hero proof panel. About replaces LeadProfile with TeamSection (Tyler Dial, Michael Jarvis). LeadProfile and PathCards removed. Supersedes the lead profile and ten section wording in 103 and 107.",
+      "acceptance": [
+        "npm run lint, npm run typecheck and npm run build pass and all 33 routes prerender",
+        "Built index.html contains the new section headings, the Opportunity Model exhibit and the two new FAQs",
+        "Built about.html contains Tyler Dial and Michael Jarvis",
+        "No references to LeadProfile, PathCards, lead-profile or path-cards remain in src",
+        "Link targets exist: /services, /how-it-works#quarter-plan, /how-it-works#faq, /results#skilled-nursing-documentation"
+      ],
+      "passes": true,
+      "qa_notes": "Verified 2026-10-30 from built output. Not covered here: visual and responsive checks (table to cards on phones, ink panels) and copy-rule review, which belong to copy-editor and a manual pass. Stale doc references remain in docs/rebuild/technical-spec.md and AGENTS.md (minor)."
     }
   ]
 }

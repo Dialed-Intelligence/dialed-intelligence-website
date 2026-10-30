@@ -399,5 +399,5 @@ site wording) does that. Your call.
 3. Keep the sale-price illustration numbers on the site, or show the logic
    without numbers.
 4. Book the photo shoot.
-5. Your LinkedIn credentials, if you want more detail in your background
+5. Your LinkedIn profile URL or an exported résumé, if you want more detail in your background
    list.
