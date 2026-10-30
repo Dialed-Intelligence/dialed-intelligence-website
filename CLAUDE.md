@@ -28,7 +28,7 @@ with the Claude Docs connector). Never invent copy that contradicts it.
 - src/app/          routes (App Router) — one folder per page. Pages compose sections, they hold no copy
 - src/content/      ALL rendered copy, one typed module per page (+ site.ts for nav, CTA, footer, bands, services/ for the service pages). Edit copy here
 - src/components/   shared chrome and bands (ClosingCTA, StatementBand, ProcessStrip, Marquee), service page template
-- src/components/sections/  reusable page sections (Hero, PathCards, LinkRows, CaseCards, TextSection, FaqSection, EditorialRow, StageBlock)
+- src/components/sections/  reusable page sections (Hero, Comparison, TwoJobs, ExhibitSection, OpportunityModelExhibit, SaleValue, TeamSection, LinkRows, CaseCards, TextSection, FaqSection, EditorialRow, StageBlock)
 - src/lib/          utilities (pageMetadata, OG image, markdown loading for insights)
 - content/insights/ markdown posts for /insights
 - public/           static assets, OG images

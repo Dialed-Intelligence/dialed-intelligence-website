@@ -63,7 +63,7 @@ export function Index({
   );
 }
 
-/** Standard section header row: eyebrow + headline, optional right-side slot. */
+/** Standard section header. Eyebrow, headline, and an optional link under it. */
 export function SectionHeader({
   eyebrow,
   title,
@@ -78,16 +78,12 @@ export function SectionHeader({
   className?: string;
 }) {
   return (
-    <div
-      className={`flex flex-wrap items-end justify-between gap-x-8 gap-y-6 ${className}`}
-    >
-      <div className="max-w-3xl">
-        <Eyebrow dark={dark}>{eyebrow}</Eyebrow>
-        <h2 className={`display-1 mt-5 ${dark ? "text-paper" : "text-ink"}`}>
-          {title}
-        </h2>
-      </div>
-      {right}
+    <div className={`max-w-3xl ${className}`}>
+      <Eyebrow dark={dark}>{eyebrow}</Eyebrow>
+      <h2 className={`display-1 mt-6 ${dark ? "text-paper" : "text-ink"}`}>
+        {title}
+      </h2>
+      {right && <div className="mt-6">{right}</div>}
     </div>
   );
 }
