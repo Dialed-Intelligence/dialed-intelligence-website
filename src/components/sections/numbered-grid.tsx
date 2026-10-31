@@ -30,7 +30,7 @@ export function NumberedGrid({
               className={`flex w-full flex-col border-t border-ink/20 py-10 lg:py-12 ${edge}`}
             >
               <Index n={i + 1} />
-              <h3 className="display-3 mt-12 lg:mt-16">{item.title}</h3>
+              <h3 className="display-3 mt-8">{item.title}</h3>
               <p className="body-md mt-4 max-w-md text-ink/75">{item.body}</p>
             </div>
           </Reveal>

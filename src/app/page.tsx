@@ -1,33 +1,33 @@
-import { Container, Eyebrow } from "@/components/primitives";
-import { TextLink } from "@/components/cta";
 import {
   ClosingCTA,
   Marquee,
   ProcessStrip,
   StatementBand,
 } from "@/components/bands";
-import { Reveal } from "@/components/reveal";
 import { Hero } from "@/components/sections/hero";
-import { PathCards } from "@/components/sections/path-cards";
-import { Section } from "@/components/sections/section";
-import { NumberedGrid } from "@/components/sections/numbered-grid";
+import { Comparison } from "@/components/sections/comparison";
+import { TwoJobs } from "@/components/sections/two-jobs";
+import { ExhibitSection } from "@/components/sections/exhibit-section";
+import { OpportunityModelExhibit } from "@/components/sections/opportunity-model";
 import { QuarterPlanExhibit } from "@/components/sections/quarter-plan";
+import { Section } from "@/components/sections/section";
 import { CaseCards } from "@/components/sections/case-cards";
-import { LeadProfile } from "@/components/sections/lead-profile";
+import { SaleValue } from "@/components/sections/sale-value";
 import { FaqSection } from "@/components/sections/faq";
 import { ownershipBand, processSteps } from "@/content/site";
 import { pickFaqs } from "@/content/faq";
 import { cases, homeIntro, labels } from "@/content/results";
 import {
+  comparison,
   faqIntro,
   faqQuestions,
   hero,
-  lead,
   marquee,
+  opportunity,
   path,
-  problem,
   quarterPlan,
-  role,
+  sale,
+  twoJobs,
 } from "@/content/home";
 
 export default function Home() {
@@ -39,56 +39,51 @@ export default function Home() {
       {/* 2. Capability ticker */}
       <Marquee items={marquee} />
 
-      {/* 3. The problem */}
-      <PathCards id="problem-title" intro={problem.intro} items={problem.items} />
+      {/* 3. The problem, as a comparison of the ways to get AI done */}
+      <Comparison id="problem-title" copy={comparison} />
 
-      {/* 4. What the role covers */}
-      <Section id="role-title" intro={role.intro}>
-        <NumberedGrid items={role.items} cols={3} />
-      </Section>
+      {/* 4. Two jobs, strategy and engineering, in one ink panel */}
+      <TwoJobs id="two-jobs-title" copy={twoJobs} />
 
-      {/* 5. The Quarter Plan, the site's signature exhibit */}
-      <section aria-labelledby="quarter-plan-title" className="border-t border-ink/15 bg-paper-2/60">
-        <Container className="py-24 lg:py-32">
-          <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
-            <Reveal className="lg:sticky lg:top-28">
-              <Eyebrow>{quarterPlan.eyebrow}</Eyebrow>
-              <h2 id="quarter-plan-title" className="display-1 mt-5">
-                {quarterPlan.title}
-              </h2>
-              <p className="body-lg mt-6 max-w-xl text-ink/75">{quarterPlan.body}</p>
-              <div className="mt-8">
-                <TextLink href={quarterPlan.link.href}>{quarterPlan.link.label}</TextLink>
-              </div>
-            </Reveal>
-            <Reveal delay={100}>
-              <QuarterPlanExhibit copy={quarterPlan.exhibit} />
-            </Reveal>
-          </div>
-        </Container>
-      </section>
+      {/* 5. How we choose projects, with the Opportunity Model */}
+      <ExhibitSection
+        id="opportunity-title"
+        eyebrow={opportunity.eyebrow}
+        title={opportunity.title}
+        body={opportunity.body}
+        tone="paper-2"
+      >
+        <OpportunityModelExhibit copy={opportunity.exhibit} />
+      </ExhibitSection>
 
-      {/* 6. From first call to handover */}
+      {/* 6. The Quarter Plan, the site's signature exhibit */}
+      <ExhibitSection
+        id="quarter-plan-title"
+        eyebrow={quarterPlan.eyebrow}
+        title={quarterPlan.title}
+        body={[quarterPlan.body]}
+        link={quarterPlan.link}
+        reverse
+      >
+        <QuarterPlanExhibit copy={quarterPlan.exhibit} />
+      </ExhibitSection>
+
+      {/* 7. From first call to handover */}
       <Section id="path-title" intro={path}>
         <ProcessStrip steps={processSteps} />
       </Section>
 
-      {/* 7. Results */}
+      {/* 8. Results */}
       <CaseCards id="results-title" intro={homeIntro} labels={labels} items={cases} />
 
-      {/* 8. Ownership */}
+      {/* 9. Planning a sale */}
+      <SaleValue id="sale-title" copy={sale} />
+
+      {/* 10. Ownership */}
       <StatementBand copy={ownershipBand} />
 
-      {/* 9. Who you get */}
-      <LeadProfile id="lead-title" copy={lead} />
-
-      {/* 10. Closing */}
-      <FaqSection
-        id="faq-title"
-        intro={faqIntro}
-        items={pickFaqs(faqQuestions)}
-        className="border-t border-ink/15"
-      />
+      {/* 11. Closing */}
+      <FaqSection id="faq-title" intro={faqIntro} items={pickFaqs(faqQuestions)} />
       <ClosingCTA />
     </>
   );

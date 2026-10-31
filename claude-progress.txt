@@ -212,3 +212,48 @@ NEXT      | Tyler: review draft copy tab, confirm Results and bio, decide on
           | duplicate Vercel project dialed-intelligence-website-1lv2. Then
           | mark PR #5 ready and merge (deploys production).
 BLOCKERS  | Tyler's copy sign-off
+
+--- 2026-10-30 (team section and refresh proposal) ---
+SESSION   | 2026-10-30 | orchestrator (Claude) | branch feature/team-and-site-refresh
+COMPLETED | Lead profile removed from home. New TeamSection component on
+          | About with Tyler Dial (Founder and Senior AI Engineer) and Michael
+          | Jarvis (Head of Client Engagement, draft). lead-profile.tsx
+          | removed. Messaging, spacing, visual, and Claude Design proposal in
+          | docs/refresh/site-refresh-proposal.md, benchmarked on ampleo.com.
+TESTS     | lint and build green. Team copy confirmed in built about.html.
+          | typecheck fails only on stale .next/dev/types for retired routes.
+          | Dev server would not start in the preview pane, so no screenshot.
+NEXT      | Tyler approves copy in the proposal. Michael's background and
+          | title. Headshots to public/team/. Then build the new home sections.
+BLOCKERS  | Copy sign-off
+
+--- 2026-10-30 (new home sections) ---
+SESSION   | 2026-10-30 | orchestrator (Claude) | branch feature/team-and-site-refresh
+COMPLETED | Home rebuilt to docs/refresh/site-refresh-proposal.md section 3.
+          | New components Comparison (table, cards on phones), TwoJobs (ink
+          | panel), ExhibitSection (shared split layout, now also used by the
+          | Quarter Plan), OpportunityModelExhibit, SaleValue. Hero proof
+          | points moved into an ink side panel. Two FAQs added and shown on
+          | home. Section links now sit under headlines. Index-to-heading gap
+          | 32px, process steps no longer forced to 300px. PathCards removed.
+TESTS     | lint, typecheck, build green. Checked at 1440 and 390, no
+          | horizontal overflow, no console errors.
+NEXT      | Tyler reviews on a Vercel preview. Michael's background, headshots,
+          | the 3.8 copy edits on How it works and What we deliver, copy into
+          | the Rebrand Spec doc.
+BLOCKERS  | None
+
+SESSION   | 2026-10-30 | qa-agent
+VERIFIED  | Home refresh and About team section (feature_list 111, new)
+RESULT    | PASS
+NOTES     | lint, typecheck, build clean, 33/33 routes static. index.html has new
+          | headings, Opportunity Model, new FAQ. about.html has both names.
+          | Link anchors exist. Visual/responsive not checked. Stale doc refs in
+          | docs/rebuild/technical-spec.md and AGENTS.md.
+NEXT      | copy-editor / code-reviewer
+BLOCKERS  | None
+
+SESSION   | 2026-10-30 | review pass on PR #6
+REVIEWS   | copy-editor: 0 must fix | qa-agent: PASS (feature 111) | code-reviewer: 0 must fix, 4 should fix | security-reviewer: CLEAR, 1 low
+FIXED     | Opportunity Model contrast to ink/70 and dashed strike-through skip badge; aria names on both tables; team role placeholder aria-hidden, articles labelled by h3; paragraph keys use full text; copy rewrites (Tyler bio triad, capacity line, model sentence split, FAQ slogan repeat, Michael bio, "on its own"); proposal doc asks for profile URL not credentials; tech spec notes retired PathCards and LeadProfile
+DEFERRED  | DocumentCard extraction shared by Quarter Plan and Opportunity Model; real figure for reorder forecasting row; Michael bio sign-off; role framing check against Rebrand Spec

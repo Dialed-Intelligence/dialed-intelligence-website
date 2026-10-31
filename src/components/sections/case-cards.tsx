@@ -36,7 +36,7 @@ export function CaseCards({
             }
           />
         </Reveal>
-        <div className="mt-14 grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-3">
           {items.map((v, i) => (
             <Reveal key={v.client} delay={i * 80} className="flex">
               <article className="flex w-full flex-col rounded-[5px] border border-ink/15 bg-paper-2 p-8 lg:p-10">

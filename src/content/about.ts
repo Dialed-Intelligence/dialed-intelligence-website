@@ -1,8 +1,8 @@
-import type { LeadCopy } from "@/components/sections/lead-profile";
+import type { TeamMember } from "@/components/sections/team";
 import type { OgCopy, PageMeta, SectionIntro, TitledText } from "./types";
 
 // DRAFT copy for review. Structure follows the Rebrand Spec, "Inner pages,
-// About". The lead bio needs Tyler's confirmation.
+// About".
 
 export const meta: PageMeta = {
   title: "About",
@@ -30,25 +30,39 @@ export const firm = {
   ],
 };
 
-export const lead: LeadCopy = {
-  eyebrow: "The lead",
-  title: "The person in the seat.",
-  name: "Tyler Dial",
-  roleTitle: "Founder and AI lead",
-  body: "Tyler founded Dialed Intelligence and leads every engagement, from the first call to handover.",
-  backgroundLabel: "Background",
-  background: [
-    "Econometrics and NBER research",
-    "Investment banking",
-    "Management consulting",
-    "Production AI engineering",
-  ],
-  photoAlt: "Tyler Dial, founder of Dialed Intelligence",
+// DRAFT. Tyler's title per his request. Michael's title and bio are drafted
+// from his role. Add his background list once he confirms it.
+export const teamIntro: SectionIntro = {
+  eyebrow: "The team",
+  title: "The two people you will work with.",
 };
 
-export const leadExtra = [
-  "Tyler's work spans econometrics and NBER research, investment banking, management consulting for research organizations and private equity portfolio companies, and production AI engineering. That mix is the method. Measure the problem like an economist, scope it like a banker, and build it like an engineer.",
-  "Recent work includes multi-agent systems, unified data platforms, and automation for organizations from research consultancies to PE-backed operators.",
+export const team: TeamMember[] = [
+  {
+    name: "Tyler Dial",
+    role: "Founder and Senior AI Engineer",
+    bio: [
+      "Tyler founded Dialed Intelligence and leads the technical work on every engagement. He writes the Quarter Plan and builds the systems in it.",
+      "He started in econometrics and NBER research. He then worked in investment banking and in consulting for research organizations and PE-backed companies before moving into production AI engineering.",
+    ],
+    backgroundLabel: "Background",
+    background: [
+      "Econometrics and NBER research",
+      "Investment banking",
+      "Management consulting",
+      "Production AI engineering",
+    ],
+    photoAlt: "Tyler Dial, founder of Dialed Intelligence",
+  },
+  {
+    name: "Michael Jarvis",
+    role: "Head of Client Engagement",
+    bio: [
+      "Michael is your first point of contact and stays on the account through handover. He runs the discovery interviews with each department and keeps the Quarter Plan on schedule.",
+      "He also runs the monthly scorecard review with your leadership team. You see what shipped and what it is worth.",
+    ],
+    photoAlt: "Michael Jarvis, Head of Client Engagement at Dialed Intelligence",
+  },
 ];
 
 export const principlesIntro: SectionIntro = {

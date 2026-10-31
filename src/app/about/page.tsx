@@ -3,7 +3,7 @@ import { ClosingCTA } from "@/components/bands";
 import { Reveal } from "@/components/reveal";
 import { EditorialRow } from "@/components/sections/editorial-row";
 import { PageHeader } from "@/components/sections/page-header";
-import { LeadProfile } from "@/components/sections/lead-profile";
+import { TeamSection } from "@/components/sections/team";
 import { Section } from "@/components/sections/section";
 import { NumberedGrid } from "@/components/sections/numbered-grid";
 import { pageMetadata } from "@/lib/meta";
@@ -12,11 +12,11 @@ import {
   clientsIntro,
   firm,
   header,
-  lead,
-  leadExtra,
   meta,
   principles,
   principlesIntro,
+  team,
+  teamIntro,
 } from "@/content/about";
 
 export const metadata = pageMetadata(meta);
@@ -43,7 +43,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <LeadProfile id="lead-title" copy={lead} extra={leadExtra} />
+      <TeamSection id="team-title" intro={teamIntro} members={team} />
 
       <Section id="principles-title" intro={principlesIntro}>
         <NumberedGrid items={principles} cols={2} />

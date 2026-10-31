@@ -135,14 +135,14 @@ export function ProcessStrip({
       {steps.map((step, i) => (
         <li
           key={step.title}
-          className={`flex flex-col border-t px-0 py-8 sm:pr-8 xl:min-h-[300px] ${
+          className={`flex flex-col border-t px-0 py-8 sm:pr-8 ${
             dark ? "border-paper/20" : "border-ink/20"
           }`}
         >
           <span className="font-mono text-sm text-blue-2">
             [{String(i + 1).padStart(2, "0")}]
           </span>
-          <h3 className="display-3 mt-5">{step.title}</h3>
+          <h3 className="display-3 mt-6">{step.title}</h3>
           <p
             className={`label-mono-sm mt-2 ${dark ? "text-paper/60" : "text-ink/70"}`}
           >

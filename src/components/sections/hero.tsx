@@ -12,17 +12,17 @@ export interface HeroCopy {
   subhead: string;
   primaryCta: LinkCopy & { event: string };
   secondaryLink: LinkCopy;
-  /** Short proof points under the fold line, two to four. */
+  /** Short proof points in the side panel, two to four. */
   proofPoints: string[];
 }
 
-/** Home hero. Display headline, subhead, two actions, the mark, proof line. */
+/** Home hero. Headline, subhead, and two actions, with the proof points in an ink panel. */
 export function Hero({ copy }: { copy: HeroCopy }) {
   return (
     <section aria-labelledby="hero-title">
-      <Container className="pb-14 pt-16 lg:pb-16 lg:pt-24">
+      <Container className="pb-16 pt-16 lg:pb-24 lg:pt-24">
         <Eyebrow>{copy.eyebrow}</Eyebrow>
-        <div className="mt-9 grid grid-cols-1 items-end gap-12 lg:grid-cols-[minmax(0,1fr)_270px]">
+        <div className="mt-8 grid grid-cols-1 items-end gap-12 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-16">
           <div>
             <h1
               id="hero-title"
@@ -36,8 +36,8 @@ export function Hero({ copy }: { copy: HeroCopy }) {
                 </>
               )}
             </h1>
-            <p className="body-lg mt-8 max-w-xl text-ink/75">{copy.subhead}</p>
-            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
+            <p className="body-lg mt-8 max-w-[40rem] text-ink/75">{copy.subhead}</p>
+            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-6">
               <CTA href={copy.primaryCta.href} event={copy.primaryCta.event}>
                 {copy.primaryCta.label}
               </CTA>
@@ -46,18 +46,29 @@ export function Hero({ copy }: { copy: HeroCopy }) {
               </TextLink>
             </div>
           </div>
-          <div className="hidden justify-end lg:flex">
-            <LogoMark width={250} className="text-ink" />
+          <div className="relative overflow-hidden rounded-md bg-ink p-8 text-paper">
+            <LogoMark
+              width={300}
+              className="pointer-events-none absolute -right-16 -top-16 text-paper/6"
+            />
+            <LogoMark width={40} className="relative text-lime" />
+            <ul className="relative mt-24 border-t border-paper/15 lg:mt-32">
+              {copy.proofPoints.map((point, i) => (
+                <li
+                  key={point}
+                  className="flex items-baseline gap-4 border-b border-paper/15 py-4"
+                >
+                  <span className="font-mono text-sm text-lime">
+                    [{String(i + 1).padStart(2, "0")}]
+                  </span>
+                  <span className="font-display text-lg font-medium leading-snug tracking-tight">
+                    {point}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        <ul className="mt-14 flex flex-wrap gap-x-10 gap-y-3 border-t border-ink/15 pt-6 lg:mt-16">
-          {copy.proofPoints.map((point) => (
-            <li key={point} className="flex items-center gap-3">
-              <span aria-hidden="true" className="size-[6px] bg-blue" />
-              <span className="label-mono-sm text-ink/70">{point}</span>
-            </li>
-          ))}
-        </ul>
       </Container>
     </section>
   );

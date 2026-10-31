@@ -25,6 +25,16 @@ export const faqs: Faq[] = [
       "Clients often call the role a fractional Chief AI Officer. We cover that seat and the engineering behind it, so the person who sets the AI strategy also builds the systems.",
   },
   {
+    question: "Should we hire a full-time AI lead instead?",
+    answer:
+      "Sometimes, yes. If AI work will keep a senior person busy full time for years, hire one. We will tell you during discovery, and we can help you write the role and interview candidates.",
+  },
+  {
+    question: "Can we hire you for the strategy only?",
+    answer:
+      "Yes. Some clients take the discovery project and the roadmap to their own team or another vendor. Most keep us on to build the projects we sized.",
+  },
+  {
     question: "How long do engagements last?",
     answer:
       "Three months to start, with an option to extend. Most clients reach handover in three to six months.",
