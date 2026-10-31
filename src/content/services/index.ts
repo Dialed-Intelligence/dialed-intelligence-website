@@ -1,18 +1,25 @@
 import type { Service } from "./types";
 import { operationsAutomation } from "./operations-automation";
 import { dataSystems } from "./data-systems";
-import { automationPlatform } from "./automation-platform";
+import { businessIntelligence } from "./business-intelligence";
+import { customerService } from "./customer-service";
+import { quoting } from "./quoting";
 import { inventory } from "./inventory";
 import { pricing } from "./pricing";
 
-export type { Service, ServiceBeat } from "./types";
+export type { Service, ServiceBeat, ServicePhase } from "./types";
 export { serviceLabels, serviceOg } from "./labels";
 
-/** Canonical ordering. Lead with the two vertical-agnostic spine offers. */
+/**
+ * Canonical ordering. The two foundations first, then the systems that build
+ * on them, then the two that need the most history.
+ */
 export const services: Service[] = [
   operationsAutomation,
   dataSystems,
-  automationPlatform,
+  businessIntelligence,
+  customerService,
+  quoting,
   inventory,
   pricing,
 ];

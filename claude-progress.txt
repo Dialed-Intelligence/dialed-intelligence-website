@@ -263,3 +263,10 @@ DONE      | Home cut from 12 sections to 7, one per buyer question: hero, proble
 MOVED     | Comparison (#compare), Opportunity Model (#opportunity-model) and the sample Quarter Plan (beside the anatomy, #quarter-plan) now live on How it works. ExhibitSection gains a footer prop. Comparison gains anchor prop and a top hairline.
 CHECKED   | lint, typecheck, build 33/33, copy-rules hook clean, desktop 1440 screenshots, phone 390 no overflow
 NEXT      | case cards need client-approved metrics to lead with a number; scorecard visual for How it starts; Marquee component now unused
+
+SESSION   | 2026-10-31 | What we deliver and service pages (feature/deliver-and-services)
+DONE      | /services gains the five-step engagement strip (what you keep at each step), a fuller Strategy deliverables list (interviews, time and margin map, Opportunity Model, roadmap, skip list), build times on each system row, and the ownership band.
+SERVICES  | Seven systems now. Rewrote Operations Automation (6-10 wk), Unified Data Systems (10-14 wk), Inventory Management (10-16 wk), Dynamic Pricing Models (14-20 wk). New: Business Intelligence and Custom MCP (6-10 wk), Customer Service Agents (8-12 wk, replaces Your Own Automation Platform), Quote Automation (8-12 wk). /services/automation-platform 308s to operations-automation.
+TEMPLATE  | Service pages add How we build it (phases with week ranges), What you receive, and What it takes (needs and measures). Practice examples are now labelled illustrative.
+CHECKED   | lint, typecheck, build 37/37, copy hook and punctuation/word scan clean, meta descriptions under 160, desktop screenshots, phone 390 no overflow, redirect works
+NEXT      | Tyler to confirm the example numbers and timelines read right; real client results can replace illustrative examples later
