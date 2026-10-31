@@ -1,4 +1,7 @@
 import type { Stage, StageLabels } from "@/components/sections/stage-block";
+import type { ComparisonCopy } from "@/components/sections/comparison";
+import type { OpportunityModelCopy } from "@/components/sections/opportunity-model";
+import type { QuarterPlanCopy } from "@/components/sections/quarter-plan";
 import type { OgCopy, PageMeta, SectionIntro, TitledText } from "./types";
 
 // DRAFT copy for review. Structure follows the Rebrand Spec, "Inner pages,
@@ -152,4 +155,136 @@ export const exit = {
 export const faqIntro: SectionIntro = {
   eyebrow: "Questions",
   title: "What owners and CFOs ask before signing",
+};
+
+export const comparison: ComparisonCopy = {
+  intro: {
+    eyebrow: "Compare your options",
+    title:
+      "You need someone to own AI. You probably do not need them full time.",
+  },
+  rowLabel: "Compare",
+  options: [
+    "Full-time hire",
+    "Consultancy",
+    "More software",
+    "Dialed Intelligence",
+  ],
+  rows: [
+    {
+      label: "Sets the AI strategy",
+      cells: ["If you find the right person", "Yes", "No", "Yes"],
+    },
+    {
+      label: "Builds the systems",
+      cells: ["Sometimes", "Your team does", "One slice each", "Yes"],
+    },
+    {
+      label: "Puts a return on each project",
+      cells: ["Rarely", "Sometimes", "No", "Every project"],
+    },
+    {
+      label: "Time to start",
+      cells: ["Months to hire", "A few weeks", "Days", "Two weeks of discovery"],
+    },
+    {
+      label: "What you commit to",
+      cells: [
+        "Salary, benefits, and a recruiting fee",
+        "A project fee",
+        "A seat license, every year",
+        "One quarter at a time",
+      ],
+    },
+    {
+      label: "Who runs it afterward",
+      cells: ["The hire", "Your team, on its own", "The vendor", "Your team, trained"],
+    },
+  ],
+};
+
+export const opportunity: {
+  eyebrow: string;
+  title: string;
+  body: string[];
+  exhibit: OpportunityModelCopy;
+} = {
+  eyebrow: "How we choose projects",
+  title: "Every project has to pay for itself on paper first.",
+  body: [
+    "Before we build anything, we model the cost to build and run it. Then we model what it saves or earns and when it pays back. Leadership funds the projects that clear the bar. The rest go on a list of things not to buy, with the reasons.",
+    "Most of the return is capacity. Your team handles more orders without adding a hire each time revenue steps up.",
+  ],
+  exhibit: {
+    stamp: "Example",
+    docTitle: "Opportunity Model",
+    client: "Regional distributor",
+    period: "Discovery project",
+    columns: {
+      project: "Project",
+      annualReturn: "Annual return",
+      payback: "Payback",
+      call: "Call",
+    },
+    rows: [
+      {
+        project: "Order entry automation",
+        annualReturn: "1,100 staff hours",
+        payback: "4 months",
+        call: "build",
+      },
+      {
+        project: "Reorder forecasting, top 200 products",
+        annualReturn: "Fewer stockouts and less dead stock",
+        payback: "7 months",
+        call: "build",
+      },
+      {
+        project: "Call summaries for the sales team",
+        annualReturn: "300 staff hours",
+        payback: "2 months",
+        call: "buy",
+      },
+      {
+        project: "Website chatbot",
+        annualReturn: "No measurable return",
+        payback: "Not modeled",
+        call: "skip",
+      },
+    ],
+    callLabels: { build: "Build", buy: "Buy off the shelf", skip: "Skip" },
+    caption:
+      "An example for illustration. Every model is built from your numbers.",
+  },
+};
+
+/** Sample Quarter Plan shown beside the anatomy. */
+export const quarterPlanExhibit: QuarterPlanCopy = {
+  stamp: "Example",
+  docTitle: "Quarter Plan",
+  client: "Regional distributor",
+  period: "Quarter one",
+  monthLabel: "Month",
+  deliverablesLabel: "Deliverables",
+  months: [
+    "Operations and data review. First automation live in order entry. Company AI policy approved.",
+    "Sales and inventory data unified in one place. Weekly leadership report running.",
+    "Reorder forecasting in production. Team trained on both systems. Next quarter planned.",
+  ],
+  measuresLabel: "Scorecard",
+  measures: [
+    "Order entry time per order",
+    "Forecast accuracy on top products",
+    "Team adoption of both systems",
+  ],
+  needsLabel: "What we need from you",
+  needs: [
+    "An executive sponsor",
+    "One point person in operations",
+    "Access to the ERP and sales data",
+  ],
+  reviewLabel: "Review",
+  review: "Scorecard reviewed with leadership every month",
+  caption:
+    "An example for illustration. Every Quarter Plan is written for the business in front of us.",
 };

@@ -257,3 +257,9 @@ SESSION   | 2026-10-30 | review pass on PR #6
 REVIEWS   | copy-editor: 0 must fix | qa-agent: PASS (feature 111) | code-reviewer: 0 must fix, 4 should fix | security-reviewer: CLEAR, 1 low
 FIXED     | Opportunity Model contrast to ink/70 and dashed strike-through skip badge; aria names on both tables; team role placeholder aria-hidden, articles labelled by h3; paragraph keys use full text; copy rewrites (Tyler bio triad, capacity line, model sentence split, FAQ slogan repeat, Michael bio, "on its own"); proposal doc asks for profile URL not credentials; tech spec notes retired PathCards and LeadProfile
 DEFERRED  | DocumentCard extraction shared by Quarter Plan and Opportunity Model; real figure for reorder forecasting row; Michael bio sign-off; role framing check against Rebrand Spec
+
+SESSION   | 2026-10-31 | home page simplification (feature/home-simplify)
+DONE      | Home cut from 12 sections to 7, one per buyer question: hero, problem (3 statements), what we do (3 items per side), results moved up, how it starts (3 steps), planning a sale (one paragraph), FAQ and CTA. Marquee, comparison table, Opportunity Model, Quarter Plan exhibit and ownership band removed from home.
+MOVED     | Comparison (#compare), Opportunity Model (#opportunity-model) and the sample Quarter Plan (beside the anatomy, #quarter-plan) now live on How it works. ExhibitSection gains a footer prop. Comparison gains anchor prop and a top hairline.
+CHECKED   | lint, typecheck, build 33/33, copy-rules hook clean, desktop 1440 screenshots, phone 390 no overflow
+NEXT      | case cards need client-approved metrics to lead with a number; scorecard visual for How it starts; Marquee component now unused

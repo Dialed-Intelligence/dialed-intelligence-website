@@ -17,10 +17,19 @@ export interface ComparisonCopy {
  * The ways to get AI done, side by side. A table from `md` up. Below that,
  * one card per option, so nothing scrolls sideways on a phone.
  */
-export function Comparison({ id, copy }: { id: string; copy: ComparisonCopy }) {
+export function Comparison({
+  id,
+  anchor,
+  copy,
+}: {
+  id: string;
+  /** Section id for in-page links, e.g. "compare". */
+  anchor?: string;
+  copy: ComparisonCopy;
+}) {
   const last = copy.options.length - 1;
   return (
-    <section aria-labelledby={id}>
+    <section id={anchor} aria-labelledby={id} className="scroll-mt-20 border-t border-ink/15">
       <Container className="py-24 lg:py-32">
         <Reveal>
           <SectionHeader

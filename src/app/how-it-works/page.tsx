@@ -10,16 +10,23 @@ import { NumberedGrid } from "@/components/sections/numbered-grid";
 import { TextSection } from "@/components/sections/text-section";
 import { EditorialRow } from "@/components/sections/editorial-row";
 import { FaqSection } from "@/components/sections/faq";
+import { ExhibitSection } from "@/components/sections/exhibit-section";
+import { OpportunityModelExhibit } from "@/components/sections/opportunity-model";
+import { QuarterPlanExhibit } from "@/components/sections/quarter-plan";
+import { Comparison } from "@/components/sections/comparison";
 import { pageMetadata } from "@/lib/meta";
 import { ownershipBand } from "@/content/site";
 import { faqs } from "@/content/faq";
 import {
   anatomy,
+  comparison,
   exit,
   faqIntro,
   header,
   meta,
   needs,
+  opportunity,
+  quarterPlanExhibit,
   stageLabels,
   stages,
   standards,
@@ -62,16 +69,30 @@ export default function HowItWorksPage() {
         />
       ))}
 
-      {/* Anatomy of a Quarter Plan */}
-      <Section
+      {/* How we choose projects, with a sample Opportunity Model */}
+      <ExhibitSection
+        id="opportunity-title"
+        anchor="opportunity-model"
+        eyebrow={opportunity.eyebrow}
+        title={opportunity.title}
+        body={opportunity.body}
+        tone="paper-2"
+      >
+        <OpportunityModelExhibit copy={opportunity.exhibit} />
+      </ExhibitSection>
+
+      {/* Anatomy of a Quarter Plan, beside a sample plan */}
+      <ExhibitSection
         id="anatomy-title"
         anchor="quarter-plan"
-        intro={anatomy.intro}
-        lead={anatomy.body}
-        border={false}
+        eyebrow={anatomy.intro.eyebrow}
+        title={anatomy.intro.title}
+        body={[anatomy.body]}
+        reverse
+        footer={<IndexedRows items={anatomy.items} />}
       >
-        <IndexedRows items={anatomy.items} />
-      </Section>
+        <QuarterPlanExhibit copy={quarterPlanExhibit} />
+      </ExhibitSection>
 
       {/* Service standards */}
       <Section id="standards-title" anchor="standards" intro={standards.intro}>
@@ -81,6 +102,9 @@ export default function HowItWorksPage() {
       <TextSection id="needs-title" {...needs} />
 
       <StatementBand id="ownership" copy={ownershipBand} showLink={false} />
+
+      {/* The alternatives, side by side */}
+      <Comparison id="compare-title" anchor="compare" copy={comparison} />
 
       {/* Renewal and exit */}
       <section aria-labelledby="exit-title">

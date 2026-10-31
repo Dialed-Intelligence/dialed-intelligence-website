@@ -17,6 +17,7 @@ export function ExhibitSection({
   link,
   reverse = false,
   tone = "paper",
+  footer,
   children,
 }: {
   /** Heading id, used for aria-labelledby. */
@@ -30,6 +31,8 @@ export function ExhibitSection({
   tone?: "paper" | "paper-2";
   /** The exhibit. */
   children: React.ReactNode;
+  /** Optional full-width content under the split, e.g. a list that explains the exhibit. */
+  footer?: React.ReactNode;
 }) {
   return (
     <section
@@ -67,6 +70,7 @@ export function ExhibitSection({
             {children}
           </Reveal>
         </div>
+        {footer && <div className="mt-20 lg:mt-24">{footer}</div>}
       </Container>
     </section>
   );
