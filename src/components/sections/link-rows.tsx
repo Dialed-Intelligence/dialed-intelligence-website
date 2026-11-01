@@ -41,9 +41,16 @@ export function LinkRows({
                 <h3 className="display-2 col-span-2 sm:col-span-1">
                   {card.title}
                 </h3>
-                <p className="body-md col-span-2 text-ink/70 group-hover:text-paper/65 sm:col-span-1">
-                  {card.desc}
-                </p>
+                <div className="col-span-2 sm:col-span-1">
+                  <p className="body-md text-ink/70 group-hover:text-paper/65">
+                    {card.desc}
+                  </p>
+                  {card.meta && (
+                    <p className="label-mono-sm mt-3 text-blue-2 group-hover:text-lime">
+                      {card.meta}
+                    </p>
+                  )}
+                </div>
                 <span
                   aria-hidden="true"
                   className="hidden text-right font-display text-2xl sm:block"

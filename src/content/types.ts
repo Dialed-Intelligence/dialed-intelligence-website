@@ -51,6 +51,8 @@ export interface LinkCard {
   href: string;
   title: string;
   desc: string;
+  /** Optional small mono line under the description, e.g. a typical build time. */
+  meta?: string;
 }
 
 export interface CaseStudy {

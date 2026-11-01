@@ -3,6 +3,14 @@ export interface ServiceBeat {
   text: string;
 }
 
+/** One phase of a build, with its week range. */
+export interface ServicePhase {
+  /** e.g. "Weeks 1 to 2" */
+  weeks: string;
+  name: string;
+  body: string;
+}
+
 export interface Service {
   slug: string;
   title: string;
@@ -22,6 +30,17 @@ export interface Service {
   build: string[];
   /** "What you get" paragraphs, ending with the ownership restatement */
   get: string[];
+  /** "How we build it", the phased plan with week ranges */
+  approach: {
+    intro: string;
+    phases: ServicePhase[];
+  };
+  /** Concrete things the client receives, listed under "What you get" */
+  deliverables: string[];
+  /** What we need from the client */
+  needs: string[];
+  /** Scorecard measures for this system */
+  measures: string[];
   /** "What it looks like in practice" walkthrough */
   practice: {
     intro: string;

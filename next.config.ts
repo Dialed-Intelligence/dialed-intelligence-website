@@ -17,6 +17,11 @@ const nextConfig: NextConfig = {
     return [
       { source: "/approach", destination: "/how-it-works", permanent: true },
       {
+        source: "/services/automation-platform",
+        destination: "/services/operations-automation",
+        permanent: true,
+      },
+      {
         source: "/ownership",
         destination: "/how-it-works#ownership",
         permanent: true,

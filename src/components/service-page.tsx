@@ -9,6 +9,20 @@ import { ClosingCTA } from "./bands";
 import { Reveal } from "./reveal";
 import { EditorialRow } from "./sections/editorial-row";
 
+/** A short list with square bullets, used for deliverables, needs and measures. */
+function SquareList({ items }: { items: string[] }) {
+  return (
+    <ul className="border-t border-ink/15">
+      {items.map((item) => (
+        <li key={item} className="flex items-baseline gap-3 border-b border-ink/15 py-4">
+          <span aria-hidden="true" className="mt-[7px] size-[6px] shrink-0 bg-blue" />
+          <span className="body-md text-ink/85">{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export function ServicePage({ service }: { service: Service }) {
   const order = serviceNav.findIndex((s) => s.slug === service.slug);
   const prev = serviceNav[(order + serviceNav.length - 1) % serviceNav.length];
@@ -48,7 +62,7 @@ export function ServicePage({ service }: { service: Service }) {
           <EditorialRow label={L.problem} index="01">
             <div className="max-w-2xl space-y-6">
               {service.problem.map((p) => (
-                <p key={p.slice(0, 40)} className="body-lg text-ink/75">
+                <p key={p} className="body-lg text-ink/75">
                   {p}
                 </p>
               ))}
@@ -68,7 +82,7 @@ export function ServicePage({ service }: { service: Service }) {
             <EditorialRow label={L.build} index="02" dark>
               <div className="relative max-w-2xl space-y-6">
                 {service.build.map((p) => (
-                  <p key={p.slice(0, 40)} className="body-lg text-paper/75">
+                  <p key={p} className="body-lg text-paper/75">
                     {p}
                   </p>
                 ))}
@@ -78,17 +92,44 @@ export function ServicePage({ service }: { service: Service }) {
         </Container>
       </section>
 
+      {/* How we build it, phase by phase */}
+      <Container>
+        <Reveal>
+          <EditorialRow label={L.approach} index="03">
+            <p className="body-lg max-w-2xl text-ink/75">{service.approach.intro}</p>
+            <ol className="mt-10 border-t border-ink/20">
+              {service.approach.phases.map((phase) => (
+                <li
+                  key={phase.name}
+                  className="grid grid-cols-1 gap-x-8 gap-y-2 border-b border-ink/20 py-7 sm:grid-cols-[150px_minmax(0,1fr)]"
+                >
+                  <span className="label-mono-sm pt-1 text-blue-2">{phase.weeks}</span>
+                  <div>
+                    <h3 className="display-3">{phase.name}</h3>
+                    <p className="body-md mt-3 max-w-2xl text-ink/75">{phase.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </EditorialRow>
+        </Reveal>
+      </Container>
+
       {/* What you get */}
       <Container>
         <Reveal>
-          <EditorialRow label={L.get} index="03">
+          <EditorialRow label={L.get} index="04">
             <div className="max-w-2xl">
               <div className="space-y-6">
                 {service.get.slice(0, -1).map((p) => (
-                  <p key={p.slice(0, 40)} className="body-lg text-ink/75">
+                  <p key={p} className="body-lg text-ink/75">
                     {p}
                   </p>
                 ))}
+              </div>
+              <h3 className="label-mono-sm mt-10 text-ink/70">{L.deliverablesLabel}</h3>
+              <div className="mt-4">
+                <SquareList items={service.deliverables} />
               </div>
               <p className="mt-8 border-l-2 border-blue pl-6 font-display text-xl font-medium leading-snug tracking-tight text-ink lg:text-2xl">
                 {service.get[service.get.length - 1]}
@@ -98,10 +139,32 @@ export function ServicePage({ service }: { service: Service }) {
         </Reveal>
       </Container>
 
+      {/* What it takes */}
+      <Container>
+        <Reveal>
+          <EditorialRow label={L.takes} index="05">
+            <div className="grid max-w-4xl grid-cols-1 gap-10 md:grid-cols-2">
+              <div>
+                <h3 className="label-mono-sm text-ink/70">{L.needsLabel}</h3>
+                <div className="mt-4">
+                  <SquareList items={service.needs} />
+                </div>
+              </div>
+              <div>
+                <h3 className="label-mono-sm text-ink/70">{L.measuresLabel}</h3>
+                <div className="mt-4">
+                  <SquareList items={service.measures} />
+                </div>
+              </div>
+            </div>
+          </EditorialRow>
+        </Reveal>
+      </Container>
+
       {/* In practice */}
       <Container>
         <Reveal>
-          <EditorialRow label={L.practice} index="04">
+          <EditorialRow label={L.practice} index="06">
             <div>
               <p className="body-lg max-w-2xl text-ink/75">
                 {service.practice.intro}
@@ -125,7 +188,7 @@ export function ServicePage({ service }: { service: Service }) {
       {/* Typical engagement */}
       <Container>
         <Reveal>
-          <EditorialRow label={L.engagement} index="05">
+          <EditorialRow label={L.engagement} index="07">
             <div className="grid max-w-3xl grid-cols-1 gap-10 sm:grid-cols-[auto_minmax(0,1fr)] sm:gap-14">
               <div>
                 <p className="display-1 text-blue">

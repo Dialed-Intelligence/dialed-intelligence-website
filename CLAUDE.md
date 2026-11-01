@@ -35,11 +35,13 @@ with the Claude Docs connector). Never invent copy that contradicts it.
 - .claude/          agent configuration (DO NOT modify during development sessions)
 
 ## Sitemap
-`/`, `/how-it-works`, `/services` (What we deliver), `/services/[slug]` (five
-systems: operations-automation, data-systems, automation-platform, inventory,
-pricing), `/results`, `/about`, `/insights`, `/insights/[slug]`, `/contact`.
-Plus `sitemap.xml` and `robots.txt`. `/approach` and `/ownership` are retired
-and 308 to `/how-it-works` (see `next.config.ts`).
+`/`, `/how-it-works`, `/services` (What we deliver), `/services/[slug]` (seven
+systems: operations-automation, data-systems, business-intelligence,
+customer-service, quoting, inventory, pricing), `/results`, `/about`,
+`/insights`, `/insights/[slug]`, `/contact`. Plus `sitemap.xml` and
+`robots.txt`. `/approach` and `/ownership` are retired and 308 to
+`/how-it-works`. `/services/automation-platform` is retired and 308 to
+`/services/operations-automation` (see `next.config.ts`).
 
 ## Commands
 - Install deps:     npm install
