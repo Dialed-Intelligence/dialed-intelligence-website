@@ -53,6 +53,7 @@ export const team: TeamMember[] = [
       "Production AI engineering",
     ],
     photoAlt: "Tyler Dial, founder of Dialed Intelligence",
+    photo: { src: "/team/tyler-dial.jpg", width: 1314, height: 1400 },
   },
   {
     name: "Michael Jarvis",
@@ -62,6 +63,7 @@ export const team: TeamMember[] = [
       "He also runs the monthly scorecard review with your leadership team. You see what shipped and what it is worth.",
     ],
     photoAlt: "Michael Jarvis, Head of Client Engagement at Dialed Intelligence",
+    photo: { src: "/team/michael-jarvis.jpg", width: 1400, height: 1400 },
   },
 ];
 

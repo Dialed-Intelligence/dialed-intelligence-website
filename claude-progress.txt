@@ -270,3 +270,7 @@ SERVICES  | Seven systems now. Rewrote Operations Automation (6-10 wk), Unified 
 TEMPLATE  | Service pages add How we build it (phases with week ranges), What you receive, and What it takes (needs and measures). Practice examples are now labelled illustrative.
 CHECKED   | lint, typecheck, build 37/37, copy hook and punctuation/word scan clean, meta descriptions under 160, desktop screenshots, phone 390 no overflow, redirect works
 NEXT      | Tyler to confirm the example numbers and timelines read right; real client results can replace illustrative examples later
+
+## 2026-11-01 Team headshots
+- Added public/team/tyler-dial.jpg and michael-jarvis.jpg (resized to 1400px) and set `photo` on both team members in src/content/about.ts. The initials panel no longer shows.
+- Open setup items: NEXT_PUBLIC_SCHEDULER_URL not set (no scheduler on /contact), confirm RESEND_API_KEY and CONTACT_TO_EMAIL in Vercel so form submissions email out, real LinkedIn URL in site.ts, Michael's background list, Results metrics approval.
