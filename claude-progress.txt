@@ -274,3 +274,6 @@ NEXT      | Tyler to confirm the example numbers and timelines read right; real 
 ## 2026-11-01 Team headshots
 - Added public/team/tyler-dial.jpg and michael-jarvis.jpg (resized to 1400px) and set `photo` on both team members in src/content/about.ts. The initials panel no longer shows.
 - Open setup items: NEXT_PUBLIC_SCHEDULER_URL not set (no scheduler on /contact), confirm RESEND_API_KEY and CONTACT_TO_EMAIL in Vercel so form submissions email out, real LinkedIn URL in site.ts, Michael's background list, Results metrics approval.
+
+## 2026-11-01 Smaller team photos
+- About team cards now show a 144px (112px on phones) portrait beside the name and role instead of a full-width 4:5 photo. The bio and background follow below. Unused LogoMark import removed from team.tsx.

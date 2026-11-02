@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { LogoMark } from "@/components/logo";
 import { Container, SectionHeader } from "@/components/primitives";
 import { Reveal } from "@/components/reveal";
 import type { SectionIntro } from "@/content/types";
@@ -24,9 +23,9 @@ function initials(name: string) {
 }
 
 /**
- * The people on every engagement. One column per person with a headshot,
- * role, short bio, and background list. Until a headshot exists, an ink panel
- * with initials stands in at the same size.
+ * The people on every engagement. One column per person with a small
+ * headshot beside the name and role, then a short bio and background list.
+ * Until a headshot exists, an ink panel with initials stands in.
  */
 export function TeamSection({
   id,
@@ -52,38 +51,35 @@ export function TeamSection({
             <li key={m.name}>
               <Reveal delay={i * 80}>
                 <article aria-labelledby={`${id}-${i}`}>
-                  <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[5px] bg-ink">
-                    {m.photo ? (
-                      <Image
-                        src={m.photo.src}
-                        width={m.photo.width}
-                        height={m.photo.height}
-                        alt={m.photoAlt}
-                        className="h-full w-full object-cover"
-                        sizes="(min-width: 768px) 40vw, 100vw"
-                      />
-                    ) : (
-                      <div className="flex h-full flex-col justify-between p-8 text-paper">
-                        <LogoMark
-                          width={260}
-                          className="pointer-events-none absolute -bottom-10 -right-12 text-paper/6"
+                  <div className="flex items-end gap-5 sm:gap-6">
+                    <div className="relative aspect-[4/5] w-28 shrink-0 overflow-hidden rounded-[5px] bg-ink sm:w-36">
+                      {m.photo ? (
+                        <Image
+                          src={m.photo.src}
+                          width={m.photo.width}
+                          height={m.photo.height}
+                          alt={m.photoAlt}
+                          className="h-full w-full object-cover"
+                          sizes="(min-width: 640px) 144px, 112px"
                         />
-                        <span aria-hidden="true" className="font-mono text-sm text-lime">
-                          [ {m.role} ]
-                        </span>
-                        <span
-                          aria-hidden="true"
-                          className="font-display text-[7rem] font-medium leading-none tracking-[-0.05em] text-paper/90"
-                        >
-                          {initials(m.name)}
-                        </span>
-                      </div>
-                    )}
+                      ) : (
+                        <div className="flex h-full items-end p-3 text-paper">
+                          <span
+                            aria-hidden="true"
+                            className="font-display text-4xl font-medium leading-none tracking-[-0.05em] text-paper/90"
+                          >
+                            {initials(m.name)}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="pb-1">
+                      <h3 id={`${id}-${i}`} className="font-display text-2xl font-medium tracking-tight">
+                        {m.name}
+                      </h3>
+                      <p className="label-mono-sm mt-2 text-ink/70">{m.role}</p>
+                    </div>
                   </div>
-                  <h3 id={`${id}-${i}`} className="mt-8 font-display text-2xl font-medium tracking-tight">
-                    {m.name}
-                  </h3>
-                  <p className="label-mono-sm mt-2 text-ink/70">{m.role}</p>
                   <div className="mt-6 max-w-xl space-y-4">
                     {m.bio.map((p) => (
                       <p key={p} className="body-md text-ink/75">
