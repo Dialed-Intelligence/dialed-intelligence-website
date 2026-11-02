@@ -16,8 +16,8 @@ export const site = {
   schedulerUrl: process.env.NEXT_PUBLIC_SCHEDULER_URL ?? "",
   location: "Chicago based, working nationally.",
   positioning:
-    "A senior AI lead on your team. A written plan every quarter. Systems you own.",
-  brandLine: "You own what we build.",
+    "A senior AI lead on your team. A payback date for every project. Systems we keep running.",
+  brandLine: "AI that pays for itself.",
 };
 
 export const nav = [
@@ -38,7 +38,7 @@ export const defaultMeta: PageMeta & { titleTemplate: string } = {
   title: "Dialed Intelligence | Fractional AI Leadership and Engineering",
   titleTemplate: "%s | Dialed Intelligence",
   description:
-    "A fractional AI lead for businesses doing $2M to $25M. We set the strategy, build the systems, and train your team to run them. You own what we build.",
+    "A fractional AI lead for businesses doing $2M to $25M. We find the AI projects that pay for themselves, build them, and keep them running.",
 };
 
 /** Organization and ProfessionalService structured data, on every page. */
@@ -95,7 +95,7 @@ export const footer = {
   contactHeading: "Contact",
   contactLabel: "Contact",
   linkedinLabel: "LinkedIn",
-  tagline: "Fractional AI leadership and engineering. You own what we build.",
+  tagline: "Fractional AI leadership and engineering. AI that pays for itself.",
 };
 
 /** Default copy for the lime closing band at the bottom of most pages. */
@@ -105,20 +105,20 @@ export const closingCta: ClosingCtaCopy = {
   body: "In 45 minutes we will tell you where we see the opportunity and whether we are the right fit.",
 };
 
-/** The ink ownership band. Home and How it works. */
-export const ownershipBand: StatementBandCopy = {
-  eyebrow: "Ownership",
-  titleLines: ["You own everything", "we build."],
-  body: "Code, data, documentation, and accounts sit in your name from the first day. Nothing we build needs our permission to keep running. When the engagement ends, the systems stay.",
+/** The ink support band. What we deliver and How it works. */
+export const supportBand: StatementBandCopy = {
+  eyebrow: "After launch",
+  titleLines: ["We keep what we build", "running."],
+  body: "AI systems need care. Data changes, software vendors update their models, and your business changes. We monitor every system we build, fix what breaks, and tune it as the results come in. You do not need an engineering team to keep it working.",
   points: [
-    "Source code in your repository, under your accounts",
-    "Documentation written for the people who will run it",
-    "Training for your team before we step back",
+    "Monitoring and alerts on every system",
+    "Fixes and model updates handled by us",
+    "A monthly scorecard of what each system returns",
   ],
-  link: { label: "How handover works", href: "/how-it-works#ownership" },
+  link: { label: "How ongoing support works", href: "/how-it-works#support" },
 };
 
-/** From first call to handover. Home, and the spine of How it works. */
+/** From first call to ongoing support. */
 export const processSteps: Step[] = [
   {
     title: "Discovery call",
@@ -138,11 +138,11 @@ export const processSteps: Step[] = [
   {
     title: "Second term",
     duration: "Up to three months, optional",
-    body: "We scale what worked and prepare your team to run it without us.",
+    body: "We scale what worked and train the people who use each system.",
   },
   {
-    title: "Handover",
-    duration: "Yours to run",
-    body: "Your team runs the systems with full documentation and training. Light support stays available if you want it.",
+    title: "Ongoing support",
+    duration: "Optional, ongoing",
+    body: "We monitor each system, fix what breaks, and keep tuning it against the scorecard.",
   },
 ];

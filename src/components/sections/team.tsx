@@ -24,7 +24,8 @@ function initials(name: string) {
 
 /**
  * The people on every engagement. One column per person with a small
- * headshot beside the name and role, then a short bio and background list.
+ * headshot beside the name and role, then a short bio. Background lists
+ * run the full width below the columns.
  * Until a headshot exists, an ink panel with initials stands in.
  */
 export function TeamSection({
@@ -87,33 +88,36 @@ export function TeamSection({
                       </p>
                     ))}
                   </div>
-                  {m.background && m.background.length > 0 && (
-                    <>
-                      <p className="label-mono-sm mt-8 text-ink/70">
-                        {m.backgroundLabel}
-                      </p>
-                      <ul className="mt-4 border-t border-ink/20">
-                        {m.background.map((d, j) => (
-                          <li
-                            key={d}
-                            className="flex items-baseline gap-4 border-b border-ink/20 py-4"
-                          >
-                            <span className="font-mono text-sm text-blue-2">
-                              [{String(j + 1).padStart(2, "0")}]
-                            </span>
-                            <span className="font-display text-lg font-medium tracking-tight">
-                              {d}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
                 </article>
               </Reveal>
             </li>
           ))}
         </ul>
+        {/* Background lists run the full width below both columns */}
+        {members
+          .filter((m) => m.background && m.background.length > 0)
+          .map((m) => (
+            <Reveal key={`${m.name}-background`}>
+              <div className="mt-16">
+                <p className="label-mono-sm text-ink/70">{m.backgroundLabel}</p>
+                <ul className="mt-4 border-t border-ink/20">
+                  {(m.background ?? []).map((d, j) => (
+                    <li
+                      key={d}
+                      className="flex items-baseline gap-4 border-b border-ink/20 py-4"
+                    >
+                      <span className="font-mono text-sm text-blue-2">
+                        [{String(j + 1).padStart(2, "0")}]
+                      </span>
+                      <span className="font-display text-lg font-medium tracking-tight">
+                        {d}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          ))}
       </Container>
     </section>
   );

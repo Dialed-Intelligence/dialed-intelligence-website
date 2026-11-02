@@ -73,8 +73,11 @@ copy-editor agent owns the judgment calls.
    Quarter Plan deliverables.
 8. Never use "employee". Say "on your team", "embedded", "part of your
    leadership team".
-9. No fixed-price or no-subscription claims. Ownership stays central. The
-   client owns code, data, documentation, and accounts.
+9. No fixed-price or no-subscription claims. Lead with payback, the
+   fractional seat, and ongoing support (we keep what we build running).
+   Ownership is a reassurance, not the headline. It lives in the FAQ, the
+   Renewal and support section, and Results. The client still owns code,
+   data, documentation, and accounts.
 10. Primary CTA is "Book a 45-minute call". Buttons say what happens.
 11. "fractional Chief AI Officer" appears only in the What we deliver intro,
     one FAQ answer, and About. Never in the hero. Page copy says "AI lead".

@@ -19,13 +19,13 @@ export const meta: PageMeta = {
 
 export const og: OgCopy = {
   eyebrow: "What we deliver",
-  title: "Strategy, engineering, and a team that can run what we build.",
-  alt: "What Dialed Intelligence delivers. Strategy, engineering, and a team that can run what we build.",
+  title: "Strategy, engineering, and systems we keep running.",
+  alt: "What Dialed Intelligence delivers. Strategy, engineering, and systems we keep running.",
 };
 
 export const header = {
   eyebrow: "What we deliver",
-  title: "One role. Strategy, engineering, and a team that can run what we build.",
+  title: "One role. Strategy, engineering, and systems we keep running.",
   intro:
     "Clients often call this role a fractional Chief AI Officer. We cover that seat and the engineering behind it. Here is what the role delivers, how an engagement runs, and the systems we build most often.",
 };
@@ -45,7 +45,7 @@ export const groups: DeliverableGroup[] = [
       "Build or buy calls on tools and vendors",
       "A data readiness review of your core systems",
       "A written Quarter Plan with deliverables and success measures",
-      "Rules for how your company uses AI, and who owns each system",
+      "Rules for how your company uses AI, and who is responsible for each system",
       "A monthly scorecard review with leadership",
     ],
   },
@@ -65,15 +65,16 @@ export const groups: DeliverableGroup[] = [
   },
   {
     id: "your-team",
-    title: "Your team",
+    title: "Support",
     summary:
-      "We make sure the people who stay can run what we build.",
+      "We keep every system working and make sure your people use it well.",
     items: [
-      "Training for the people who will run each system",
-      "Playbooks for daily operation and common failures",
+      "Monitoring and alerts on every system we build",
+      "Fixes and updates when your data, tools, or AI models change",
+      "Monthly tuning against the scorecard",
+      "Training for the people who use each system",
       "A company AI use policy, written and approved",
       "AI training for leadership and staff",
-      "A handover plan with a named owner for each system",
     ],
   },
 ];
@@ -81,7 +82,7 @@ export const groups: DeliverableGroup[] = [
 export const engagementSteps: { intro: SectionIntro; steps: Step[] } = {
   intro: {
     eyebrow: "How an engagement runs",
-    title: "Five steps, and you keep something at every one",
+    title: "Five steps, with something useful at every one",
     link: { label: "How it works in full", href: "/how-it-works" },
   },
   steps: [
@@ -103,12 +104,12 @@ export const engagementSteps: { intro: SectionIntro; steps: Step[] } = {
     {
       title: "Second term",
       duration: "Up to three months, optional",
-      body: "We extend what worked, build the systems that needed the first quarter's data, and move each one to the person who will own it.",
+      body: "We extend what worked, build the systems that needed the first quarter's data, and train the people who use each one.",
     },
     {
-      title: "Handover",
-      duration: "Yours to run",
-      body: "Your team runs every system with documentation, playbooks, and training. Light support stays available if you want it.",
+      title: "Ongoing support",
+      duration: "Optional, ongoing",
+      body: "We monitor every system, fix what breaks, and report what each one returns every month. No engineering team needed on your side.",
     },
   ],
 };

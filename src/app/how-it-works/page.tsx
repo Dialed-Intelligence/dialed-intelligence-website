@@ -15,7 +15,7 @@ import { OpportunityModelExhibit } from "@/components/sections/opportunity-model
 import { QuarterPlanExhibit } from "@/components/sections/quarter-plan";
 import { Comparison } from "@/components/sections/comparison";
 import { pageMetadata } from "@/lib/meta";
-import { ownershipBand } from "@/content/site";
+import { supportBand } from "@/content/site";
 import { faqs } from "@/content/faq";
 import {
   anatomy,
@@ -101,7 +101,7 @@ export default function HowItWorksPage() {
 
       <TextSection id="needs-title" {...needs} />
 
-      <StatementBand id="ownership" copy={ownershipBand} showLink={false} />
+      <StatementBand id="support" copy={supportBand} showLink={false} />
 
       {/* The alternatives, side by side */}
       <Comparison id="compare-title" anchor="compare" copy={comparison} />

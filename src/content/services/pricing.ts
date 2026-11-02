@@ -53,7 +53,7 @@ export const pricing: Service = {
   },
   get: [
     "Margin recovered across the long tail, with every price defensible and every rule in your hands. A pilot report that shows the gain against a control group, so the result is measured.",
-    "The system belongs to you. The demand models, the optimizer, and the rule set run in your accounts, and no vendor takes a cut of the margin it recovers.",
+    "After launch, we track margin against the control group and retune the models every month. Your pricing rules and floors stay in place.",
   ],
   deliverables: [
     "Demand estimates by item or group, with confidence noted",

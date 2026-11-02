@@ -5,7 +5,7 @@ import { Deliverables } from "@/components/sections/deliverables";
 import { Section } from "@/components/sections/section";
 import { LinkRows } from "@/components/sections/link-rows";
 import { pageMetadata } from "@/lib/meta";
-import { ownershipBand } from "@/content/site";
+import { supportBand } from "@/content/site";
 import {
   groups,
   header,
@@ -49,7 +49,7 @@ export default function ServicesPage() {
         }))}
       />
 
-      <StatementBand id="ownership" copy={ownershipBand} />
+      <StatementBand id="support" copy={supportBand} />
 
       <ClosingCTA />
     </>

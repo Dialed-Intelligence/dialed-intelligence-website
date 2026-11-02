@@ -20,13 +20,13 @@ export const hero: HeroCopy = {
   title: "Senior AI leadership,",
   titleEmphasis: "without the full-time hire.",
   subhead:
-    "We work inside businesses doing $2M to $25M a year. We find the AI projects that will pay for themselves and put a number on each one. Then we build them, and your team runs them after we leave.",
+    "We work inside businesses doing $2M to $25M a year. We find the AI projects that will pay for themselves and put a number on each one. Then we build them and keep them running, so you never need an engineering team.",
   primaryCta: { label: ctaLabel, href: ctaHref, event: ctaEvent },
   secondaryLink: { label: "See how it works", href: "/how-it-works" },
   proofPoints: [
     "A cost and payback date for every project",
     "Working systems in the first 90 days",
-    "You own everything we build",
+    "No engineering team needed on your side",
   ],
 };
 
@@ -69,11 +69,11 @@ export const twoJobs: TwoJobsCopy = {
     },
     {
       label: "Build",
-      title: "Systems in production, run by your people.",
+      title: "Systems in production, kept running.",
       items: [
         "Automation for the repetitive work between your systems",
         "Forecasting and pricing models your leadership uses every week",
-        "Documentation and training so your team runs it after we leave",
+        "Monitoring, fixes, and tuning after launch, with no IT team required",
       ],
     },
   ],
@@ -101,9 +101,9 @@ export const howItStarts: { intro: SectionIntro; steps: Step[] } = {
       body: "We size each opportunity by cost and payback. Then we write your first Quarter Plan.",
     },
     {
-      title: "Build and hand over",
+      title: "Build and run",
       duration: "One quarter at a time",
-      body: "We build to the plan and review the scorecard with you every month. Code, data, and accounts stay in your name.",
+      body: "We build to the plan and review the scorecard with you every month. After launch, we keep each system running.",
     },
   ],
 };
@@ -142,5 +142,5 @@ export const faqIntro: SectionIntro = {
 export const faqQuestions = [
   "Should we hire a full-time AI lead instead?",
   "Can we hire you for the strategy only?",
-  "How long do engagements last?",
+  "Do we need an IT team to maintain what you build?",
 ];

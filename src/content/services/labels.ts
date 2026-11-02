@@ -22,7 +22,7 @@ export const serviceLabels = {
 };
 
 export const serviceOg = {
-  alt: "A system Dialed Intelligence builds in the first two quarters, owned by you.",
+  alt: "A system Dialed Intelligence builds in the first two quarters and keeps running.",
   fallbackEyebrow: "What we deliver",
-  fallbackTitle: "Strategy, engineering, and a team that can run what we build.",
+  fallbackTitle: "Strategy, engineering, and systems we keep running.",
 };

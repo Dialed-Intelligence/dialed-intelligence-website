@@ -48,7 +48,7 @@ export const customerService: Service = {
   },
   get: [
     "Faster replies on routine questions, and a team that spends its time on the conversations that keep accounts. You see response times and resolution rates by category every month.",
-    "The agent, the knowledge base it draws on, and the full log of every reply sit in your accounts. Your team edits the answers without calling us.",
+    "After launch, we review a sample of replies every week and update the answers when your policies change. Your team lead can edit any answer directly.",
   ],
   deliverables: [
     "A breakdown of your inbox by category and volume",

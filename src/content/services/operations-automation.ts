@@ -41,14 +41,14 @@ export const operationsAutomation: Service = {
       },
       {
         weeks: "Weeks 9 to 10",
-        name: "Go live and hand over",
-        body: "Routine cases post on their own and exceptions land in a review queue. We train the person who owns the queue and hand over the runbook.",
+        name: "Go live",
+        body: "Routine cases post on their own and exceptions land in a review queue. We train the person who works the queue and set up monitoring on every integration.",
       },
     ],
   },
   get: [
     "A named process that used to take hours of someone's day now runs with a person approving the exceptions. You see the before and after in hours per week and in errors caught downstream.",
-    "The system belongs to you. The agents, the integrations, and the audit trail sit in your accounts, documented for the people who run them.",
+    "After launch, we monitor every agent and integration and fix what breaks. When a supplier changes a document format, we update the system before your team notices.",
   ],
   deliverables: [
     "A written map of the process, with every rule and exception",

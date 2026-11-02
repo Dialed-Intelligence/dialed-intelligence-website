@@ -57,14 +57,14 @@ export function StatementBand({
   showLink = true,
 }: {
   copy: StatementBandCopy;
-  /** Section id, for in-page anchors such as #ownership. */
+  /** Section id, for in-page anchors such as #support. */
   id?: string;
   showLink?: boolean;
 }) {
   return (
     <section
       id={id}
-      aria-labelledby="ownership-band-title"
+      aria-labelledby="support-band-title"
       className="scroll-mt-20 bg-ink text-paper"
     >
       <Container className="py-24 lg:py-36">
@@ -74,7 +74,7 @@ export function StatementBand({
               {copy.eyebrow}
             </Eyebrow>
             <h2
-              id="ownership-band-title"
+              id="support-band-title"
               className="mt-7 font-display text-[clamp(3rem,8vw,7rem)] font-medium leading-[0.95] tracking-[-0.035em]"
             >
               {copy.titleLines[0]}

@@ -28,7 +28,7 @@ export interface Service {
   problem: string[];
   /** "What we build" paragraphs */
   build: string[];
-  /** "What you get" paragraphs, ending with the ownership restatement */
+  /** "What you get" paragraphs, ending with how we keep it running */
   get: string[];
   /** "How we build it", the phased plan with week ranges */
   approach: {
