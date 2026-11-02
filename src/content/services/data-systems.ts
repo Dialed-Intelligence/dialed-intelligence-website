@@ -41,14 +41,14 @@ export const dataSystems: Service = {
       },
       {
         weeks: "Weeks 12 to 14",
-        name: "Reporting and handover",
-        body: "A weekly leadership report and the month-end package run from the warehouse. We document every pipeline and train the person who will own it.",
+        name: "Reporting and monitoring",
+        body: "A weekly leadership report and the month-end package run from the warehouse. We document every pipeline, set up failure alerts, and train your finance lead on the reports.",
       },
     ],
   },
   get: [
     "One place where your business is visible and correct. Month-end reporting that assembles itself, and a foundation that makes every later automation, forecast, and pricing decision better.",
-    "An asset on your side of the ledger. The pipelines, the warehouse, and the definitions run in your accounts, and nobody meters your access to your own numbers.",
+    "After launch, we monitor every pipeline and fix failures before the morning reports run. When you add a system or change a definition, we update the warehouse.",
   ],
   deliverables: [
     "A data warehouse in your cloud account, loaded on a schedule",
@@ -61,7 +61,7 @@ export const dataSystems: Service = {
   needs: [
     "Read access to each source system and the spreadsheets that matter",
     "Your controller or bookkeeper for the tie-out, about two hours per close",
-    "One person to own the data after handover",
+    "One person on your team who knows where the data comes from",
   ],
   measures: [
     "Hours to produce the month-end package",

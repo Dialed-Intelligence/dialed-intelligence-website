@@ -48,7 +48,7 @@ export const inventory: Service = {
   },
   get: [
     "Reorder proposals your buyer trusts, fewer stockouts on the items that matter, and cash recovered from slow stock. A clear before and after on numbers you already track.",
-    "The system belongs to you. The forecasts, the reorder logic, and the data pipeline run in your accounts, documented for your team.",
+    "After launch, we track forecast accuracy every week and retrain the models as seasons and suppliers change. Your buyer keeps the final say on every order.",
   ],
   deliverables: [
     "Cleaned item records and measured lead times by supplier",

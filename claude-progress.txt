@@ -277,3 +277,12 @@ NEXT      | Tyler to confirm the example numbers and timelines read right; real 
 
 ## 2026-11-01 Smaller team photos
 - About team cards now show a 144px (112px on phones) portrait beside the name and role instead of a full-width 4:5 photo. The bio and background follow below. Unused LogoMark import removed from team.tsx.
+
+## 2026-11-01 Messaging shift to payback and ongoing support
+- Site-wide: positioning, brand line, footer tagline and default meta now lead on payback and "systems we keep running" instead of ownership.
+- ownershipBand replaced by supportBand (anchor #support) on What we deliver and How it works.
+- Step 05 "Handover" is now "Ongoing support" (optional, ongoing) on How it works, the services hub and processSteps. Stage 04, anatomy, exit section and comparison row updated to match.
+- FAQ: new "Do we need an IT team to maintain what you build?" (also on home) and "Are we locked in to working with you?" (ownership lives here now). "What happens when it ends" became "What happens after the systems launch".
+- Every service page callout now describes how we keep that system running.
+- About: principle 4 is "Accountable after launch". Tyler's background line 1 is the Northwestern M.S., and the background list runs full width below both team columns.
+- CLAUDE.md rule 9 updated. The Rebrand Spec doc still describes ownership as central and needs the same change.

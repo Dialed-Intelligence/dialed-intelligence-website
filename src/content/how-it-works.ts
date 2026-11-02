@@ -10,21 +10,21 @@ import type { OgCopy, PageMeta, SectionIntro, TitledText } from "./types";
 export const meta: PageMeta = {
   title: "How it works",
   description:
-    "The path from a free 45-minute call to handover. What each step delivers, what we need from you, and how the Quarter Plan keeps the work measurable.",
+    "The path from a free 45-minute call to systems in production. What each step delivers, what we need from you, and how we keep it running.",
   canonical: "/how-it-works",
 };
 
 export const og: OgCopy = {
   eyebrow: "How it works",
-  title: "A defined path from the first call to handover.",
-  alt: "How a Dialed Intelligence engagement works, from the first call to handover.",
+  title: "A defined path from the first call to working systems.",
+  alt: "How a Dialed Intelligence engagement works, from the first call to working systems.",
 };
 
 export const header = {
   eyebrow: "How it works",
   aside: "Five steps, one plan per quarter",
   title:
-    "A defined path from the first call to the day your team runs it without us.",
+    "A defined path from the first call to systems that pay for themselves.",
   subhead:
     "Every step ends with something you keep, and you can stop after any of them. Here is what each one delivers and what we need from you.",
 };
@@ -36,7 +36,7 @@ export const stageLabels: StageLabels = {
   walkAway: "What you get",
   duration: "How long it takes",
   needs: "What we need from you",
-  darkTag: "You own what we build.",
+  darkTag: "We keep it running.",
 };
 
 export const stages: Stage[] = [
@@ -67,18 +67,18 @@ export const stages: Stage[] = [
   {
     n: "04",
     name: "Second term",
-    body: "Optional. We scale what worked in the first quarter and move each system to the people who will own it. The plan for this term ends with your team running everything.",
-    walkAway: "Systems extended, and a team ready to run them",
+    body: "Optional. We scale what worked in the first quarter and build the systems that needed its data. We train the people who use each system every day.",
+    walkAway: "More systems in production, and a team trained to use them",
     duration: "Up to three months, optional",
-    needs: "The people who will own each system after handover",
+    needs: "The people who use each system day to day",
   },
   {
     n: "05",
-    name: "Handover",
-    body: "Your team takes over. Code, data, documentation, and accounts are already in your name, so handover is training and a final review. Light support stays available if you want it.",
-    walkAway: "Systems your team runs, documented and tested",
-    duration: "Yours to run",
-    needs: "Time for your team to train on each system",
+    name: "Ongoing support",
+    body: "We monitor every system, fix what breaks, and update it when your data, tools, or AI models change. Each month we review what the systems return and tune the ones that can do better. You never need an engineering team to keep them running.",
+    walkAway: "Systems that keep working, and a monthly report on what they return",
+    duration: "Optional, ongoing",
+    needs: "A point person who tells us when the business changes",
   },
 ];
 
@@ -106,8 +106,8 @@ export const anatomy: { intro: SectionIntro; body: string; items: TitledText[] }
       body: "The systems, data, and people the plan depends on, listed up front so nothing stalls mid-quarter.",
     },
     {
-      title: "Who owns what.",
-      body: "Your sponsor, your point person, and the person on your team who takes over each system.",
+      title: "Who does what.",
+      body: "Your sponsor, your point person, and the person on your team who uses each system day to day.",
     },
   ],
 };
@@ -145,10 +145,11 @@ export const needs = {
 };
 
 export const exit = {
-  label: "Renewal and exit",
+  label: "Renewal and support",
   paragraphs: [
-    "Near the end of the first quarter, we review the scorecard together and decide on a second term. A second term runs up to three months. Its job is to scale what worked and prepare your team to run it.",
-    "Handover includes the documentation, a walkthrough of every system, and training for the people who will own them. After that, light support is available if you want it. Most clients reach handover in three to six months.",
+    "Near the end of the first quarter, we review the scorecard together and decide on a second term. A second term runs up to three months. Its job is to scale what worked and build what the first quarter's data made possible.",
+    "Most builds finish in three to six months. After that, most clients keep us on for ongoing support. We monitor each system, fix what breaks, and tune it against the scorecard.",
+    "If you would rather run the systems yourselves, we train your team and hand over the documentation instead. Either way, the code, data, and accounts stay in your name.",
   ],
 };
 
@@ -197,8 +198,8 @@ export const comparison: ComparisonCopy = {
       ],
     },
     {
-      label: "Who runs it afterward",
-      cells: ["The hire", "Your team, on its own", "The vendor", "Your team, trained"],
+      label: "Who keeps it running",
+      cells: ["The hire", "Your team, on its own", "The vendor", "We do, with your team"],
     },
   ],
 };

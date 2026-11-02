@@ -37,12 +37,22 @@ export const faqs: Faq[] = [
   {
     question: "How long do engagements last?",
     answer:
-      "Three months to start, with an option to extend. Most clients reach handover in three to six months.",
+      "Three months to start, with an option to extend. Most builds finish in three to six months, and most clients keep us on for ongoing support after that.",
   },
   {
-    question: "What happens when it ends?",
+    question: "What happens after the systems launch?",
     answer:
-      "Your team runs the systems. You keep all code, data, and documentation. Light support stays available if you want it.",
+      "We keep them running. We monitor each system, fix what breaks, and tune it as the results come in. If you would rather run them yourselves, we train your team and hand over the documentation.",
+  },
+  {
+    question: "Do we need an IT team to maintain what you build?",
+    answer:
+      "No. We monitor and maintain every system we build. Your team uses the systems day to day and tells us when something in the business changes.",
+  },
+  {
+    question: "Are we locked in to working with you?",
+    answer:
+      "No. Code, data, documentation, and accounts sit in your name from the first day. You can bring the systems in-house or move them to another firm at any time.",
   },
   {
     question: "What does it cost?",

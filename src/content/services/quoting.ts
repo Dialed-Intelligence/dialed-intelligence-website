@@ -48,7 +48,7 @@ export const quoting: Service = {
   },
   get: [
     "Quotes out the same day, margins applied the same way every time, and estimators free for the complex jobs. You see quote turnaround and win rate on the monthly scorecard.",
-    "The pricing rules, the quoting system, and the history of every quote live in your accounts. Your team changes the rules without calling us.",
+    "After launch, we tune the pricing rules on win and loss data every month. Your team can change a rule on its own when costs move.",
   ],
   deliverables: [
     "Your pricing rules, written down where your team can edit them",

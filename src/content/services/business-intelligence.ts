@@ -48,7 +48,7 @@ export const businessIntelligence: Service = {
   },
   get: [
     "Leadership answers its own questions in minutes. A sales manager can ask which accounts ordered less this quarter and get a list built from live data, with the query shown so anyone can check it.",
-    "The dashboards, the MCP server, and the permission rules run in your accounts. If you switch AI assistants next year, the server works with the new one.",
+    "After launch, we keep the dashboards and the MCP server current as your systems change. If you switch AI assistants next year, the server works with the new one.",
   ],
   deliverables: [
     "Dashboards for the weekly leadership review",

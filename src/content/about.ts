@@ -26,7 +26,7 @@ export const firm = {
   label: "The firm",
   paragraphs: [
     "Dialed Intelligence is a fractional AI leadership and engineering firm based in Chicago. We work with owner-led and PE-backed businesses between $2M and $25M in revenue. They know AI matters, and nobody in house owns it.",
-    "We join your team for a defined term, set the AI strategy, build the systems, and hand them to your people. The firm stays small on purpose. The person who writes your plan builds it. Clients often call this role a fractional Chief AI Officer.",
+    "We join your team, set the AI strategy, build the systems, and keep them running. The firm stays small on purpose. The person who writes your plan builds it. Clients often call this role a fractional Chief AI Officer.",
   ],
 };
 
@@ -43,11 +43,11 @@ export const team: TeamMember[] = [
     role: "Founder and Senior AI Engineer",
     bio: [
       "Tyler founded Dialed Intelligence and leads the technical work on every engagement. He writes the Quarter Plan and builds the systems in it.",
-      "He started in econometrics and NBER research. He then worked in investment banking and in consulting for research organizations and PE-backed companies before moving into production AI engineering.",
+      "He holds an M.S. in Data Science and Artificial Intelligence from Northwestern. He has worked in investment banking and in consulting for research organizations and PE-backed companies before moving into production AI engineering.",
     ],
-    backgroundLabel: "Background",
+    backgroundLabel: "Tyler's background",
     background: [
-      "Econometrics and NBER research",
+      "Northwestern M.S. in Data Science & Artificial Intelligence",
       "Investment banking",
       "Management consulting",
       "Production AI engineering",
@@ -59,7 +59,7 @@ export const team: TeamMember[] = [
     name: "Michael Jarvis",
     role: "Head of Client Engagement",
     bio: [
-      "Michael is your first point of contact and stays on the account through handover. He runs the discovery interviews with each department and keeps the Quarter Plan on schedule.",
+      "Michael is your first point of contact and stays on the account for as long as we work together. He runs the discovery interviews with each department and keeps the Quarter Plan on schedule.",
       "He also runs the monthly scorecard review with your leadership team. You see what shipped and what it is worth.",
     ],
     photoAlt: "Michael Jarvis, Head of Client Engagement at Dialed Intelligence",
@@ -86,8 +86,8 @@ export const principles: TitledText[] = [
     body: "If off-the-shelf software solves your problem, the discovery project will tell you to buy it.",
   },
   {
-    title: "Ownership without asterisks.",
-    body: "What we build is yours, and the contract says so in plain language.",
+    title: "Accountable after launch.",
+    body: "We stay responsible for the systems we build. If one stops paying off, we fix it or tell you to turn it off.",
   },
 ];
 
