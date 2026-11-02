@@ -286,3 +286,8 @@ NEXT      | Tyler to confirm the example numbers and timelines read right; real 
 - Every service page callout now describes how we keep that system running.
 - About: principle 4 is "Accountable after launch". Tyler's background line 1 is the Northwestern M.S., and the background list runs full width below both team columns.
 - CLAUDE.md rule 9 updated. The Rebrand Spec doc still describes ownership as central and needs the same change.
+
+## 2026-11-01 Results: real engagements
+- Replaced the three draft case studies (skilled nursing, public sector, research consultancy) with four real engagements: solar company AI strategy and cash flow automation (NetSuite, Smartsheet, Microsoft Office), custom Claude and Copilot MCP servers for a $1.3B food company, RFP lead pipeline and proposal drafting for a consulting firm, data collection and AI analysis system for a school.
+- Home case cards now 2x2 (md:grid-cols-2). Home sale link points to the solar write-up.
+- Open: Tyler to confirm details, and client approval before any metric or name ships.
