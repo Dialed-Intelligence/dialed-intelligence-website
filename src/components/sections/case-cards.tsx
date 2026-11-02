@@ -7,7 +7,7 @@ import type { CaseLabels, CaseStudy, SectionIntro } from "@/content/types";
 const resultsHref = "/results";
 
 /**
- * Three-up case study cards in problem, build, result format. The optional
+ * Case study cards, two per row on wide screens, in problem, build, result format. The optional
  * metric renders top right only when present, so quantified results can drop
  * in without a layout change.
  */
@@ -36,7 +36,7 @@ export function CaseCards({
             }
           />
         </Reveal>
-        <div className="mt-14 grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2">
           {items.map((v, i) => (
             <Reveal key={v.client} delay={i * 80} className="flex">
               <article className="flex w-full flex-col rounded-[5px] border border-ink/15 bg-paper-2 p-8 lg:p-10">

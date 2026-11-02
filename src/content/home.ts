@@ -118,8 +118,8 @@ export const sale: SaleValueCopy = {
   finePrint:
     "Multiples vary by industry, size, and buyer. We model a range and show our assumptions. We do not promise a sale price.",
   link: {
-    label: "Read the PE-backed operator write-up",
-    href: "/results#skilled-nursing-documentation",
+    label: "Read the solar company write-up",
+    href: "/results#solar-ai-strategy-cashflow",
   },
   figure: {
     label: "An illustration",
