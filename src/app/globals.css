@@ -270,8 +270,12 @@ body {
   .di-mask {
     display: block;
     overflow: hidden;
-    padding-bottom: 0.08em;
-    margin-bottom: -0.08em;
+    /* Room above for cap tops and accents, below for descenders, at the
+       hero's tight line height. Negative margins keep the spacing unchanged. */
+    padding-top: 0.12em;
+    margin-top: -0.12em;
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
   }
   .di-mask > * {
     display: block;

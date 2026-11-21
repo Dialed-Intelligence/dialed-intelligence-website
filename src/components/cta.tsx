@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { track } from "@vercel/analytics";
 
-type Variant = "blue" | "ink" | "paper" | "outline" | "outline-dark";
+type Variant = "blue" | "blue-on-ink" | "ink" | "paper" | "outline" | "outline-dark";
 
 const styles: Record<Variant, string> = {
   blue: "bg-blue text-white hover:bg-ink hover:text-paper",
+  "blue-on-ink": "bg-blue text-white hover:bg-paper hover:text-ink",
   ink: "bg-ink text-paper hover:bg-blue hover:text-white",
   paper: "bg-paper text-ink hover:bg-ink hover:text-paper",
   outline:

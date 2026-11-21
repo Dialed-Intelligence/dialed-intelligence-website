@@ -150,24 +150,24 @@ function StepCard({
       aria-current={activeCard ? "step" : undefined}
       className={`flex min-h-[360px] flex-col justify-between rounded-md p-8 transition-colors duration-500 lg:p-10 ${
         wide ? "w-[min(620px,58vw)] shrink-0" : ""
-      } ${activeCard ? "bg-blue text-white" : "bg-paper-2 text-ink"}`}
+      } ${activeCard ? "bg-ink text-paper" : "bg-paper-2 text-ink"}`}
     >
       <div className="flex items-start justify-between gap-6">
         <span
           aria-hidden="true"
           className={`font-display text-[clamp(5rem,9vw,8.5rem)] font-medium leading-[0.8] tracking-[-0.06em] ${
-            activeCard ? "text-white/30" : "text-ink/12"
+            activeCard ? "text-blue" : "text-ink/12"
           }`}
         >
           {String(n).padStart(2, "0")}
         </span>
-        <span className={`label-mono-sm text-right ${activeCard ? "text-white/80" : "text-ink/70"}`}>
+        <span className={`label-mono-sm text-right ${activeCard ? "text-blue-3" : "text-ink/70"}`}>
           {step.duration}
         </span>
       </div>
       <div>
         <h3 className="display-2">{step.title}</h3>
-        <p className={`body-md mt-4 max-w-md ${activeCard ? "text-white/85" : "text-ink/75"}`}>{step.body}</p>
+        <p className={`body-md mt-4 max-w-md ${activeCard ? "text-paper/75" : "text-ink/75"}`}>{step.body}</p>
       </div>
     </li>
   );

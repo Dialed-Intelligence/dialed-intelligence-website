@@ -16,12 +16,9 @@ export interface HeroCopy {
   proofPoints: string[];
 }
 
-// Per-piece fills. The top right quarter carries the blue.
-const pieceFill = ["fill-blue", "fill-ink", "fill-ink", "fill-ink"];
-
 /**
  * The iD mark, built from its four quarters. On load each quarter slides in,
- * draws its outline, then fills. Pure CSS, so it costs no JavaScript.
+ * draws its outline, then fills. The mark is always one color. Pure CSS, so it costs no JavaScript.
  */
 function AssemblingMark({ className = "" }: { className?: string }) {
   return (
@@ -31,11 +28,11 @@ function AssemblingMark({ className = "" }: { className?: string }) {
       aria-hidden="true"
       className={`overflow-visible ${className}`}
     >
-      {MARK_PIECES.map((d, i) => (
+      {MARK_PIECES.map((d) => (
         <g key={d} className="di-piece">
           <path
             d={d}
-            className={`${pieceFill[i]} stroke-ink/40`}
+            className="fill-ink stroke-ink/40"
             strokeWidth={1}
             vectorEffect="non-scaling-stroke"
           />
