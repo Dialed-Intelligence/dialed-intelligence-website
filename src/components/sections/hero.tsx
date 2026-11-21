@@ -1,6 +1,6 @@
-import { LogoMark } from "@/components/logo";
 import { Container, Eyebrow } from "@/components/primitives";
 import { CTA, TextLink } from "@/components/cta";
+import { MARK_PIECES, MARK_VIEWBOX } from "@/lib/brand";
 import type { LinkCopy } from "@/content/types";
 
 export interface HeroCopy {
@@ -12,32 +12,88 @@ export interface HeroCopy {
   subhead: string;
   primaryCta: LinkCopy & { event: string };
   secondaryLink: LinkCopy;
-  /** Short proof points in the side panel, two to four. */
+  /** Short proof points in the strip under the hero, two to four. */
   proofPoints: string[];
 }
 
-/** Home hero. Headline, subhead, and two actions, with the proof points in an ink panel. */
+// Per-piece fills. The top right quarter carries the blue.
+const pieceFill = ["fill-blue", "fill-ink", "fill-ink", "fill-ink"];
+
+/**
+ * The iD mark, built from its four quarters. On load each quarter slides in,
+ * draws its outline, then fills. Pure CSS, so it costs no JavaScript.
+ */
+function AssemblingMark({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox={MARK_VIEWBOX}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className={`overflow-visible ${className}`}
+    >
+      {MARK_PIECES.map((d, i) => (
+        <g key={d} className="di-piece">
+          <path
+            d={d}
+            className={`${pieceFill[i]} stroke-ink/40`}
+            strokeWidth={1}
+            vectorEffect="non-scaling-stroke"
+          />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+/** Keeps hyphenated words such as "full-time" from breaking across lines. */
+function KeepHyphenated({ text }: { text: string }) {
+  return text.split(" ").map((word, i) => (
+    <span key={`${word}-${i}`}>
+      {i > 0 && " "}
+      {word.includes("-") ? <span className="whitespace-nowrap">{word}</span> : word}
+    </span>
+  ));
+}
+
+/**
+ * Home hero. An oversized headline that rises in line by line, the iD mark
+ * assembling beside it, and the proof points drawn in as a strip below.
+ * As the visitor scrolls, the copy recedes and the mark drifts, where the
+ * browser supports scroll timelines.
+ */
 export function Hero({ copy }: { copy: HeroCopy }) {
   return (
-    <section aria-labelledby="hero-title">
-      <Container className="pb-16 pt-16 lg:pb-24 lg:pt-24">
-        <Eyebrow>{copy.eyebrow}</Eyebrow>
-        <div className="mt-8 grid grid-cols-1 items-end gap-12 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-16">
-          <div>
-            <h1
-              id="hero-title"
-              className="font-display text-[clamp(2.6rem,6.4vw,5.5rem)] font-medium leading-[0.97] tracking-[-0.035em] text-balance"
-            >
-              {copy.title}
-              {copy.titleEmphasis && (
-                <>
-                  {" "}
-                  <em className="text-blue">{copy.titleEmphasis}</em>
-                </>
-              )}
-            </h1>
-            <p className="body-lg mt-8 max-w-[40rem] text-ink/75">{copy.subhead}</p>
-            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-6">
+    <section aria-labelledby="hero-title" className="relative overflow-hidden">
+      <Container className="relative flex min-h-[calc(100svh-69px)] flex-col pb-10 pt-14 lg:pt-20">
+        <div className="di-hero-mark pointer-events-none absolute -right-16 top-24 hidden w-[36vw] max-w-[520px] md:block lg:right-0 lg:top-20">
+          <AssemblingMark className="w-full" />
+        </div>
+
+        <div className="di-hero-copy relative md:max-w-[60vw] xl:max-w-[58vw] 2xl:max-w-[60rem]">
+          <div className="di-fade-up" style={{ animationDelay: "0.1s" }}>
+            <Eyebrow>{copy.eyebrow}</Eyebrow>
+          </div>
+          <h1
+            id="hero-title"
+            className="mt-8 font-display text-[clamp(3rem,7.4vw,7.5rem)] font-medium leading-[0.92] tracking-[-0.045em]"
+          >
+            <span className="di-mask">
+              <span style={{ animationDelay: "0.1s" }}>{copy.title}</span>
+            </span>
+            {copy.titleEmphasis && (
+              <span className="di-mask">
+                <em className="text-blue" style={{ animationDelay: "0.25s" }}>
+                  <KeepHyphenated text={copy.titleEmphasis} />
+                </em>
+              </span>
+            )}
+          </h1>
+          <div
+            className="di-fade-up mt-10 flex flex-col gap-10"
+            style={{ animationDelay: "0.7s" }}
+          >
+            <p className="body-lg max-w-[36rem] text-ink/75">{copy.subhead}</p>
+            <div className="flex shrink-0 flex-wrap items-center gap-x-8 gap-y-6">
               <CTA href={copy.primaryCta.href} event={copy.primaryCta.event}>
                 {copy.primaryCta.label}
               </CTA>
@@ -46,28 +102,30 @@ export function Hero({ copy }: { copy: HeroCopy }) {
               </TextLink>
             </div>
           </div>
-          <div className="relative overflow-hidden rounded-md bg-ink p-8 text-paper">
-            <LogoMark
-              width={300}
-              className="pointer-events-none absolute -right-16 -top-16 text-paper/6"
-            />
-            <LogoMark width={40} className="relative text-lime" />
-            <ul className="relative mt-24 border-t border-paper/15 lg:mt-32">
-              {copy.proofPoints.map((point, i) => (
-                <li
-                  key={point}
-                  className="flex items-baseline gap-4 border-b border-paper/15 py-4"
-                >
-                  <span className="font-mono text-sm text-lime">
-                    [{String(i + 1).padStart(2, "0")}]
-                  </span>
-                  <span className="font-display text-lg font-medium leading-snug tracking-tight">
-                    {point}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        </div>
+
+        <div className="relative mt-auto pt-16">
+          <div
+            aria-hidden="true"
+            className="di-draw-x h-px bg-ink/25"
+            style={{ animationDelay: "0.9s" }}
+          />
+          <ul className="grid grid-cols-1 gap-x-8 gap-y-4 pt-6 sm:grid-cols-3">
+            {copy.proofPoints.map((point, i) => (
+              <li
+                key={point}
+                className="di-wipe flex items-baseline gap-4"
+                style={{ animationDelay: `${1.1 + i * 0.2}s` }}
+              >
+                <span className="font-mono text-sm text-blue-2">
+                  [{String(i + 1).padStart(2, "0")}]
+                </span>
+                <span className="font-display text-lg font-medium leading-snug tracking-tight">
+                  {point}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </Container>
     </section>

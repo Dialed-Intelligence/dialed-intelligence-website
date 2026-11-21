@@ -21,22 +21,22 @@ export function ClosingCTA({
   return (
     <section aria-labelledby="closing-cta-title">
       <Container className="pb-20 pt-4 lg:pb-28">
-        <div className="relative overflow-hidden rounded-md bg-lime px-7 py-14 text-ink sm:px-12 sm:py-16 lg:px-20 lg:py-24">
+        <div className="relative overflow-hidden rounded-md bg-blue px-7 py-14 text-white sm:px-12 sm:py-16 lg:px-20 lg:py-24">
           <LogoMark
             width={460}
-            className="pointer-events-none absolute -bottom-24 -right-16 text-ink/8"
+            className="pointer-events-none absolute -bottom-24 -right-16 text-white/10"
           />
           <div className="relative max-w-2xl">
-            <span className="label-mono text-ink/80">[ {eyebrow} ]</span>
+            <span className="label-mono text-white/80">[ {eyebrow} ]</span>
             <h2
               id="closing-cta-title"
               className="mt-5 font-display text-[clamp(2.2rem,5vw,4.25rem)] font-medium leading-[0.98] tracking-[-0.03em] text-balance"
             >
               {title}
             </h2>
-            <p className="body-lg mt-6 max-w-xl text-ink/75">{body}</p>
+            <p className="body-lg mt-6 max-w-xl text-white/85">{body}</p>
             <div className="mt-9">
-              <CTA href={ctaHref} variant="ink" event={event}>
+              <CTA href={ctaHref} variant="paper" event={event}>
                 {ctaLabel}
               </CTA>
             </div>

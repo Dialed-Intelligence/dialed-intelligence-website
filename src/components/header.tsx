@@ -43,6 +43,11 @@ export function Header() {
         aria-hidden="true"
         className="absolute inset-0 -z-10 bg-paper/85 backdrop-blur-md"
       />
+      {/* Reading progress. Driven by a CSS scroll timeline, so no JS. */}
+      <div
+        aria-hidden="true"
+        className="di-scroll-progress pointer-events-none absolute inset-x-0 -bottom-px h-[2px] bg-blue"
+      />
       <div className="mx-auto flex w-full max-w-[1320px] items-center justify-between gap-8 px-5 py-4 sm:px-8 lg:px-10">
         <Link
           href="/"
@@ -118,10 +123,10 @@ export function Header() {
                   className="group flex items-baseline justify-between border-b border-paper/15 py-5"
                 >
                   <span className="flex items-baseline gap-4">
-                    <span className="font-mono text-sm text-lime">
+                    <span className="font-mono text-sm text-blue-3">
                       [{String(i + 1).padStart(2, "0")}]
                     </span>
-                    <span className="font-display text-3xl font-medium tracking-tight group-hover:text-lime">
+                    <span className="font-display text-3xl font-medium tracking-tight group-hover:text-blue-3">
                       {item.label}
                     </span>
                   </span>

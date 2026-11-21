@@ -70,6 +70,8 @@
   --color-blue: #346aea;
   --color-blue-2: #2a57c4;
   --color-lime: #cddd3c;
+  /* Lighter blue for accents on ink, where #346aea falls short of 4.5:1. */
+  --color-blue-3: #8fadf6;
 
   /* The R5 type roles, all real Helvetica (loaded by the @font-face block
      above), each with a system Helvetica fallback. Headlines and body both use
@@ -91,6 +93,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Lets details/summary and other auto-height elements animate open. */
+  interpolate-size: allow-keywords;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -200,15 +204,153 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   html.js .reveal {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(32px);
     transition:
-      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 1s cubic-bezier(0.19, 1, 0.22, 1);
   }
   html.js .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* ---------- Direction A motion system ----------
+   Everything below is additive. Each effect sets its final state as the
+   default style and animates in FROM a hidden state, so with reduced motion
+   (or a browser that skips the animation) visitors get the finished page. */
+
+@keyframes di-rise {
+  from { transform: translateY(105%); }
+  to { transform: translateY(0); }
+}
+@keyframes di-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes di-draw-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes di-wipe {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes di-stroke {
+  from { stroke-dashoffset: 1400; fill-opacity: 0; }
+  60% { fill-opacity: 0; }
+  to { stroke-dashoffset: 0; fill-opacity: 1; }
+}
+@keyframes di-piece-1 { from { transform: translate(120px, -100px); opacity: 0; } }
+@keyframes di-piece-2 { from { transform: translate(-140px, -80px); opacity: 0; } }
+@keyframes di-piece-3 { from { transform: translate(150px, 110px); opacity: 0; } }
+@keyframes di-piece-4 { from { transform: translate(-130px, 120px); opacity: 0; } }
+@keyframes di-stamp {
+  0% { transform: scale(1.8) rotate(-6deg); opacity: 0; }
+  60% { transform: scale(0.95) rotate(0); opacity: 1; }
+  100% { transform: none; opacity: 1; }
+}
+@keyframes di-draw-path {
+  from { stroke-dashoffset: 600; }
+  to { stroke-dashoffset: 0; }
+}
+/* Scroll-linked, only where scroll timelines exist. */
+@keyframes di-hero-out {
+  to { transform: translateY(-6%) scale(0.94); opacity: 0.35; }
+}
+@keyframes di-mark-drift {
+  to { transform: translateY(18%) rotate(-4deg); }
+}
+@keyframes di-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .di-mask {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+  .di-mask > * {
+    display: block;
+    animation: di-rise 1s cubic-bezier(0.19, 1, 0.22, 1) both;
+  }
+  .di-fade-up {
+    animation: di-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .di-draw-x {
+    transform-origin: left;
+    animation: di-draw-x 1.1s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+  .di-wipe {
+    animation: di-wipe 0.9s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+  .di-piece {
+    animation: di-piece-1 1.5s cubic-bezier(0.19, 1, 0.22, 1) both;
+  }
+  .di-piece:nth-child(2) { animation-name: di-piece-2; animation-delay: 0.1s; }
+  .di-piece:nth-child(3) { animation-name: di-piece-3; animation-delay: 0.2s; }
+  .di-piece:nth-child(4) { animation-name: di-piece-4; animation-delay: 0.3s; }
+  .di-piece path {
+    stroke-dasharray: 1400;
+    animation: di-stroke 2s cubic-bezier(0.65, 0, 0.35, 1) 0.2s both;
+  }
+  .di-stamp {
+    animation: di-stamp 0.5s cubic-bezier(0.19, 1, 0.22, 1) both;
+  }
+  .di-draw-path {
+    stroke-dasharray: 600;
+    animation: di-draw-path 1.1s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .di-hero-copy {
+      animation: di-hero-out linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 90vh;
+    }
+    .di-hero-mark {
+      animation: di-mark-drift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+    .di-scroll-progress {
+      transform-origin: left;
+      animation: di-progress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+
+  /* FAQ answers open with a height change where the browser supports it. */
+  details::details-content {
+    height: 0;
+    overflow: clip;
+    transition:
+      height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      content-visibility 0.45s allow-discrete;
+  }
+  details[open]::details-content {
+    height: auto;
+  }
+}
+
+/* Browsers without scroll timelines skip the progress line entirely. */
+@supports not (animation-timeline: scroll()) {
+  .di-scroll-progress {
+    display: none;
+  }
+}
+
+/* Arrow that travels on hover, for buttons and text links. */
+.di-arrow {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.group:hover .di-arrow,
+.group:focus-visible .di-arrow {
+  transform: translate(3px, -3px);
 }
 
 /* ---------- Article prose (insights posts) ---------- */

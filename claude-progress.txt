@@ -291,3 +291,11 @@ NEXT      | Tyler to confirm the example numbers and timelines read right; real 
 - Replaced the three draft case studies (skilled nursing, public sector, research consultancy) with four real engagements: solar company AI strategy and cash flow automation (NetSuite, Smartsheet, Microsoft Office), custom Claude and Copilot MCP servers for a $1.3B food company, RFP lead pipeline and proposal drafting for a consulting firm, data collection and AI analysis system for a school.
 - Home case cards now 2x2 (md:grid-cols-2). Home sale link points to the solar write-up.
 - Open: Tyler to confirm details, and client approval before any metric or name ships.
+
+## 2026-11-21 Direction A motion demo (branch claude/project-thread-1xz728)
+- Home page demo of the "Cinematic" direction Tyler picked: light theme, blue as the pop color, lime cut to a few small accents.
+- Kinetic hero (line-by-line rise, iD mark assembling from its four quarters, scroll-linked recede via CSS scroll timelines).
+- Opportunity Model is now live: rows load when in view, figures count up, calls stamp in, any row opens to a payback curve and how it was sized (also on How it works). New "sizing" copy needs copy review.
+- Home "How it starts" is a pinned horizontal track with a progress rail on wide screens, a stacked list on phones and with reduced motion.
+- Closing CTA band is blue. Header has a CSS reading-progress line. CTA arrows travel on hover. FAQ answers animate open where supported.
+- Proposal doc https://claude.ai/artifact/C2Jmm5Xh5S97pRE8A1o4oG, design canvas https://claude.ai/artifact/A8Na88UZUraWhH49EEwWkE.

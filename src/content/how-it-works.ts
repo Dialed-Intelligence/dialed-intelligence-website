@@ -233,27 +233,43 @@ export const opportunity: {
         annualReturn: "1,100 staff hours",
         payback: "4 months",
         call: "build",
+        sizing:
+          "Order volume times minutes per order, from your order system. We weigh that against the cost to build and run the agent.",
       },
       {
         project: "Reorder forecasting, top 200 products",
         annualReturn: "Fewer stockouts and less dead stock",
         payback: "7 months",
         call: "build",
+        sizing:
+          "Stockout and carrying cost history on the top 200 products, against the cost to build and run the forecast.",
       },
       {
         project: "Call summaries for the sales team",
         annualReturn: "300 staff hours",
         payback: "2 months",
         call: "buy",
+        sizing:
+          "A tool you can buy already does this well. We set it up for your team instead of building it.",
       },
       {
         project: "Website chatbot",
         annualReturn: "No measurable return",
         payback: "Not modeled",
         call: "skip",
+        sizing:
+          "We found no measurable return for this business. It goes on the list of things not to buy, with the reason.",
       },
     ],
     callLabels: { build: "Build", buy: "Buy off the shelf", skip: "Skip" },
+    detailLabels: {
+      toggle: "Show how we sized it",
+      sizing: "How we sized it",
+      breakEven: "Break-even",
+      start: "Month 0",
+      end: "Month 12",
+      curve: "Payback curve that crosses break-even at month",
+    },
     caption:
       "An example for illustration. Every model is built from your numbers.",
   },
