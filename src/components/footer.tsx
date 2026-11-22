@@ -12,7 +12,7 @@ export function Footer() {
           <div>
             <Link
               href="/"
-              className="inline-block text-paper transition-colors hover:text-lime"
+              className="inline-block text-paper transition-colors hover:text-blue-3"
               aria-label={copy.homeLabel}
             >
               <Wordmark markWidth={34} />
@@ -32,7 +32,7 @@ export function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-lime"
+                    className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-blue-3"
                   >
                     {item.label}
                   </Link>
@@ -41,7 +41,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/contact"
-                  className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-lime"
+                  className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-blue-3"
                 >
                   {copy.contactLabel}
                 </Link>
@@ -56,7 +56,7 @@ export function Footer() {
                 <li key={s.href}>
                   <Link
                     href={s.href}
-                    className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-lime"
+                    className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-blue-3"
                   >
                     {s.title}
                   </Link>
@@ -69,7 +69,7 @@ export function Footer() {
             <h2 className="label-mono-sm mb-5 text-paper/60">{copy.contactHeading}</h2>
             <a
               href={`mailto:${site.email}`}
-              className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-lime"
+              className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-blue-3"
             >
               {site.email}
             </a>
@@ -77,7 +77,7 @@ export function Footer() {
               href={site.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-lime"
+              className="block py-1.5 text-[0.9375rem] text-paper transition-colors hover:text-blue-3"
             >
               {copy.linkedinLabel}
             </a>

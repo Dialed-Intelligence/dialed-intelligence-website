@@ -12,7 +12,12 @@ export function Container({
   );
 }
 
-/** Mono eyebrow with a blue square tick. Use above section headings. */
+/**
+ * Section eyebrow. Sentence case Helvetica in the accent color, sitting
+ * directly above the heading, the way Apple and Mercury label sections.
+ * `lime` is kept for older call sites and renders the same light blue as
+ * `dark`, since blue is the site's accent.
+ */
 export function Eyebrow({
   children,
   dark = false,
@@ -25,16 +30,12 @@ export function Eyebrow({
   className?: string;
 }) {
   return (
-    <span className={`flex items-center gap-3 ${className}`}>
-      <span
-        aria-hidden="true"
-        className={`inline-block size-[7px] shrink-0 ${lime ? "bg-lime" : "bg-blue"}`}
-      />
-      <span
-        className={`label-mono ${dark ? "text-paper/60" : "text-ink/70"}`}
-      >
-        {children}
-      </span>
+    <span
+      className={`block font-display text-[1.0625rem] font-medium leading-snug tracking-[-0.01em] ${
+        dark || lime ? "text-blue-3" : "text-blue-2"
+      } ${className}`}
+    >
+      {children}
     </span>
   );
 }
@@ -80,7 +81,7 @@ export function SectionHeader({
   return (
     <div className={`max-w-3xl ${className}`}>
       <Eyebrow dark={dark}>{eyebrow}</Eyebrow>
-      <h2 className={`display-1 mt-6 ${dark ? "text-paper" : "text-ink"}`}>
+      <h2 className={`display-1 mt-3 ${dark ? "text-paper" : "text-ink"}`}>
         {title}
       </h2>
       {right && <div className="mt-6">{right}</div>}

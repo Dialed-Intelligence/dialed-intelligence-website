@@ -5,7 +5,7 @@ import { closingCta, ctaHref, ctaLabel } from "@/content/site";
 import type { StatementBandCopy, Step } from "@/content/types";
 
 /**
- * Closing CTA band. Lime, high contrast, used at the bottom of every page.
+ * Closing CTA band. Ink, with the blue button as its one accent, used at the bottom of every page.
  */
 export function ClosingCTA({
   eyebrow = closingCta.eyebrow,
@@ -21,22 +21,22 @@ export function ClosingCTA({
   return (
     <section aria-labelledby="closing-cta-title">
       <Container className="pb-20 pt-4 lg:pb-28">
-        <div className="relative overflow-hidden rounded-md bg-lime px-7 py-14 text-ink sm:px-12 sm:py-16 lg:px-20 lg:py-24">
+        <div className="relative overflow-hidden rounded-md bg-ink px-7 py-14 text-paper sm:px-12 sm:py-16 lg:px-20 lg:py-24">
           <LogoMark
             width={460}
-            className="pointer-events-none absolute -bottom-24 -right-16 text-ink/8"
+            className="pointer-events-none absolute -bottom-24 -right-16 text-paper/5"
           />
           <div className="relative max-w-2xl">
-            <span className="label-mono text-ink/80">[ {eyebrow} ]</span>
+            <Eyebrow dark>{eyebrow}</Eyebrow>
             <h2
               id="closing-cta-title"
-              className="mt-5 font-display text-[clamp(2.2rem,5vw,4.25rem)] font-medium leading-[0.98] tracking-[-0.03em] text-balance"
+              className="mt-4 font-display text-[clamp(2.2rem,5vw,4.25rem)] font-medium leading-[0.98] tracking-[-0.03em] text-balance"
             >
               {title}
             </h2>
-            <p className="body-lg mt-6 max-w-xl text-ink/75">{body}</p>
+            <p className="body-lg mt-6 max-w-xl text-paper/75">{body}</p>
             <div className="mt-9">
-              <CTA href={ctaHref} variant="ink" event={event}>
+              <CTA href={ctaHref} variant="blue-on-ink" event={event}>
                 {ctaLabel}
               </CTA>
             </div>

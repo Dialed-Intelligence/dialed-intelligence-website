@@ -28,7 +28,7 @@ export function SaleValue({ id, copy }: { id: string; copy: SaleValueCopy }) {
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-20">
           <Reveal>
             <Eyebrow>{copy.eyebrow}</Eyebrow>
-            <h2 id={id} className="display-1 mt-6">
+            <h2 id={id} className="display-1 mt-3">
               {copy.title}
             </h2>
             <div className="mt-8 max-w-[40rem] space-y-6">
@@ -48,7 +48,7 @@ export function SaleValue({ id, copy }: { id: string; copy: SaleValueCopy }) {
 
           <Reveal delay={100}>
             <figure className="rounded-md bg-ink p-8 text-paper sm:p-12">
-              <figcaption className="label-mono-sm text-lime">[ {copy.figure.label} ]</figcaption>
+              <figcaption className="label-mono-sm text-blue-3">[ {copy.figure.label} ]</figcaption>
               <dl className="mt-8">
                 {copy.figure.lines.map((line, i) => (
                   <div
@@ -58,7 +58,7 @@ export function SaleValue({ id, copy }: { id: string; copy: SaleValueCopy }) {
                     <dt className="label-mono-sm text-paper/60">{line.label}</dt>
                     <dd className="font-display text-[clamp(1.75rem,3vw,2.5rem)] font-medium tracking-tight">
                       {i > 0 && (
-                        <span aria-hidden="true" className="mr-3 text-lime">
+                        <span aria-hidden="true" className="mr-3 text-blue-3">
                           &times;
                         </span>
                       )}
@@ -68,7 +68,7 @@ export function SaleValue({ id, copy }: { id: string; copy: SaleValueCopy }) {
                 ))}
                 <div className="border-t-2 border-paper/60 pt-6">
                   <dt className="label-mono-sm text-paper/60">{copy.figure.totalLabel}</dt>
-                  <dd className="mt-4 font-display text-[clamp(2.5rem,5vw,4.25rem)] font-medium leading-none tracking-[-0.03em] text-lime">
+                  <dd className="mt-4 font-display text-[clamp(2.5rem,5vw,4.25rem)] font-medium leading-none tracking-[-0.03em] text-blue-3">
                     {copy.figure.total}
                   </dd>
                 </div>
