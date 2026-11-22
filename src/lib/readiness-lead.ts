@@ -1,6 +1,6 @@
 import { questions } from "@/content/ai-readiness";
 import type { InboundLead } from "@/lib/attio";
-import { answerLabel, type Answers, type ReadinessResult } from "@/lib/readiness";
+import { answerLabel, type Answers, type PayoffResult } from "@/lib/readiness";
 
 /**
  * Turns one AI readiness submission into the CRM record and the alert email.
@@ -11,15 +11,14 @@ export interface ReadinessContact {
   name: string;
   email: string;
   company: string;
-  role: string;
-  /** Optional free text describing the workflow. */
+  /** Optional free text from the visitor. */
   detail: string;
 }
 
 export interface ReadinessSubmission {
   contact: ReadinessContact;
   answers: Answers;
-  result: ReadinessResult;
+  result: PayoffResult;
   /** Submission time. */
   at: Date;
 }
@@ -41,10 +40,11 @@ function answerLines(answers: Answers): string[] {
   return questions.map((q) => `${q.prompt} ${answerLabel(q.id, answers[q.id])}`);
 }
 
-function breakdownLines(result: ReadinessResult): string[] {
-  return result.breakdown.map(
-    (d) => `${d.dimension.label} ${d.points} of ${d.max}`,
-  );
+function resultLines(result: PayoffResult): string[] {
+  return [
+    `Hours back a year (estimate) ${result.hoursBack}`,
+    `What we would build ${result.workflow.build ?? ""}`,
+  ];
 }
 
 export function buildInboundLead(s: ReadinessSubmission): InboundLead {
@@ -54,10 +54,13 @@ export function buildInboundLead(s: ReadinessSubmission): InboundLead {
   const timeline = answerLabel("timeline", answers.timeline);
   const revenue = answerLabel("revenue", answers.revenue);
 
+  const goal = answerLabel("goal", answers.goal);
+  const hours = answerLabel("hours", answers.hours);
+
   const demandSignal = [
-    `Took the AI readiness check on dialedintelligence.com on ${date}.`,
-    `Wants to fix ${workflow.toLowerCase()}.`,
-    `Timeline ${timeline.toLowerCase()}.`,
+    `Took the AI payoff check on dialedintelligence.com on ${date}.`,
+    `Wants to hand off ${workflow.toLowerCase()} (${hours.toLowerCase()} a week).`,
+    `Goal ${goal.toLowerCase()}. Timeline ${timeline.toLowerCase()}.`,
     `Score ${result.score} (${result.band.label}).`,
     contact.detail ? `In their words "${contact.detail}"` : "",
   ]
@@ -66,39 +69,35 @@ export function buildInboundLead(s: ReadinessSubmission): InboundLead {
 
   const qualificationNotes = [
     `Problem ${workflow}${contact.detail ? `. ${contact.detail}` : ""}`,
-    `Value ${answerLabel("hours", answers.hours)} a week on it`,
+    `Value ${hours} a week, about ${result.hoursBack} hours a year back. Goal ${goal}`,
     `Budget not asked. Revenue ${revenue}`,
-    `Decision maker ${contact.role}. Project owner ${answerLabel("sponsor", answers.sponsor)}`,
+    "Decision maker not asked",
     `Timeline ${timeline}`,
   ].join("\n");
 
   const noteBody = [
-    `${contact.name}, ${contact.role} at ${contact.company} (${contact.email})`,
+    `${contact.name} at ${contact.company} (${contact.email})`,
     `Score ${result.score} of 100, ${result.band.label}`,
     "",
     "Answers",
     ...answerLines(answers),
-    ...(contact.detail ? [`Workflow in their words ${contact.detail}`] : []),
+    ...(contact.detail ? [`In their words ${contact.detail}`] : []),
     "",
-    "Score breakdown",
-    ...breakdownLines(result),
-    "",
-    "Reasons shown to the visitor",
-    ...result.reasons.map((r) => `${r.kind === "gap" ? "Gap" : "Strength"} ${r.text}`),
+    "Shown to the visitor",
+    ...resultLines(result),
   ].join("\n");
 
   return {
     name: contact.name,
     email: contact.email,
     company: contact.company,
-    role: contact.role,
     demandSignal,
     date,
-    dealName: `${contact.company} AI readiness check`,
+    dealName: `${contact.company} AI payoff check`,
     qualificationNotes,
     nextStep: "Reply with times for a 45-minute call",
     nextStepDate: nextBusinessDay(s.at),
-    noteTitle: `AI readiness check ${date}, score ${result.score}`,
+    noteTitle: `AI payoff check ${date}, score ${result.score}`,
     noteBody,
   };
 }
@@ -125,7 +124,7 @@ export function buildAlertEmail(
       : `Attio write FAILED (${crm.error}). Add this lead by hand or let the next scan pick it up.`;
 
   return {
-    subject: `AI readiness check from ${clip(s.contact.name)}, ${clip(s.contact.company)} (score ${s.result.score})`,
+    subject: `AI payoff check from ${clip(s.contact.name)}, ${clip(s.contact.company)} (score ${s.result.score})`,
     text: [crmLine, "", lead.noteBody].join("\n"),
   };
 }

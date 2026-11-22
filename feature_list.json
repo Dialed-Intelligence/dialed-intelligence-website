@@ -128,18 +128,18 @@
     },
     {
       "id": "112",
-      "name": "AI readiness check",
-      "description": "/ai-readiness, a nine-question scored check with a book-a-call result. /api/ai-readiness rescores server side, writes company, person, deal (Ready for review) and note to Attio, and emails the inbound list.",
+      "name": "AI payoff check",
+      "description": "/ai-readiness, a five-question visitor-first check showing hours back a year, the first build and a book-a-call result. /api/ai-readiness rescores server side, writes new company, person, deal (Ready for review) and note to Attio, and emails the inbound list.",
       "acceptance": [
         "npm run lint, npm run typecheck, npm test and npm run build pass, /ai-readiness prerenders",
-        "Question max points sum to 100 and every scored dimension has a question (tests/readiness.test.ts)",
+        "At most five questions, points sum to 100, every workflow has a build line and link (tests/readiness.test.ts)",
         "Attio writes run company, person, deal, note in order, and an existing company keeps its lead source (tests/attio.test.ts)",
         "API rejects incomplete answers, drops bots silently, emails when Attio fails, and returns 502 only when both channels fail (tests/readiness-route.test.ts)",
         "Flow works end to end at 1440 and 390 with no horizontal overflow",
         "/contact links to /ai-readiness and sitemap.xml lists it"
       ],
       "passes": true,
-      "qa_notes": "Verified 2026-11-22. lint, typecheck, 27 tests, build pass. Walkthrough at 1440 and 390 reaches the result, no overflow. Live Attio and Resend not exercised until env vars are set on a preview."
+      "qa_notes": "Verified 2026-11-22 after the five-question redesign. lint, typecheck, 27 tests, build pass. Walkthrough at 1440 and 390 reaches the result, no overflow. Live Attio and Resend not exercised until env vars are set on a preview."
     }
   ]
 }

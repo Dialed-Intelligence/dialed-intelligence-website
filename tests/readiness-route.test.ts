@@ -16,7 +16,6 @@ const valid = {
   name: "Dana Smith",
   email: "dana@acme.com",
   company: "Acme",
-  role: "COO",
   detail: "Quotes take two days",
   website: "",
   renderedAt: 1,
@@ -63,7 +62,8 @@ describe("POST /api/ai-readiness", () => {
 
   it("recomputes the score and ignores one sent by the client", async () => {
     await POST(request({ ...valid, score: 100 }));
-    expect(emailCall().subject).toMatch(/score 53\)$/) // first option of each question;
+    // First option of each question scores 20 + 10 + 30.
+    expect(emailCall().subject).toMatch(/score 60\)$/);
   });
 
   it("still emails, flagged, when Attio fails", async () => {

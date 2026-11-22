@@ -1,54 +1,55 @@
 import {
+  AUTOMATABLE_SHARE,
+  WEEKS_PER_YEAR,
   bands,
-  dimensions,
   questions,
+  type AnswerOption,
   type Band,
-  type Dimension,
-  type DimensionId,
   type Question,
   type QuestionId,
 } from "@/content/ai-readiness";
 
 /**
- * AI readiness scoring. Pure functions, no I/O, so the browser can show the
- * score instantly and the API can recompute it without trusting the client.
+ * AI payoff check scoring. Pure functions, no I/O, so the browser can show
+ * the result instantly and the API can recompute it without trusting the
+ * client.
  *
  * Rules, in plain terms:
- * - Each scored question adds the points of the chosen option.
- * - Each dimension's max is the best option's points. Maxes sum to 100.
- * - Reasons are three lines. The weakest dimension is always shown as a gap
- *   (unless every dimension is maxed). Up to two dimensions at or above
- *   STRENGTH_SHARE of their max are shown as strengths. Any slot left over
- *   goes to the next weakest gap. Ties break by content order.
+ * - Opportunity score. Workflow, hours and timeline options carry points.
+ *   The best option of each sums to 100. Goal and revenue carry none.
+ * - Hours back a year. Midpoint of the chosen hours range, times 52 weeks,
+ *   times AUTOMATABLE_SHARE, rounded to the nearest 10.
+ * - Build line and link come from the chosen workflow. Goal line comes from
+ *   the chosen goal.
  */
 
 export type Answers = Record<QuestionId, string>;
 
-export interface DimensionScore {
-  dimension: Dimension;
-  points: number;
-  max: number;
-}
-
-export interface Reason {
-  kind: "strength" | "gap";
-  dimensionId: DimensionId;
-  text: string;
-}
-
-export interface ReadinessResult {
+export interface PayoffResult {
   score: number;
   band: Band;
-  breakdown: DimensionScore[];
-  reasons: Reason[];
+  weeklyHours: number;
+  hoursBack: number;
+  workflow: AnswerOption;
+  goal: AnswerOption;
 }
 
 const questionById = new Map<QuestionId, Question>(
   questions.map((q) => [q.id, q]),
 );
 
-function maxPoints(q: Question): number {
-  return Math.max(0, ...q.options.map((o) => o.points ?? 0));
+function option(id: QuestionId, optionId: string): AnswerOption {
+  const found = questionById.get(id)?.options.find((o) => o.id === optionId);
+  if (!found) throw new Error(`Unknown answer ${optionId} for ${id}`);
+  return found;
+}
+
+/** Highest score the questions allow. The content is built so this is 100. */
+export function maxScore(): number {
+  return questions.reduce(
+    (sum, q) => sum + Math.max(0, ...q.options.map((o) => o.points ?? 0)),
+    0,
+  );
 }
 
 /**
@@ -74,64 +75,26 @@ export function answerLabel(questionId: QuestionId, optionId: string): string {
   return q?.options.find((o) => o.id === optionId)?.label ?? optionId;
 }
 
-export function scoreAnswers(answers: Answers): ReadinessResult {
-  const breakdown: DimensionScore[] = dimensions.map((dimension) => {
-    const scored = questions.filter((q) => q.dimension === dimension.id);
-    let points = 0;
-    let max = 0;
-    for (const q of scored) {
-      const option = q.options.find((o) => o.id === answers[q.id]);
-      points += option?.points ?? 0;
-      max += maxPoints(q);
-    }
-    return { dimension, points, max };
-  });
+export function hoursBackPerYear(weeklyHours: number): number {
+  return Math.round((weeklyHours * WEEKS_PER_YEAR * AUTOMATABLE_SHARE) / 10) * 10;
+}
 
-  const total = breakdown.reduce((sum, d) => sum + d.points, 0);
-  const possible = breakdown.reduce((sum, d) => sum + d.max, 0);
-  const score = possible === 0 ? 0 : Math.round((total / possible) * 100);
-
+export function scoreAnswers(answers: Answers): PayoffResult {
+  const total = questions.reduce(
+    (sum, q) => sum + (option(q.id, answers[q.id]).points ?? 0),
+    0,
+  );
+  const max = maxScore();
+  const score = max === 0 ? 0 : Math.round((total / max) * 100);
   const band = bands.find((b) => score >= b.min) ?? bands[bands.length - 1];
+  const weeklyHours = option("hours", answers.hours).weeklyHours ?? 0;
 
-  return { score, band, breakdown, reasons: pickReasons(breakdown) };
-}
-
-function share(d: DimensionScore): number {
-  return d.max === 0 ? 0 : d.points / d.max;
-}
-
-/** Share of a dimension's max needed before we call it a strength. */
-export const STRENGTH_SHARE = 0.6;
-
-const REASON_COUNT = 3;
-
-function asReason(d: DimensionScore, kind: Reason["kind"]): Reason {
   return {
-    kind,
-    dimensionId: d.dimension.id,
-    text: kind === "gap" ? d.dimension.gap : d.dimension.strength,
+    score,
+    band,
+    weeklyHours,
+    hoursBack: hoursBackPerYear(weeklyHours),
+    workflow: option("workflow", answers.workflow),
+    goal: option("goal", answers.goal),
   };
-}
-
-function pickReasons(breakdown: DimensionScore[]): Reason[] {
-  // Stable sorts keep content order on ties.
-  const strongest = [...breakdown].sort((a, b) => share(b) - share(a));
-  const weakestFirst = [...breakdown].sort((a, b) => share(a) - share(b));
-
-  // A perfect score has no real gap. Show three strengths.
-  if (share(weakestFirst[0]) === 1) {
-    return strongest.slice(0, REASON_COUNT).map((d) => asReason(d, "strength"));
-  }
-
-  const strengths = strongest
-    .filter((d) => d !== weakestFirst[0] && share(d) >= STRENGTH_SHARE)
-    .slice(0, REASON_COUNT - 1);
-  const gaps = weakestFirst
-    .filter((d) => !strengths.includes(d) && share(d) < 1)
-    .slice(0, REASON_COUNT - strengths.length);
-
-  return [
-    ...strengths.map((d) => asReason(d, "strength")),
-    ...gaps.map((d) => asReason(d, "gap")),
-  ];
 }

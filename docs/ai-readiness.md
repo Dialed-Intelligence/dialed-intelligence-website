@@ -1,7 +1,8 @@
-# AI readiness check
+# AI payoff check
 
-`/ai-readiness` asks nine questions, shows a score out of 100 with three
-reasons and a book-a-call button, and sends the lead to Attio and email.
+`/ai-readiness` asks five questions written for the visitor, shows the hours
+a year their team could get back, what we would build first and how long it
+takes, plus a book-a-call button. It sends the lead to Attio and email.
 
 ## How it fits together
 
@@ -15,14 +16,20 @@ reasons and a book-a-call button, and sends the lead to Attio and email.
 | UI | `src/components/readiness-check.tsx`, `src/app/ai-readiness/page.tsx` |
 | Tests | `tests/*.test.ts` (`npm test`) |
 
-## Scoring
+## Questions and scoring
 
-Six scored questions add points. Each dimension's best answer is its max,
-and the maxes sum to 100. Industry, revenue and workflow are profile
-questions with no points. Bands are 75+ Ready to build, 50 to 74 Ready for a
-plan, under 50 Foundation first. The reasons are the two strongest
-dimensions and the weakest one. To change a weight, edit `points` in the
-content file. The tests fail if the maxes stop summing to 100.
+1. What would you hand off to AI first (workflow, up to 20 points)
+2. How many hours a week does your team spend on it (up to 50 points)
+3. What would your team do with that time back (no points, used in copy)
+4. When would you like it running (up to 30 points)
+5. Annual revenue (no points, qualifier)
+
+The opportunity score is the sum, out of 100. Bands are 75+ Strong first
+project, 50 to 74 Worth a plan, under 50 Start small. Hours back a year is
+the midpoint of the hours range times 52 times `AUTOMATABLE_SHARE` (0.6),
+rounded to 10. The build line and link come from the workflow option. Edit
+any of this in the content file. Tests fail if there are more than five
+questions or the points stop summing to 100.
 
 ## What lands in Attio
 

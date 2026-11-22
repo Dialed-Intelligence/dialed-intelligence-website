@@ -1,143 +1,163 @@
 import type { OgCopy, PageMeta } from "./types";
 
 /**
- * AI readiness check. Every question, option, score weight and result line
- * lives here. The scoring module (src/lib/readiness.ts) reads the weights,
- * the client renders the copy, and /api/ai-readiness validates submissions
+ * AI payoff check. Five questions, all copy, points and payoff figures live
+ * here. The scoring module (src/lib/readiness.ts) reads the points, the
+ * client renders the copy, and /api/ai-readiness validates submissions
  * against the same option ids, so the three can never drift apart.
+ *
+ * The questions are written for the visitor. Four of them make the payoff
+ * concrete (what they would hand off, how much time, what they would do
+ * with it, when). The last one, revenue, is the only pure qualifier.
  *
  * DRAFT copy for Tyler's review.
  */
 
 export const meta: PageMeta = {
-  title: "AI readiness check",
+  title: "AI payoff check",
   description:
-    "Answer nine questions about how your business runs. Get an AI readiness score out of 100, the three things behind it, and a suggested next step.",
+    "Five questions. See how many hours a year AI could give back to your team, what we would build first, and how long it takes.",
   canonical: "/ai-readiness",
 };
 
 export const og: OgCopy = {
-  eyebrow: "AI readiness check",
-  title: "Score your AI readiness in three minutes.",
-  alt: "The Dialed Intelligence AI readiness check.",
+  eyebrow: "AI payoff check",
+  title: "See what AI could give back to your team.",
+  alt: "The Dialed Intelligence AI payoff check.",
 };
 
 export const header = {
-  eyebrow: "AI readiness check",
-  title: "Find out where AI would pay off first.",
+  eyebrow: "AI payoff check",
+  title: "See what AI could give back to your team.",
   subhead:
-    "Nine questions about how the business runs. It takes about three minutes. You get a score out of 100, the three things behind it, and the next step we would suggest.",
-  promise: "The score comes from fixed rules. We show every reason behind it.",
+    "Five questions. About a minute. You see the hours a year you could get back, the system we would build first, and how long it takes to go live.",
+  promise: "Every figure comes from your answers. We show the math.",
 };
-
-/** Scored dimensions. Weights are the max points each can add. */
-export type DimensionId =
-  | "opportunity"
-  | "systems"
-  | "trust"
-  | "sponsor"
-  | "experience"
-  | "urgency";
-
-export interface Dimension {
-  id: DimensionId;
-  label: string;
-  /** Shown when this dimension is one of the strongest. */
-  strength: string;
-  /** Shown when this dimension is the weakest. */
-  gap: string;
-}
-
-export const dimensions: readonly Dimension[] = [
-  {
-    id: "opportunity",
-    label: "Size of the prize",
-    strength:
-      "The workflow you picked eats enough hours to pay back a build within a few months.",
-    gap: "The workflow you picked takes modest hours today. A bigger one may pay back faster.",
-  },
-  {
-    id: "systems",
-    label: "Where the data lives",
-    strength:
-      "Your core data sits in systems we can connect to, so a build starts from real records.",
-    gap: "Most of the data lives in spreadsheets and inboxes. Pulling it into one place comes first.",
-  },
-  {
-    id: "trust",
-    label: "Trust in the numbers",
-    strength: "Your team trusts its reports, so automated output will get used.",
-    gap: "The team does not fully trust its reports. A short data cleanup makes every later project faster.",
-  },
-  {
-    id: "sponsor",
-    label: "An owner on your side",
-    strength:
-      "A leader on your side owns the result. That is the strongest predictor of a project that ships.",
-    gap: "Nobody owns this yet. Naming one person on your side is the cheapest step you can take.",
-  },
-  {
-    id: "experience",
-    label: "AI already in use",
-    strength: "Your team already uses AI tools, so adoption will be quick.",
-    gap: "The team has not used AI tools yet. A small first win builds the habit.",
-  },
-  {
-    id: "urgency",
-    label: "Timeline",
-    strength: "You want this working soon, and the plan can be built around that date.",
-    gap: "There is no date on this yet. A payback target gives the project a reason to move.",
-  },
-] as const;
 
 export interface AnswerOption {
   /** Stable id. Stored in Attio and validated by the API. Never reuse one. */
   id: string;
   label: string;
-  /** Points toward the question's dimension. Omit for unscored questions. */
+  /** Points toward the opportunity score. Max per question sums to 100. */
   points?: number;
+  /** Workflow options. What we would build, and the page that explains it. */
+  build?: string;
+  href?: string;
+  /** Hours options. Midpoint of the range, used for the hours-back figure. */
+  weeklyHours?: number;
+  /** Goal options. Finishes the sentence "That is time to ...". */
+  phrase?: string;
 }
+
+export type QuestionId = "workflow" | "hours" | "goal" | "timeline" | "revenue";
 
 export interface Question {
   id: QuestionId;
   prompt: string;
-  /** Short helper line under the prompt. */
   help?: string;
-  /** Dimension this question scores. Unscored questions profile the lead. */
-  dimension?: DimensionId;
   options: readonly AnswerOption[];
 }
 
-export type QuestionId =
-  | "industry"
-  | "revenue"
-  | "workflow"
-  | "hours"
-  | "systems"
-  | "trust"
-  | "sponsor"
-  | "experience"
-  | "timeline";
-
 export const questions: readonly Question[] = [
   {
-    id: "industry",
-    prompt: "What does the business do?",
+    id: "workflow",
+    prompt: "What would you hand off to AI first?",
+    help: "Pick the work your team would be happiest to stop doing by hand.",
     options: [
-      { id: "manufacturing", label: "Manufacturing" },
-      { id: "distribution", label: "Distribution or wholesale" },
-      { id: "construction", label: "Construction or trades" },
-      { id: "professional", label: "Professional services" },
-      { id: "healthcare", label: "Healthcare" },
-      { id: "financial", label: "Financial services or insurance" },
-      { id: "retail", label: "Retail or ecommerce" },
-      { id: "other", label: "Something else" },
+      {
+        id: "quoting",
+        label: "Quotes and estimates",
+        points: 20,
+        build: "We build quote automation in eight to twelve weeks.",
+        href: "/services/quoting",
+      },
+      {
+        id: "orders",
+        label: "Order entry and invoicing",
+        points: 20,
+        build: "We have a first workflow agent running in six to ten weeks.",
+        href: "/services/operations-automation",
+      },
+      {
+        id: "service",
+        label: "Customer emails and the shared inbox",
+        points: 20,
+        build: "We build customer service agents in eight to twelve weeks.",
+        href: "/services/customer-service",
+      },
+      {
+        id: "reporting",
+        label: "Reports and dashboards",
+        points: 18,
+        build: "We build live reporting in six to ten weeks when the data sits in one place.",
+        href: "/services/business-intelligence",
+      },
+      {
+        id: "scheduling",
+        label: "Scheduling and dispatch",
+        points: 16,
+        build: "We have a first workflow agent running in six to ten weeks.",
+        href: "/services/operations-automation",
+      },
+      {
+        id: "inventory",
+        label: "Inventory and purchasing",
+        points: 14,
+        build: "We have reorder proposals live in ten to sixteen weeks.",
+        href: "/services/inventory",
+      },
+      {
+        id: "pricing",
+        label: "Pricing",
+        points: 12,
+        build: "We build pricing models in fourteen to twenty weeks, pilot included.",
+        href: "/services/pricing",
+      },
+      {
+        id: "other",
+        label: "Something else",
+        points: 8,
+        build: "We map it on the call and tell you what a first build would take.",
+        href: "/services",
+      },
+    ],
+  },
+  {
+    id: "hours",
+    prompt: "How many hours a week does your team spend on it?",
+    help: "Add up everyone who touches it. A rough guess is fine.",
+    options: [
+      { id: "under-5", label: "Under 5 hours", points: 10, weeklyHours: 3 },
+      { id: "5-20", label: "5 to 20 hours", points: 25, weeklyHours: 12 },
+      { id: "20-40", label: "20 to 40 hours", points: 40, weeklyHours: 30 },
+      { id: "40+", label: "More than 40 hours", points: 50, weeklyHours: 50 },
+    ],
+  },
+  {
+    id: "goal",
+    prompt: "What would your team do with that time back?",
+    options: [
+      { id: "win", label: "Win more work", phrase: "win more work" },
+      { id: "faster", label: "Answer customers faster", phrase: "answer customers faster" },
+      { id: "grow", label: "Grow without adding headcount", phrase: "grow without adding headcount" },
+      { id: "errors", label: "Cut errors and rework", phrase: "cut errors and rework" },
+      { id: "evenings", label: "Get evenings back", phrase: "get evenings back" },
+    ],
+  },
+  {
+    id: "timeline",
+    prompt: "When would you like it running?",
+    options: [
+      { id: "quarter", label: "This quarter", points: 30 },
+      { id: "six-months", label: "In the next six months", points: 22 },
+      { id: "year", label: "Sometime this year", points: 12 },
+      { id: "exploring", label: "Just exploring", points: 5 },
     ],
   },
   {
     id: "revenue",
-    prompt: "What is annual revenue?",
-    help: "A range is fine. It shapes the size of project that makes sense.",
+    prompt: "Last one. What is annual revenue?",
+    help: "So we size the first project to the business.",
     options: [
       { id: "under-2", label: "Under $2M" },
       { id: "2-5", label: "$2M to $5M" },
@@ -146,96 +166,15 @@ export const questions: readonly Question[] = [
       { id: "25+", label: "Over $25M" },
     ],
   },
-  {
-    id: "workflow",
-    prompt: "Which workflow would you fix first?",
-    options: [
-      { id: "quoting", label: "Quoting and estimating" },
-      { id: "orders", label: "Order entry and invoicing" },
-      { id: "reporting", label: "Reporting and dashboards" },
-      { id: "service", label: "Customer service and the shared inbox" },
-      { id: "scheduling", label: "Scheduling and dispatch" },
-      { id: "inventory", label: "Inventory and purchasing" },
-      { id: "pricing", label: "Pricing" },
-      { id: "other", label: "Something else" },
-    ],
-  },
-  {
-    id: "hours",
-    prompt: "How many hours a week does your team spend on it?",
-    help: "Add up everyone who touches it.",
-    dimension: "opportunity",
-    options: [
-      { id: "under-5", label: "Under 5 hours", points: 5 },
-      { id: "5-20", label: "5 to 20 hours", points: 10 },
-      { id: "20-40", label: "20 to 40 hours", points: 15 },
-      { id: "40+", label: "More than 40 hours", points: 20 },
-    ],
-  },
-  {
-    id: "systems",
-    prompt: "Where does the data for that work live today?",
-    dimension: "systems",
-    options: [
-      { id: "spreadsheets", label: "Mostly spreadsheets and email", points: 5 },
-      {
-        id: "one-system",
-        label: "One main system, plus spreadsheets",
-        points: 12,
-      },
-      { id: "connected", label: "Several systems that share data", points: 15 },
-      { id: "unsure", label: "Not sure", points: 3 },
-    ],
-  },
-  {
-    id: "trust",
-    prompt: "How much does the team trust the numbers in its reports?",
-    dimension: "trust",
-    options: [
-      { id: "rarely", label: "Rarely. We double check everything", points: 3 },
-      { id: "sometimes", label: "Sometimes", points: 8 },
-      { id: "usually", label: "Usually", points: 12 },
-      { id: "fully", label: "Fully. We run the business on them", points: 15 },
-    ],
-  },
-  {
-    id: "sponsor",
-    prompt: "Who would own this project on your side?",
-    dimension: "sponsor",
-    options: [
-      { id: "owner", label: "The owner or CEO", points: 15 },
-      { id: "ops-finance", label: "An operations or finance leader", points: 15 },
-      { id: "it", label: "IT", points: 10 },
-      { id: "nobody", label: "Nobody yet", points: 3 },
-    ],
-  },
-  {
-    id: "experience",
-    prompt: "How does the team use AI today?",
-    dimension: "experience",
-    options: [
-      { id: "none", label: "We do not use it yet", points: 5 },
-      { id: "chat", label: "A few people use chat tools", points: 10 },
-      { id: "pilot", label: "We have tried a pilot or a vendor tool", points: 15 },
-      { id: "production", label: "AI already runs part of a workflow", points: 15 },
-    ],
-  },
-  {
-    id: "timeline",
-    prompt: "When do you want the first project working?",
-    dimension: "urgency",
-    options: [
-      { id: "quarter", label: "This quarter", points: 20 },
-      { id: "six-months", label: "In the next six months", points: 14 },
-      { id: "year", label: "Sometime this year", points: 8 },
-      { id: "exploring", label: "We are only exploring", points: 3 },
-    ],
-  },
 ] as const;
+
+/** Share of current hours we plan on automating. Shown to the visitor. */
+export const AUTOMATABLE_SHARE = 0.6;
+export const WEEKS_PER_YEAR = 52;
 
 /** Score bands, highest first. A score lands in the first band it clears. */
 export interface Band {
-  id: "build" | "plan" | "foundation";
+  id: "strong" | "plan" | "small";
   min: number;
   label: string;
   summary: string;
@@ -244,45 +183,46 @@ export interface Band {
 
 export const bands: readonly Band[] = [
   {
-    id: "build",
+    id: "strong",
     min: 75,
-    label: "Ready to build",
-    summary:
-      "You have the hours, the data and an owner. A first system could be live within a quarter.",
-    nextStep:
-      "Book a 45-minute call. We will sketch the first build and its payback date on the call.",
+    label: "Strong first project",
+    summary: "Big enough to pay back fast, and you want it soon. This is the kind of project we start with.",
+    nextStep: "Book a 45-minute call. We sketch the build and its payback date on the call.",
   },
   {
     id: "plan",
     min: 50,
-    label: "Ready for a plan",
-    summary:
-      "The opportunity is real. One or two gaps decide which project should go first.",
-    nextStep:
-      "Book a 45-minute call. We will rank your options and name the gap to close first.",
+    label: "Worth a plan",
+    summary: "There is real time to win back. A short plan shows which piece to build first.",
+    nextStep: "Book a 45-minute call. We rank your options and name the first build.",
   },
   {
-    id: "foundation",
+    id: "small",
     min: 0,
-    label: "Foundation first",
-    summary:
-      "AI will pay off here later. Today the data and ownership work comes first.",
-    nextStep:
-      "Book a 45-minute call. We will tell you the two cheapest steps that raise this score.",
+    label: "Start small",
+    summary: "The payoff is real but modest today. A small first win often finds a bigger one.",
+    nextStep: "Book a 45-minute call. We tell you the cheapest first step and what it pays back.",
   },
 ] as const;
 
+/** Result lines. `{n}` and the phrase are filled in by the scoring module. */
+export const payoffCopy = {
+  hoursMath: (weekly: number, share: number) =>
+    `Based on about ${weekly} hours a week, 52 weeks a year, with ${Math.round(share * 100)} percent of the work automated.`,
+  goal: (phrase: string) => `That is time to ${phrase}.`,
+  buildLink: "See how we build it",
+};
+
 /** Labels for the step that asks for contact details. */
 export const contactStep = {
-  title: "Where should we send your result?",
-  body: "Your score shows on the next screen. We also keep a copy so the call starts from your answers.",
+  title: "Where should we send your plan?",
+  body: "Your result shows on the next screen. We keep a copy so the call starts from your answers.",
   nameLabel: "Name",
   emailLabel: "Work email",
   companyLabel: "Company",
-  roleLabel: "Your role",
-  detailLabel: "Describe the workflow in a sentence (optional)",
-  submitIdle: "See my score",
-  submitPending: "Scoring",
+  detailLabel: "Anything we should know (optional)",
+  submitIdle: "Show my result",
+  submitPending: "Working it out",
   privacy: "We use your answers to prepare for a call. We never sell or share them.",
 };
 
@@ -290,18 +230,20 @@ export const flow = {
   progress: (current: number, total: number) => `Question ${current} of ${total}`,
   back: "Back",
   next: "Next",
-  contactProgress: "Last step",
+  contactProgress: "Almost there",
 };
 
 export const result = {
-  label: "Your AI readiness score",
+  label: "Hours a year your team could get back",
+  unit: "hours a year",
+  scoreLabel: "AI opportunity score",
   outOf: "out of 100",
-  reasonsLabel: "What is behind it",
+  payoffLabel: "What that looks like",
   nextLabel: "Suggested next step",
   cta: "Book a 45-minute call",
   restart: "Start over",
   saved: "We have your answers. Expect a note from us within one business day.",
-  saveFailedLead: "Your score is ready, but we could not save your answers. Email us at",
+  saveFailedLead: "Your result is ready, but we could not save your answers. Email us at",
   saveFailedTail: "and we will pick it up there.",
 };
 
@@ -311,12 +253,11 @@ export const errors = {
   emailMissing: "Add an email so we can reply.",
   emailInvalid: "That email does not look right.",
   company: "Tell us which company.",
-  role: "Tell us your role.",
 };
 
 /** Link from /contact for visitors who are not ready for a call. */
 export const contactPageLink = {
   lead: "Not ready for a call yet?",
-  label: "Take the three-minute AI readiness check",
+  label: "See what AI could give back to your team in five questions",
   href: "/ai-readiness",
 };

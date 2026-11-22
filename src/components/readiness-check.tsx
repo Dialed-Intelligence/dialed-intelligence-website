@@ -3,15 +3,18 @@
 import { useEffect, useRef, useState } from "react";
 import { track } from "@vercel/analytics";
 import { ctaHref, site } from "@/content/site";
+import Link from "next/link";
 import {
+  AUTOMATABLE_SHARE,
   contactStep as contactCopy,
   errors as errorCopy,
   flow,
+  payoffCopy,
   questions,
   result as resultCopy,
   type QuestionId,
 } from "@/content/ai-readiness";
-import { scoreAnswers, type Answers, type ReadinessResult } from "@/lib/readiness";
+import { scoreAnswers, type Answers, type PayoffResult } from "@/lib/readiness";
 import { MAX_LINE, STRICT_EMAIL_RE } from "@/lib/input";
 
 const inputClass =
@@ -20,7 +23,7 @@ const inputClass =
 const buttonClass =
   "label-mono inline-flex items-center gap-2.5 rounded-[2px] bg-ink px-6 py-4 text-paper transition-colors duration-200 hover:bg-blue hover:text-white disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-ink disabled:hover:text-paper";
 
-const CONTACT_FIELDS = ["name", "email", "company", "role"] as const;
+const CONTACT_FIELDS = ["name", "email", "company"] as const;
 type ContactField = (typeof CONTACT_FIELDS)[number];
 type Contact = Record<ContactField | "detail" | "website", string>;
 type SaveState = "pending" | "saved" | "failed";
@@ -44,14 +47,13 @@ export function ReadinessCheck() {
     name: "",
     email: "",
     company: "",
-    role: "",
     detail: "",
     website: "",
   });
   const [contactErrors, setContactErrors] = useState<
     Partial<Record<ContactField, string>>
   >({});
-  const [result, setResult] = useState<ReadinessResult | null>(null);
+  const [result, setResult] = useState<PayoffResult | null>(null);
   const [save, setSave] = useState<SaveState>("pending");
   const [submitting, setSubmitting] = useState(false);
 
@@ -101,7 +103,6 @@ export function ReadinessCheck() {
     if (!contact.email.trim()) errs.email = errorCopy.emailMissing;
     else if (!STRICT_EMAIL_RE.test(contact.email.trim())) errs.email = errorCopy.emailInvalid;
     if (!contact.company.trim()) errs.company = errorCopy.company;
-    if (!contact.role.trim()) errs.role = errorCopy.role;
     return errs;
   }
 
@@ -127,7 +128,6 @@ export function ReadinessCheck() {
           name: contact.name.trim(),
           email: contact.email.trim(),
           company: contact.company.trim(),
-          role: contact.role.trim(),
           detail: contact.detail.trim(),
           website: contact.website,
           renderedAt: renderedAtRef.current,
@@ -256,13 +256,11 @@ export function ReadinessCheck() {
               name: contactCopy.nameLabel,
               email: contactCopy.emailLabel,
               company: contactCopy.companyLabel,
-              role: contactCopy.roleLabel,
             }[field];
             const autoComplete = {
               name: "name",
               email: "email",
               company: "organization",
-              role: "organization-title",
             }[field];
             const err = contactErrors[field];
             return (
@@ -348,6 +346,15 @@ export function ReadinessCheck() {
   );
 }
 
+function Tick() {
+  return (
+    <span
+      aria-hidden="true"
+      className="inline-block size-[7px] shrink-0 translate-y-[-2px] bg-lime"
+    />
+  );
+}
+
 function ProgressBar({ current }: { current: number }) {
   return (
     <div>
@@ -371,7 +378,7 @@ function ResultPanel({
   headingRef,
   onRestart,
 }: {
-  result: ReadinessResult;
+  result: PayoffResult;
   save: SaveState;
   headingRef: React.RefObject<HTMLHeadingElement | null>;
   onRestart: () => void;
@@ -384,34 +391,46 @@ function ResultPanel({
       <h2
         ref={headingRef}
         tabIndex={-1}
-        className="mt-6 flex items-baseline gap-4 outline-none"
+        className="mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-2 outline-none"
       >
         <span className="font-display text-[clamp(4rem,10vw,6.5rem)] font-medium leading-none tracking-[-0.04em]">
-          {result.score}
+          {result.hoursBack.toLocaleString("en-US")}
         </span>
-        <span className="label-mono text-paper/60">{resultCopy.outOf}</span>
+        <span className="label-mono text-paper/60">{resultCopy.unit}</span>
       </h2>
-      <p className="mt-6 font-display text-[1.6rem] font-medium leading-tight">
-        {result.band.label}
+      <p className="body-md mt-4 max-w-xl text-paper/60">
+        {payoffCopy.hoursMath(result.weeklyHours, AUTOMATABLE_SHARE)}
       </p>
-      <p className="body-lg mt-3 max-w-xl text-paper/80">{result.band.summary}</p>
 
-      <p className="label-mono-sm mt-10 text-paper/60">{resultCopy.reasonsLabel}</p>
+      <p className="label-mono-sm mt-10 text-paper/60">{resultCopy.payoffLabel}</p>
       <ul className="mt-4 border-t border-paper/15">
-        {result.reasons.map((r) => (
-          <li
-            key={r.dimensionId}
-            className="flex items-baseline gap-4 border-b border-paper/15 py-4"
-          >
-            <span
-              aria-hidden="true"
-              className={`inline-block size-[7px] shrink-0 translate-y-[-2px] ${
-                r.kind === "gap" ? "bg-paper/50" : "bg-lime"
-              }`}
-            />
-            <span className="body-md text-paper/85">{r.text}</span>
-          </li>
-        ))}
+        <li className="flex items-baseline gap-4 border-b border-paper/15 py-4">
+          <Tick />
+          <span className="body-md text-paper/85">
+            {payoffCopy.goal(result.goal.phrase ?? "")}
+          </span>
+        </li>
+        <li className="flex items-baseline gap-4 border-b border-paper/15 py-4">
+          <Tick />
+          <span className="body-md text-paper/85">
+            {result.workflow.build}{" "}
+            {result.workflow.href && (
+              <Link
+                href={result.workflow.href}
+                className="whitespace-nowrap text-lime underline underline-offset-4 hover:text-paper"
+              >
+                {payoffCopy.buildLink}
+              </Link>
+            )}
+          </span>
+        </li>
+        <li className="flex items-baseline gap-4 border-b border-paper/15 py-4">
+          <Tick />
+          <span className="body-md text-paper/85">
+            {resultCopy.scoreLabel} {result.score} {resultCopy.outOf}.{" "}
+            {result.band.label}. {result.band.summary}
+          </span>
+        </li>
       </ul>
 
       <p className="label-mono-sm mt-10 text-paper/60">{resultCopy.nextLabel}</p>

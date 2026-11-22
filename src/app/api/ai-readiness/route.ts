@@ -16,7 +16,7 @@ const INVALID = { ok: false, error: "invalid" } as const;
 const MAX_DETAIL = 1000;
 
 /**
- * Receives one AI readiness submission, rescores it server side, and hands
+ * Receives one AI payoff check submission, rescores it server side, and hands
  * it to two independent channels.
  * - Attio. Company, person, and a deal at "Ready for review".
  * - Email to the inbound list, which carries the deal link or the failure.
@@ -49,7 +49,6 @@ export async function POST(req: Request) {
     name: singleLine(clean(body.name)),
     email: singleLine(clean(body.email)),
     company: singleLine(clean(body.company)),
-    role: singleLine(clean(body.role)),
     detail: singleLine(clean(body.detail)),
   };
   const answers = parseAnswers(body.answers);
@@ -59,7 +58,6 @@ export async function POST(req: Request) {
     validLine(contact.name) &&
     validEmail(contact.email) &&
     validLine(contact.company) &&
-    validLine(contact.role) &&
     contact.detail.length <= MAX_DETAIL;
   if (!valid || !answers) {
     return Response.json(INVALID, { status: 400 });

@@ -66,7 +66,8 @@ export interface InboundLead {
   name: string;
   email: string;
   company: string;
-  role: string;
+  /** Job title, when the form asked for it. */
+  role?: string;
   /** One-line summary of the demand signal, stored on the company. */
   demandSignal: string;
   /** ISO date (YYYY-MM-DD) of the submission. */
@@ -197,7 +198,7 @@ export function createAttioClient(config: AttioConfig) {
           values: {
             email_addresses: [lead.email],
             name: [{ first_name: first, last_name: last, full_name: lead.name }],
-            job_title: lead.role,
+            ...(lead.role ? { job_title: lead.role } : {}),
             company: [ref("companies", companyId)],
           },
         },
