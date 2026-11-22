@@ -111,11 +111,12 @@ export function OpportunityModelExhibit({ copy }: { copy: OpportunityModelCopy }
     const el = ref.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Already on screen at load: leave it complete rather than blank it out.
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
 
     let raf = 0;
     // Hide the rows until the model is on screen. A state update inside the
     // effect is intended here: it only runs once, on the client.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setT(0);
     const io = new IntersectionObserver(
       (entries) => {
@@ -196,6 +197,7 @@ export function OpportunityModelExhibit({ copy }: { copy: OpportunityModelCopy }
               return (
                 <Fragment key={row.project}>
                   <tr
+                    inert={!row.visible || undefined}
                     className={`grid grid-cols-[1fr_auto] gap-x-4 border-b border-ink/10 py-4 align-top transition-[opacity,transform] duration-500 sm:table-row sm:py-0 ${
                       row.visible ? "opacity-100" : "translate-y-2 opacity-0"
                     } ${isOpen ? "bg-paper-2" : ""}`}

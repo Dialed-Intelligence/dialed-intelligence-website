@@ -266,9 +266,14 @@ body {
   to { transform: scaleX(1); }
 }
 
+/* Each hero line is its own block, with or without motion. */
+.di-mask,
+.di-mask > * {
+  display: block;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .di-mask {
-    display: block;
     overflow: hidden;
     /* Room above for cap tops and accents, below for descenders, at the
        hero's tight line height. Negative margins keep the spacing unchanged. */
@@ -340,8 +345,14 @@ body {
   }
 }
 
-/* Browsers without scroll timelines skip the progress line entirely. */
+/* Browsers without scroll timelines, and reduced motion, skip the
+   progress line entirely rather than show it stuck at full width. */
 @supports not (animation-timeline: scroll()) {
+  .di-scroll-progress {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
   .di-scroll-progress {
     display: none;
   }
