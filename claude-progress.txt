@@ -291,3 +291,13 @@ NEXT      | Tyler to confirm the example numbers and timelines read right; real 
 - Replaced the three draft case studies (skilled nursing, public sector, research consultancy) with four real engagements: solar company AI strategy and cash flow automation (NetSuite, Smartsheet, Microsoft Office), custom Claude and Copilot MCP servers for a $1.3B food company, RFP lead pipeline and proposal drafting for a consulting firm, data collection and AI analysis system for a school.
 - Home case cards now 2x2 (md:grid-cols-2). Home sale link points to the solar write-up.
 - Open: Tyler to confirm details, and client approval before any metric or name ships.
+
+## 2026-11-22 AI readiness check (feature 112)
+- New /ai-readiness page. Nine questions, score out of 100, three reasons, suggested next step, Book a 45-minute call. Linked from /contact and in the sitemap.
+- New /api/ai-readiness route. Rescores server side, writes company, person, deal (sales stage Ready for review) and note to Attio, emails READINESS_TO_EMAILS. Details and env vars in docs/ai-readiness.md.
+- Shared input hardening moved to src/lib/input.ts (contact route now imports it). Resend call in src/lib/email.ts.
+- Added vitest (npm test), 26 tests over scoring, Attio writes and the route.
+- CHECKED lint, typecheck, tests, build, desktop 1440 and phone 390 walkthrough with no overflow.
+- OPEN Tyler to review the questions and weights, add ATTIO_API_KEY, ATTIO_DEAL_OWNER_EMAIL, READINESS_TO_EMAILS and NEXT_PUBLIC_SCHEDULER_URL in Vercel. Home page placement waits for the hero branch.
+- REVIEWS code-reviewer 0 must fix, security-reviewer 0 critical. FIXED existing Attio companies and people are never modified (spoofed emails could overwrite them), company match by name for personal emails, failed step named in the alert, 5s per-call timeout and maxDuration 30, strengths need 60 percent of max, stricter email check, input maxLength, fieldset labelling, restart resets the timer, subject capped. DEFERRED per-IP rate limit (documented in docs/ai-readiness.md).
+- 2026-11-22 REDESIGN per Tyler. Now the "AI payoff check". Five visitor-first questions (what to hand off, hours a week, what the time is for, when, revenue). Result leads with hours a year back, then the goal, the first build with its timeline and service link, and the opportunity score. Role field dropped from the form.

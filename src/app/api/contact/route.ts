@@ -1,11 +1,7 @@
 import { revenueOptions } from "@/content/contact-form";
+import { EMAIL_RE, MAX_LINE, MIN_FILL_TIME_MS, clean, singleLine } from "@/lib/input";
 
 export const runtime = "nodejs";
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-/** Max length for single-line fields (name, company, role, email). */
-const MAX_LINE = 200;
 
 const INVALID_RESPONSE = {
   ok: false,
@@ -16,22 +12,6 @@ const PROVIDER_FAIL_RESPONSE = {
   ok: false,
   error: "Something failed on our side.",
 };
-
-/** Minimum believable time between form render and submit, in ms. */
-const MIN_FILL_TIME_MS = 3000;
-
-function clean(value: unknown): string {
-  if (typeof value !== "string") return "";
-  // Strip control characters so user input can never smuggle header-like
-  // sequences into the email subject or metadata. Newlines stay legal in
-  // the message body alone.
-   
-  return value.replace(/[\u0000-\u0009\u000B-\u001F\u007F]/g, "").trim();
-}
-
-function singleLine(value: string): string {
-  return value.replace(/[\r\n]+/g, " ").trim();
-}
 
 export async function POST(req: Request) {
   let body: Record<string, unknown>;

@@ -5,6 +5,8 @@ import { ContactForm } from "@/components/contact-form";
 import { site } from "@/content/site";
 import { pageMetadata } from "@/lib/meta";
 import { noBreakHyphens } from "@/lib/typography";
+import Link from "next/link";
+import { contactPageLink } from "@/content/ai-readiness";
 import {
   emailBand,
   fit,
@@ -50,6 +52,16 @@ export default function ContactPage() {
                   ))}
                 </ul>
               </div>
+
+              <p className="body-md mt-10 text-ink/70">
+                {contactPageLink.lead}{" "}
+                <Link
+                  href={contactPageLink.href}
+                  className="text-ink underline underline-offset-4 transition-colors hover:text-blue"
+                >
+                  {contactPageLink.label}
+                </Link>
+              </p>
             </div>
 
             <Reveal delay={100}>
