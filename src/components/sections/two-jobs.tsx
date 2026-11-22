@@ -30,7 +30,7 @@ export function TwoJobs({ id, copy }: { id: string; copy: TwoJobsCopy }) {
             <Eyebrow dark lime>
               {copy.eyebrow}
             </Eyebrow>
-            <h2 id={id} className="display-1 mt-6 text-paper">
+            <h2 id={id} className="display-1 mt-3 text-paper">
               {copy.title}
             </h2>
           </Reveal>

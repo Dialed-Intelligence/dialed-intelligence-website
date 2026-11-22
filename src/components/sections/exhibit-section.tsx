@@ -50,7 +50,7 @@ export function ExhibitSection({
         >
           <Reveal className={`lg:sticky lg:top-28 ${reverse ? "lg:order-2" : ""}`}>
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 id={id} className="display-1 mt-6">
+            <h2 id={id} className="display-1 mt-3">
               {title}
             </h2>
             <div className="mt-8 max-w-[40rem] space-y-6">

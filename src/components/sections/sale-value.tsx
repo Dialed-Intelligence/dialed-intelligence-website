@@ -28,7 +28,7 @@ export function SaleValue({ id, copy }: { id: string; copy: SaleValueCopy }) {
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2 lg:gap-20">
           <Reveal>
             <Eyebrow>{copy.eyebrow}</Eyebrow>
-            <h2 id={id} className="display-1 mt-6">
+            <h2 id={id} className="display-1 mt-3">
               {copy.title}
             </h2>
             <div className="mt-8 max-w-[40rem] space-y-6">

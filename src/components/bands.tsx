@@ -27,10 +27,10 @@ export function ClosingCTA({
             className="pointer-events-none absolute -bottom-24 -right-16 text-paper/5"
           />
           <div className="relative max-w-2xl">
-            <span className="label-mono text-blue-3">[ {eyebrow} ]</span>
+            <Eyebrow dark>{eyebrow}</Eyebrow>
             <h2
               id="closing-cta-title"
-              className="mt-5 font-display text-[clamp(2.2rem,5vw,4.25rem)] font-medium leading-[0.98] tracking-[-0.03em] text-balance"
+              className="mt-4 font-display text-[clamp(2.2rem,5vw,4.25rem)] font-medium leading-[0.98] tracking-[-0.03em] text-balance"
             >
               {title}
             </h2>

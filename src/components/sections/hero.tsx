@@ -72,7 +72,7 @@ export function Hero({ copy }: { copy: HeroCopy }) {
           </div>
           <h1
             id="hero-title"
-            className="mt-8 font-display text-[clamp(3rem,7.4vw,7.5rem)] font-medium leading-[0.92] tracking-[-0.045em]"
+            className="mt-4 font-display text-[clamp(3rem,7.4vw,7.5rem)] font-medium leading-[0.92] tracking-[-0.045em]"
           >
             <span className="di-mask">
               <span style={{ animationDelay: "0.1s" }}>{copy.title}</span>
