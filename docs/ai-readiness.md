@@ -26,17 +26,20 @@ content file. The tests fail if the maxes stop summing to 100.
 
 ## What lands in Attio
 
-1. Company. Matched by email domain when it is a work email. An existing
-   company keeps its lead source and gets new demand fields. A new company
-   gets lead source Inbound, revenue basis Reported, demand tier
-   "1 Explicit AI ask", demand signal and date.
-2. Person, matched by email, linked to the company.
+1. Company. Matched by email domain for a work email, by exact name for a
+   personal email. An existing company is never modified, because anyone can
+   type any email address. A new company gets lead source Inbound, revenue
+   basis Reported, demand tier "1 Explicit AI ask", demand signal and date.
+   For an existing company the signal lives on the deal and its note.
+2. Person, matched by email. An existing person is never modified. A new one
+   is created and linked to the company.
 3. Deal named "<Company> AI readiness check", stage Lead, sales stage
    Ready for review, owner from `ATTIO_DEAL_OWNER_EMAIL`, qualification notes,
    next step due the next business day.
 4. Note on the deal with every answer and the score breakdown.
 
-If Attio fails, the email still goes and says so. If both fail, the route
+If Attio fails, the email still goes and names the step that failed
+(company, person, deal or note). If both fail, the route
 returns 502, the visitor still sees their score with an email fallback, and
 the full submission is in the Vercel function logs
 (`ai_readiness_submission`).
@@ -55,7 +58,13 @@ the full submission is in the Vercel function logs
 
 ## Known limits
 
-- Spam protection is the same honeypot and time trap as the contact form. A
-  determined bot could create junk deals. They land in Ready for review, so a
-  person screens them before anything goes out.
+- Spam protection is the same honeypot and time trap as the contact form, and
+  there is no per-IP rate limit. A determined bot could create junk deals.
+  They land in Ready for review, so a person screens them before anything
+  goes out. If spam shows up, add a Vercel Firewall rate-limit rule on
+  `/api/ai-readiness` (for example 5 requests per IP per 10 minutes) or
+  Cloudflare Turnstile.
+- When Attio and email both fail, the full submission is written to the
+  Vercel function logs so it can be recovered. Treat those logs as holding
+  personal data.
 - Submitting twice creates two deals.

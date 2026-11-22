@@ -12,7 +12,7 @@ import {
   type QuestionId,
 } from "@/content/ai-readiness";
 import { scoreAnswers, type Answers, type ReadinessResult } from "@/lib/readiness";
-import { EMAIL_RE } from "@/lib/input";
+import { MAX_LINE, STRICT_EMAIL_RE } from "@/lib/input";
 
 const inputClass =
   "w-full rounded-[2px] border border-ink/25 bg-white px-4 py-3.5 font-sans text-ink placeholder:text-ink/35";
@@ -99,7 +99,7 @@ export function ReadinessCheck() {
     const errs: Partial<Record<ContactField, string>> = {};
     if (!contact.name.trim()) errs.name = errorCopy.name;
     if (!contact.email.trim()) errs.email = errorCopy.emailMissing;
-    else if (!EMAIL_RE.test(contact.email.trim())) errs.email = errorCopy.emailInvalid;
+    else if (!STRICT_EMAIL_RE.test(contact.email.trim())) errs.email = errorCopy.emailInvalid;
     if (!contact.company.trim()) errs.company = errorCopy.company;
     if (!contact.role.trim()) errs.role = errorCopy.role;
     return errs;
@@ -121,6 +121,7 @@ export function ReadinessCheck() {
     try {
       const res = await fetch("/api/ai-readiness", {
         method: "POST",
+        signal: AbortSignal.timeout(25_000),
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: contact.name.trim(),
@@ -150,6 +151,7 @@ export function ReadinessCheck() {
     setResult(null);
     setSave("pending");
     setStep(0);
+    renderedAtRef.current = Date.now();
   }
 
   const panel = "rounded-[5px] border border-ink/15 bg-paper-2 p-6 sm:p-8";
@@ -171,16 +173,15 @@ export function ReadinessCheck() {
     return (
       <div className={panel}>
         <ProgressBar current={step + 1} />
-        <fieldset className="mt-8">
-          <legend className="contents">
-            <h2
-              ref={headingRef}
-              tabIndex={-1}
-              className="font-display text-[clamp(1.5rem,3vw,2.1rem)] font-medium leading-[1.1] tracking-[-0.02em] text-balance outline-none"
-            >
-              {q.prompt}
-            </h2>
-          </legend>
+        <fieldset className="mt-8" aria-labelledby={`readiness-q-${q.id}`}>
+          <h2
+            id={`readiness-q-${q.id}`}
+            ref={headingRef}
+            tabIndex={-1}
+            className="font-display text-[clamp(1.5rem,3vw,2.1rem)] font-medium leading-[1.1] tracking-[-0.02em] text-balance outline-none"
+          >
+            {q.prompt}
+          </h2>
           {q.help && <p className="body-md mt-3 text-ink/70">{q.help}</p>}
           <div className="mt-7 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {q.options.map((o) => {
@@ -276,6 +277,7 @@ export function ReadinessCheck() {
                   id={`readiness-${field}`}
                   type={field === "email" ? "email" : "text"}
                   autoComplete={autoComplete}
+                  maxLength={MAX_LINE - 1}
                   value={contact[field]}
                   onChange={(e) =>
                     setContact((c) => ({ ...c, [field]: e.target.value }))
@@ -377,7 +379,7 @@ function ResultPanel({
   const external = Boolean(site.schedulerUrl);
   const href = site.schedulerUrl || ctaHref;
   return (
-    <div className="rounded-[5px] bg-ink p-7 text-paper sm:p-10" aria-live="polite">
+    <div className="rounded-[5px] bg-ink p-7 text-paper sm:p-10">
       <p className="label-mono-sm text-lime">[ {resultCopy.label} ]</p>
       <h2
         ref={headingRef}

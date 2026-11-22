@@ -3,9 +3,11 @@
  * ATTIO_API_KEY. Covers exactly what the AI readiness check needs.
  *
  * Writes, in order
- * 1. Company. Matched by domain when the visitor gave a work email. An
- *    existing company keeps its lead source. A new one gets "Inbound".
- * 2. Person. Asserted by email, linked to the company.
+ * 1. Company. Matched by domain for a work email, by exact name otherwise.
+ *    An existing company is never modified, because anyone can type any
+ *    email. A new one gets lead source "Inbound" and the demand fields.
+ * 2. Person. Matched by email. An existing person is never modified. A new
+ *    one is created and linked to the company.
  * 3. Deal at sales stage "Ready for review", linked to both.
  * 4. Note on the deal with every answer and the score breakdown.
  *
@@ -15,7 +17,8 @@
  */
 
 const API = "https://api.attio.com/v2";
-const TIMEOUT_MS = 8000;
+/** Per call. Four calls plus email must fit inside the route's maxDuration. */
+const TIMEOUT_MS = 5000;
 
 export const ATTIO = {
   leadSource: "Inbound",
@@ -144,37 +147,35 @@ export function createAttioClient(config: AttioConfig) {
     }
   }
 
-  async function findCompanyByDomain(domain: string): Promise<string | null> {
+  async function findOne(
+    object: "companies" | "people",
+    filter: Record<string, string>,
+  ): Promise<string | null> {
     const res = await call<QueryResponse>(
       "POST",
-      "/objects/companies/records/query",
-      { filter: { domains: domain }, limit: 1 },
+      `/objects/${object}/records/query`,
+      { filter, limit: 1 },
     );
     return res.data[0]?.id.record_id ?? null;
   }
 
-  async function upsertCompany(lead: InboundLead): Promise<{ id: string; existed: boolean }> {
-    const demandValues: Values = {
-      demand_tier: ATTIO.demandTier,
-      demand_signal: lead.demandSignal,
-      demand_signal_date: lead.date,
-    };
+  async function findOrCreateCompany(
+    lead: InboundLead,
+  ): Promise<{ id: string; existed: boolean }> {
     const domain = companyDomain(lead.email);
-    const existingId = domain ? await findCompanyByDomain(domain) : null;
-
-    if (existingId) {
-      // PATCH leaves lead_source and everything else untouched.
-      await call("PATCH", `/objects/companies/records/${existingId}`, {
-        data: { values: demandValues },
-      });
-      return { id: existingId, existed: true };
-    }
+    const existingId = await findOne(
+      "companies",
+      domain ? { domains: domain } : { name: lead.company },
+    );
+    if (existingId) return { id: existingId, existed: true };
 
     const values: Values = {
       name: lead.company,
       lead_source: ATTIO.leadSource,
       revenue_basis: ATTIO.revenueBasis,
-      ...demandValues,
+      demand_tier: ATTIO.demandTier,
+      demand_signal: lead.demandSignal,
+      demand_signal_date: lead.date,
       ...(domain ? { domains: [domain] } : {}),
     };
     const res = await call<RecordResponse>("POST", "/objects/companies/records", {
@@ -183,11 +184,14 @@ export function createAttioClient(config: AttioConfig) {
     return { id: res.data.id.record_id, existed: false };
   }
 
-  async function upsertPerson(lead: InboundLead, companyId: string): Promise<string> {
+  async function findOrCreatePerson(lead: InboundLead, companyId: string): Promise<string> {
+    const existingId = await findOne("people", { email_addresses: lead.email });
+    if (existingId) return existingId;
+
     const { first, last } = splitName(lead.name);
     const res = await call<RecordResponse>(
-      "PUT",
-      "/objects/people/records?matching_attribute=email_addresses",
+      "POST",
+      "/objects/people/records",
       {
         data: {
           values: {
@@ -242,12 +246,24 @@ export function createAttioClient(config: AttioConfig) {
     });
   }
 
-  /** Runs the four writes in order. Throws AttioError on the first failure. */
+  async function step<T>(name: string, fn: () => Promise<T>): Promise<T> {
+    try {
+      return await fn();
+    } catch (err) {
+      const status = err instanceof AttioError ? err.status : undefined;
+      throw new AttioError(`Attio ${name} step failed`, status);
+    }
+  }
+
+  /**
+   * Runs the four steps in order. Throws AttioError naming the first step
+   * that failed, so the alert email says exactly what to repair.
+   */
   async function writeInboundLead(lead: InboundLead): Promise<AttioWriteResult> {
-    const company = await upsertCompany(lead);
-    const personId = await upsertPerson(lead, company.id);
-    const dealId = await createDeal(lead, company.id, personId);
-    await addNote(lead, dealId);
+    const company = await step("company", () => findOrCreateCompany(lead));
+    const personId = await step("person", () => findOrCreatePerson(lead, company.id));
+    const dealId = await step("deal", () => createDeal(lead, company.id, personId));
+    await step("note", () => addNote(lead, dealId));
     return {
       companyId: company.id,
       personId,

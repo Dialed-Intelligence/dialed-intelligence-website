@@ -20,7 +20,7 @@ const lead: InboundLead = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Call = { method: string; url: string; body: Record<string, any> };
 
-function fakeFetch(opts: { existingCompany?: string; failOn?: string } = {}) {
+function fakeFetch(opts: { existingCompany?: string; existingPerson?: string; failOn?: string } = {}) {
   const calls: Call[] = [];
   const impl = vi.fn(async (url: string, init: RequestInit) => {
     const call = { method: init.method!, url, body: JSON.parse(String(init.body)) };
@@ -28,14 +28,22 @@ function fakeFetch(opts: { existingCompany?: string; failOn?: string } = {}) {
     if (opts.failOn && url.includes(opts.failOn)) {
       return new Response("{}", { status: 400 });
     }
-    if (url.endsWith("/records/query")) {
+    if (url.endsWith("/companies/records/query")) {
       const data = opts.existingCompany ? [{ id: { record_id: opts.existingCompany } }] : [];
+      return Response.json({ data });
+    }
+    if (url.endsWith("/people/records/query")) {
+      const data = opts.existingPerson ? [{ id: { record_id: opts.existingPerson } }] : [];
       return Response.json({ data });
     }
     const id = url.includes("/people/") ? "p1" : url.includes("/deals/") ? "d1" : "c1";
     return Response.json({ data: { id: { record_id: id } } });
   });
   return { calls, impl: impl as unknown as typeof fetch };
+}
+
+function route(c: Call) {
+  return `${c.method} ${c.url.replace("https://api.attio.com/v2", "")}`;
 }
 
 describe("helpers", () => {
@@ -51,27 +59,34 @@ describe("helpers", () => {
 });
 
 describe("writeInboundLead", () => {
+  const client = (impl: typeof fetch) =>
+    createAttioClient({ apiKey: "k", ownerEmail: "o@x.com", fetchImpl: impl });
+
   it("creates a new Inbound company, person, deal and note in order", async () => {
     const { calls, impl } = fakeFetch();
-    const client = createAttioClient({ apiKey: "k", ownerEmail: "o@x.com", fetchImpl: impl });
-    const out = await client.writeInboundLead(lead);
+    const out = await client(impl).writeInboundLead(lead);
 
     expect(out).toEqual({ companyId: "c1", personId: "p1", dealId: "d1", companyExisted: false });
-    expect(calls.map((c) => `${c.method} ${c.url.replace("https://api.attio.com/v2", "")}`)).toEqual([
+    expect(calls.map(route)).toEqual([
       "POST /objects/companies/records/query",
       "POST /objects/companies/records",
-      "PUT /objects/people/records?matching_attribute=email_addresses",
+      "POST /objects/people/records/query",
+      "POST /objects/people/records",
       "POST /objects/deals/records",
       "POST /notes",
     ]);
-    const company = calls[1].body.data.values;
-    expect(company).toMatchObject({
+    expect(calls[0].body.filter).toEqual({ domains: "acme.com" });
+    expect(calls[1].body.data.values).toMatchObject({
       name: "Acme",
       lead_source: "Inbound",
       demand_tier: "1 Explicit AI ask",
       domains: ["acme.com"],
     });
-    const deal = calls[3].body.data.values;
+    expect(calls[3].body.data.values).toMatchObject({
+      email_addresses: ["dana@acme.com"],
+      company: [{ target_object: "companies", target_record_id: "c1" }],
+    });
+    const deal = calls[4].body.data.values;
     expect(deal).toMatchObject({
       sales_stage: "Ready for review",
       stage: "Lead",
@@ -79,33 +94,35 @@ describe("writeInboundLead", () => {
       associated_people: [{ target_object: "people", target_record_id: "p1" }],
     });
     expect(deal.owner[0].workspace_member_email_address).toBe("o@x.com");
-    expect(calls[4].body.data).toMatchObject({ parent_object: "deals", parent_record_id: "d1" });
+    expect(calls[5].body.data).toMatchObject({ parent_object: "deals", parent_record_id: "d1" });
   });
 
-  it("keeps an existing company's lead source and only updates demand fields", async () => {
-    const { calls, impl } = fakeFetch({ existingCompany: "c9" });
-    const client = createAttioClient({ apiKey: "k", ownerEmail: "o@x.com", fetchImpl: impl });
-    const out = await client.writeInboundLead(lead);
+  it("never modifies an existing company or person, it only links the deal", async () => {
+    const { calls, impl } = fakeFetch({ existingCompany: "c9", existingPerson: "p9" });
+    const out = await client(impl).writeInboundLead(lead);
 
-    expect(out.companyExisted).toBe(true);
-    expect(calls[1].method).toBe("PATCH");
-    expect(calls[1].url).toContain("/objects/companies/records/c9");
-    expect(calls[1].body.data.values).not.toHaveProperty("lead_source");
+    expect(out).toMatchObject({ companyId: "c9", personId: "p9", companyExisted: true });
+    expect(calls.map(route)).toEqual([
+      "POST /objects/companies/records/query",
+      "POST /objects/people/records/query",
+      "POST /objects/deals/records",
+      "POST /notes",
+    ]);
+    expect(calls.some((c) => c.method === "PATCH" || c.method === "PUT")).toBe(false);
   });
 
-  it("skips the domain lookup for a free email address", async () => {
+  it("matches a free email lead's company by name", async () => {
     const { calls, impl } = fakeFetch();
-    const client = createAttioClient({ apiKey: "k", ownerEmail: "o@x.com", fetchImpl: impl });
-    await client.writeInboundLead({ ...lead, email: "dana@gmail.com" });
-    expect(calls[0].url).toMatch(/\/objects\/companies\/records$/);
-    expect(calls[0].body.data.values).not.toHaveProperty("domains");
+    await client(impl).writeInboundLead({ ...lead, email: "dana@gmail.com" });
+    expect(calls[0].body.filter).toEqual({ name: "Acme" });
+    expect(calls[1].body.data.values).not.toHaveProperty("domains");
   });
 
-  it("throws AttioError with the status and no response body", async () => {
+  it("names the failed step and keeps the status", async () => {
     const { impl } = fakeFetch({ failOn: "/deals/" });
-    const client = createAttioClient({ apiKey: "k", ownerEmail: "o@x.com", fetchImpl: impl });
-    await expect(client.writeInboundLead(lead)).rejects.toMatchObject({
+    await expect(client(impl).writeInboundLead(lead)).rejects.toMatchObject({
       name: "AttioError",
+      message: "Attio deal step failed",
       status: 400,
     });
   });

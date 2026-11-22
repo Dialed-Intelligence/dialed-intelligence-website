@@ -16,8 +16,10 @@ import {
  * Rules, in plain terms:
  * - Each scored question adds the points of the chosen option.
  * - Each dimension's max is the best option's points. Maxes sum to 100.
- * - Reasons are the two strongest dimensions (by share of their max) and the
- *   weakest one. Ties break by the order dimensions are listed in content.
+ * - Reasons are three lines. The weakest dimension is always shown as a gap
+ *   (unless every dimension is maxed). Up to two dimensions at or above
+ *   STRENGTH_SHARE of their max are shown as strengths. Any slot left over
+ *   goes to the next weakest gap. Ties break by content order.
  */
 
 export type Answers = Record<QuestionId, string>;
@@ -98,31 +100,38 @@ function share(d: DimensionScore): number {
   return d.max === 0 ? 0 : d.points / d.max;
 }
 
+/** Share of a dimension's max needed before we call it a strength. */
+export const STRENGTH_SHARE = 0.6;
+
+const REASON_COUNT = 3;
+
+function asReason(d: DimensionScore, kind: Reason["kind"]): Reason {
+  return {
+    kind,
+    dimensionId: d.dimension.id,
+    text: kind === "gap" ? d.dimension.gap : d.dimension.strength,
+  };
+}
+
 function pickReasons(breakdown: DimensionScore[]): Reason[] {
   // Stable sorts keep content order on ties.
   const strongest = [...breakdown].sort((a, b) => share(b) - share(a));
-  const weakest = [...breakdown].sort((a, b) => share(a) - share(b))[0];
+  const weakestFirst = [...breakdown].sort((a, b) => share(a) - share(b));
 
-  const strengths = strongest
-    .filter((d) => d !== weakest)
-    .slice(0, 2)
-    .map<Reason>((d) => ({
-      kind: "strength",
-      dimensionId: d.dimension.id,
-      text: d.dimension.strength,
-    }));
-
-  // A perfect score has no real gap. Show a third strength instead.
-  if (share(weakest) === 1) {
-    return strongest.slice(0, 3).map((d) => ({
-      kind: "strength",
-      dimensionId: d.dimension.id,
-      text: d.dimension.strength,
-    }));
+  // A perfect score has no real gap. Show three strengths.
+  if (share(weakestFirst[0]) === 1) {
+    return strongest.slice(0, REASON_COUNT).map((d) => asReason(d, "strength"));
   }
 
+  const strengths = strongest
+    .filter((d) => d !== weakestFirst[0] && share(d) >= STRENGTH_SHARE)
+    .slice(0, REASON_COUNT - 1);
+  const gaps = weakestFirst
+    .filter((d) => !strengths.includes(d) && share(d) < 1)
+    .slice(0, REASON_COUNT - strengths.length);
+
   return [
-    ...strengths,
-    { kind: "gap", dimensionId: weakest.dimension.id, text: weakest.dimension.gap },
+    ...strengths.map((d) => asReason(d, "strength")),
+    ...gaps.map((d) => asReason(d, "gap")),
   ];
 }

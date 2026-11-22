@@ -2,6 +2,12 @@
 
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/**
+ * Stricter check for addresses that become CRM keys and reply-to headers.
+ * The contact form keeps the looser EMAIL_RE.
+ */
+export const STRICT_EMAIL_RE = /^[A-Za-z0-9._%+'-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
 /** Max length for single-line fields (name, company, role, email). */
 export const MAX_LINE = 200;
 
@@ -26,7 +32,7 @@ export function validLine(value: string): boolean {
 }
 
 export function validEmail(value: string): boolean {
-  return validLine(value) && EMAIL_RE.test(value);
+  return validLine(value) && STRICT_EMAIL_RE.test(value);
 }
 
 /**

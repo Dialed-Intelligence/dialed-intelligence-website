@@ -138,7 +138,8 @@
         "Flow works end to end at 1440 and 390 with no horizontal overflow",
         "/contact links to /ai-readiness and sitemap.xml lists it"
       ],
-      "passes": false
+      "passes": true,
+      "qa_notes": "Verified 2026-11-22. lint, typecheck, 27 tests, build pass. Walkthrough at 1440 and 390 reaches the result, no overflow. Live Attio and Resend not exercised until env vars are set on a preview."
     }
   ]
 }

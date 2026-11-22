@@ -64,11 +64,17 @@ describe("scoreAnswers", () => {
     expect(r.reasons.every((x) => x.kind === "strength")).toBe(true);
   });
 
-  it("gives Foundation first for the worst answers, ending with one gap", () => {
+  it("gives Foundation first for the worst answers, with three gaps and no false strengths", () => {
     const r = scoreAnswers(extreme("worst"));
     expect(r.score).toBe(22);
     expect(r.band.id).toBe("foundation");
-    expect(r.reasons.map((x) => x.kind)).toEqual(["strength", "strength", "gap"]);
+    expect(r.reasons.map((x) => x.kind)).toEqual(["gap", "gap", "gap"]);
+  });
+
+  it("only calls a dimension a strength at 60 percent of its max or more", () => {
+    const r = scoreAnswers({ ...extreme("worst"), timeline: "quarter" });
+    expect(r.reasons[0]).toMatchObject({ kind: "strength", dimensionId: "urgency" });
+    expect(r.reasons.slice(1).every((x) => x.kind === "gap")).toBe(true);
   });
 
   it("names the weakest dimension as the gap", () => {

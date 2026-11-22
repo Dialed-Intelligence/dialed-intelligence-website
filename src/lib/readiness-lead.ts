@@ -103,6 +103,11 @@ export function buildInboundLead(s: ReadinessSubmission): InboundLead {
   };
 }
 
+/** Keeps visitor text in the subject line short. */
+function clip(text: string, max = 60): string {
+  return text.length > max ? `${text.slice(0, max - 3)}...` : text;
+}
+
 export interface AlertEmail {
   subject: string;
   text: string;
@@ -120,7 +125,7 @@ export function buildAlertEmail(
       : `Attio write FAILED (${crm.error}). Add this lead by hand or let the next scan pick it up.`;
 
   return {
-    subject: `AI readiness check from ${s.contact.name}, ${s.contact.company} (score ${s.result.score})`,
+    subject: `AI readiness check from ${clip(s.contact.name)}, ${clip(s.contact.company)} (score ${s.result.score})`,
     text: [crmLine, "", lead.noteBody].join("\n"),
   };
 }

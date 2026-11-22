@@ -9,6 +9,8 @@ import {
 } from "@/lib/readiness-lead";
 
 export const runtime = "nodejs";
+/** Four Attio calls and one email at 5s each, with headroom. */
+export const maxDuration = 30;
 
 const INVALID = { ok: false, error: "invalid" } as const;
 const MAX_DETAIL = 1000;
